@@ -1,0 +1,1591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Uses of Class org.apache.hadoop.hbase.classification.InterfaceStability.Stable (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="Uses of Class org.apache.hadoop.hbase.classification.InterfaceStability.Stable (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="../package-summary.html">Package</a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">Class</a></li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/classification/class-use/InterfaceStability.Stable.html" target="_top">Frames</a></li>
+<li><a href="InterfaceStability.Stable.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<div class="header">
+<h2 title="Uses of Class org.apache.hadoop.hbase.classification.InterfaceStability.Stable" class="title">Uses of Class<br>org.apache.hadoop.hbase.classification.InterfaceStability.Stable</h2>
+</div>
+<div class="classUseContainer">
+<ul class="blockList">
+<li class="blockList">
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing packages, and an explanation">
+<caption><span>Packages that use <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Package</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase">org.apache.hadoop.hbase</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client">org.apache.hadoop.hbase.client</a></td>
+<td class="colLast">
+<div class="block">Provides HBase Client</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client.coprocessor">org.apache.hadoop.hbase.client.coprocessor</a></td>
+<td class="colLast">
+<div class="block">Provides client classes for invoking Coprocessor RPC protocols
+
+
+ <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/#overview">Overview</a>
+ <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/#usage">Example Usage</a>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.exceptions">org.apache.hadoop.hbase.exceptions</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.filter">org.apache.hadoop.hbase.filter</a></td>
+<td class="colLast">
+<div class="block">Provides row-level filters applied to HRegion scan results during calls to
+ <a href="../../../../../../org/apache/hadoop/hbase/client/ResultScanner.html#next()"><code>ResultScanner.next()</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.io">org.apache.hadoop.hbase.io</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.mapred">org.apache.hadoop.hbase.mapred</a></td>
+<td class="colLast">
+<div class="block">Provides HBase <a href="http://wiki.apache.org/hadoop/HadoopMapReduce">MapReduce</a>
+Input/OutputFormats, a table indexing MapReduce job, and utility methods.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.mapreduce">org.apache.hadoop.hbase.mapreduce</a></td>
+<td class="colLast">
+<div class="block">Provides HBase <a href="http://wiki.apache.org/hadoop/HadoopMapReduce">MapReduce</a>
+Input/OutputFormats, a table indexing MapReduce job, and utility methods.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.procedure2">org.apache.hadoop.hbase.procedure2</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.procedure2.store.wal">org.apache.hadoop.hbase.procedure2.store.wal</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.regionserver">org.apache.hadoop.hbase.regionserver</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.replication">org.apache.hadoop.hbase.replication</a></td>
+<td class="colLast">
+<div class="block">Multi Cluster Replication</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.rest">org.apache.hadoop.hbase.rest</a></td>
+<td class="colLast">
+<div class="block">HBase REST</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.rest.client">org.apache.hadoop.hbase.rest.client</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.security">org.apache.hadoop.hbase.security</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.snapshot">org.apache.hadoop.hbase.snapshot</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.types">org.apache.hadoop.hbase.types</a></td>
+<td class="colLast">
+<div class="block">
+ This package provides the definition and implementation of HBase's
+ extensible data type API.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.util">org.apache.hadoop.hbase.util</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList">
+<ul class="blockList">
+<li class="blockList"><a name="org.apache.hadoop.hbase">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/package-summary.html">org.apache.hadoop.hbase</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/package-summary.html">org.apache.hadoop.hbase</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/ClockOutOfSyncException.html" title="class in org.apache.hadoop.hbase">ClockOutOfSyncException</a></strong></code>
+<div class="block">This exception is thrown by the master when a region server clock skew is
+ too high.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/DoNotRetryIOException.html" title="class in org.apache.hadoop.hbase">DoNotRetryIOException</a></strong></code>
+<div class="block">Subclass if exception is not meant to be retried: e.g.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/DroppedSnapshotException.html" title="class in org.apache.hadoop.hbase">DroppedSnapshotException</a></strong></code>
+<div class="block">Thrown during flush if the possibility snapshot content was not properly
+ persisted into store files.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/HBaseConfiguration.html" title="class in org.apache.hadoop.hbase">HBaseConfiguration</a></strong></code>
+<div class="block">Adds HBase configuration files to a Configuration</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/HConstants.html" title="class in org.apache.hadoop.hbase">HConstants</a></strong></code>
+<div class="block">HConstants holds a bunch of HBase-related constants</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/MasterNotRunningException.html" title="class in org.apache.hadoop.hbase">MasterNotRunningException</a></strong></code>
+<div class="block">Thrown if the master is not running</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/NamespaceExistException.html" title="class in org.apache.hadoop.hbase">NamespaceExistException</a></strong></code>
+<div class="block">Thrown when a namespace exists but should not</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/NamespaceNotFoundException.html" title="class in org.apache.hadoop.hbase">NamespaceNotFoundException</a></strong></code>
+<div class="block">Thrown when a namespace can not be located</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/NotAllMetaRegionsOnlineException.html" title="class in org.apache.hadoop.hbase">NotAllMetaRegionsOnlineException</a></strong></code>
+<div class="block">Thrown when an operation requires the root and all meta regions to be online</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/NotServingRegionException.html" title="class in org.apache.hadoop.hbase">NotServingRegionException</a></strong></code>
+<div class="block">Thrown by a region server if it is sent a request for a region it is not
+ serving.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/PleaseHoldException.html" title="class in org.apache.hadoop.hbase">PleaseHoldException</a></strong></code>
+<div class="block">This exception is thrown by the master when a region server was shut down and
+ restarted so fast that the master still hasn't processed the server shutdown
+ of the first instance, or when master is initializing and client call admin
+ operations, or when an operation is performed on a region server that is still starting.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/RegionException.html" title="class in org.apache.hadoop.hbase">RegionException</a></strong></code>
+<div class="block">Thrown when something happens related to region handling.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/TableExistsException.html" title="class in org.apache.hadoop.hbase">TableExistsException</a></strong></code>
+<div class="block">Thrown when a table exists but should not</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/TableNotDisabledException.html" title="class in org.apache.hadoop.hbase">TableNotDisabledException</a></strong></code>
+<div class="block">Thrown if a table should be offline but is not</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/TableNotEnabledException.html" title="class in org.apache.hadoop.hbase">TableNotEnabledException</a></strong></code>
+<div class="block">Thrown if a table should be enabled but is not</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/TableNotFoundException.html" title="class in org.apache.hadoop.hbase">TableNotFoundException</a></strong></code>
+<div class="block">Thrown when a table can not be located</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/UnknownRegionException.html" title="class in org.apache.hadoop.hbase">UnknownRegionException</a></strong></code>
+<div class="block">Thrown when we are asked to operate on a region we know nothing about.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/UnknownScannerException.html" title="class in org.apache.hadoop.hbase">UnknownScannerException</a></strong></code>
+<div class="block">Thrown if a region server is passed an unknown scanner id.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/YouAreDeadException.html" title="class in org.apache.hadoop.hbase">YouAreDeadException</a></strong></code>
+<div class="block">This exception is thrown by the master when a region server reports and is
+ already being processed as dead.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Append.html" title="class in org.apache.hadoop.hbase.client">Append</a></strong></code>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Attributes.html" title="interface in org.apache.hadoop.hbase.client">Attributes</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Delete.html" title="class in org.apache.hadoop.hbase.client">Delete</a></strong></code>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/DoNotRetryRegionException.html" title="class in org.apache.hadoop.hbase.client">DoNotRetryRegionException</a></strong></code>
+<div class="block">Similar to RegionException, but disables retries.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client">Get</a></strong></code>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HConnection.html" title="interface in org.apache.hadoop.hbase.client">HConnection</a></strong></code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HRegionLocator.html" title="class in org.apache.hadoop.hbase.client">HRegionLocator</a></strong></code>
+<div class="block">An implementation of <a href="../../../../../../org/apache/hadoop/hbase/client/RegionLocator.html" title="interface in org.apache.hadoop.hbase.client"><code>RegionLocator</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HTable.html" title="class in org.apache.hadoop.hbase.client">HTable</a></strong></code>
+<div class="block">An implementation of <a href="../../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HTableFactory.html" title="class in org.apache.hadoop.hbase.client">HTableFactory</a></strong></code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>as of 0.98.1. See <a href="../../../../../../org/apache/hadoop/hbase/client/HConnectionManager.html#createConnection(org.apache.hadoop.conf.Configuration)"><code>HConnectionManager.createConnection(Configuration)</code></a>.</i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HTableInterface.html" title="interface in org.apache.hadoop.hbase.client">HTableInterface</a></strong></code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use <a href="../../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a> instead</i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HTableInterfaceFactory.html" title="interface in org.apache.hadoop.hbase.client">HTableInterfaceFactory</a></strong></code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a> and <a href="../../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a>.</i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Increment.html" title="class in org.apache.hadoop.hbase.client">Increment</a></strong></code>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/IsolationLevel.html" title="enum in org.apache.hadoop.hbase.client">IsolationLevel</a></strong></code>
+<div class="block">Specify Isolation levels in Scan operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/NoServerForRegionException.html" title="class in org.apache.hadoop.hbase.client">NoServerForRegionException</a></strong></code>
+<div class="block">Thrown when no region server can be found for a region</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Put.html" title="class in org.apache.hadoop.hbase.client">Put</a></strong></code>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Result.html" title="class in org.apache.hadoop.hbase.client">Result</a></strong></code>
+<div class="block">Single row result of a <a href="../../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/ResultScanner.html" title="interface in org.apache.hadoop.hbase.client">ResultScanner</a></strong></code>
+<div class="block">Interface for client-side scanning.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/RetriesExhaustedException.html" title="class in org.apache.hadoop.hbase.client">RetriesExhaustedException</a></strong></code>
+<div class="block">Exception thrown by HTable methods when an attempt to do something (like
+ commit changes) fails after a bunch of retries.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/RetriesExhaustedWithDetailsException.html" title="class in org.apache.hadoop.hbase.client">RetriesExhaustedWithDetailsException</a></strong></code>
+<div class="block">This subclass of <a href="../../../../../../org/apache/hadoop/hbase/client/RetriesExhaustedException.html" title="class in org.apache.hadoop.hbase.client"><code>RetriesExhaustedException</code></a>
+ is thrown when we have more information about which rows were causing which
+ exceptions on what servers.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Row.html" title="interface in org.apache.hadoop.hbase.client">Row</a></strong></code>
+<div class="block">Has a row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/RowTooBigException.html" title="class in org.apache.hadoop.hbase.client">RowTooBigException</a></strong></code>
+<div class="block">Gets or Scans throw this exception if running without in-row scan flag
+ set and row size appears to exceed max configured size (configurable via
+ hbase.table.max.rowsize).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client">Scan</a></strong></code>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/ScannerTimeoutException.html" title="class in org.apache.hadoop.hbase.client">ScannerTimeoutException</a></strong></code>
+<div class="block">Thrown when a scanner has timed out.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client.coprocessor">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/package-summary.html">org.apache.hadoop.hbase.client.coprocessor</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/package-summary.html">org.apache.hadoop.hbase.client.coprocessor</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/Batch.html" title="class in org.apache.hadoop.hbase.client.coprocessor">Batch</a></strong></code>
+<div class="block">A collection of interfaces and utilities used for interacting with custom RPC
+ interfaces exposed by Coprocessors.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/Batch.Call.html" title="interface in org.apache.hadoop.hbase.client.coprocessor">Batch.Call</a>&lt;T,R&gt;</strong></code>
+<div class="block">Defines a unit of work to be executed.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/Batch.Callback.html" title="interface in org.apache.hadoop.hbase.client.coprocessor">Batch.Callback</a>&lt;R&gt;</strong></code>
+<div class="block">Defines a generic callback to be triggered for each <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/Batch.Call.html#call(T)"><code>Batch.Call.call(Object)</code></a>
+ result.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.exceptions">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/exceptions/package-summary.html">org.apache.hadoop.hbase.exceptions</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/exceptions/package-summary.html">org.apache.hadoop.hbase.exceptions</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/exceptions/FailedSanityCheckException.html" title="class in org.apache.hadoop.hbase.exceptions">FailedSanityCheckException</a></strong></code>
+<div class="block">Exception thrown if a mutation fails sanity checks.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/exceptions/LockTimeoutException.html" title="class in org.apache.hadoop.hbase.exceptions">LockTimeoutException</a></strong></code>
+<div class="block">Thrown when there is a timeout when trying to acquire a lock</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/exceptions/MergeRegionException.html" title="class in org.apache.hadoop.hbase.exceptions">MergeRegionException</a></strong></code>
+<div class="block">Thrown when something is wrong in trying to merge two regions.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/exceptions/ScannerResetException.html" title="class in org.apache.hadoop.hbase.exceptions">ScannerResetException</a></strong></code>
+<div class="block">Thrown when the server side has received an Exception, and asks the Client to reset the scanner
+ state by closing the current region scanner, and reopening from the start of last seen row.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.filter">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/filter/package-summary.html">org.apache.hadoop.hbase.filter</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/filter/package-summary.html">org.apache.hadoop.hbase.filter</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/BinaryComparator.html" title="class in org.apache.hadoop.hbase.filter">BinaryComparator</a></strong></code>
+<div class="block">A binary comparator which lexicographically compares against the specified
+ byte array using <a href="../../../../../../org/apache/hadoop/hbase/util/Bytes.html#compareTo(byte[],%20byte[])"><code>Bytes.compareTo(byte[], byte[])</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/BinaryPrefixComparator.html" title="class in org.apache.hadoop.hbase.filter">BinaryPrefixComparator</a></strong></code>
+<div class="block">A comparator which compares against a specified byte array, but only compares
+ up to the length of this byte array.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/BitComparator.html" title="class in org.apache.hadoop.hbase.filter">BitComparator</a></strong></code>
+<div class="block">A bit comparator which performs the specified bitwise operation on each of the bytes
+ with the specified byte array.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/BitComparator.BitwiseOp.html" title="enum in org.apache.hadoop.hbase.filter">BitComparator.BitwiseOp</a></strong></code>
+<div class="block">Bit operators.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ByteArrayComparable.html" title="class in org.apache.hadoop.hbase.filter">ByteArrayComparable</a></strong></code>
+<div class="block">Base class for byte array comparators</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ColumnCountGetFilter.html" title="class in org.apache.hadoop.hbase.filter">ColumnCountGetFilter</a></strong></code>
+<div class="block">Simple filter that returns first N columns on row only.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ColumnPaginationFilter.html" title="class in org.apache.hadoop.hbase.filter">ColumnPaginationFilter</a></strong></code>
+<div class="block">A filter, based on the ColumnCountGetFilter, takes two arguments: limit and offset.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ColumnPrefixFilter.html" title="class in org.apache.hadoop.hbase.filter">ColumnPrefixFilter</a></strong></code>
+<div class="block">This filter is used for selecting only those keys with columns that matches
+ a particular prefix.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ColumnRangeFilter.html" title="class in org.apache.hadoop.hbase.filter">ColumnRangeFilter</a></strong></code>
+<div class="block">This filter is used for selecting only those keys with columns that are
+ between minColumn to maxColumn.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/CompareFilter.html" title="class in org.apache.hadoop.hbase.filter">CompareFilter</a></strong></code>
+<div class="block">This is a generic filter to be used to filter by comparison.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/CompareFilter.CompareOp.html" title="enum in org.apache.hadoop.hbase.filter">CompareFilter.CompareOp</a></strong></code>
+<div class="block">Comparison operators.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/DependentColumnFilter.html" title="class in org.apache.hadoop.hbase.filter">DependentColumnFilter</a></strong></code>
+<div class="block">A filter for adding inter-column timestamp matching
+ Only cells with a correspondingly timestamped entry in
+ the target column will be retained
+ Not compatible with Scan.setBatch as operations need 
+ full rows for correct filtering</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/FamilyFilter.html" title="class in org.apache.hadoop.hbase.filter">FamilyFilter</a></strong></code>
+<div class="block">
+ This filter is used to filter based on the column family.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html" title="class in org.apache.hadoop.hbase.filter">Filter</a></strong></code>
+<div class="block">Interface for row and column filters directly applied within the regionserver.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.ReturnCode.html" title="enum in org.apache.hadoop.hbase.filter">Filter.ReturnCode</a></strong></code>
+<div class="block">Return codes for filterValue().</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/FilterList.html" title="class in org.apache.hadoop.hbase.filter">FilterList</a></strong></code>
+<div class="block">Implementation of <a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html" title="class in org.apache.hadoop.hbase.filter"><code>Filter</code></a> that represents an ordered List of Filters
+ which will be evaluated with a specified boolean operator <a href="../../../../../../org/apache/hadoop/hbase/filter/FilterList.Operator.html#MUST_PASS_ALL"><code>FilterList.Operator.MUST_PASS_ALL</code></a>
+ (<code>AND</code>) or <a href="../../../../../../org/apache/hadoop/hbase/filter/FilterList.Operator.html#MUST_PASS_ONE"><code>FilterList.Operator.MUST_PASS_ONE</code></a> (<code>OR</code>).</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/FilterList.Operator.html" title="enum in org.apache.hadoop.hbase.filter">FilterList.Operator</a></strong></code>
+<div class="block">set operator</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/FirstKeyOnlyFilter.html" title="class in org.apache.hadoop.hbase.filter">FirstKeyOnlyFilter</a></strong></code>
+<div class="block">A filter that will only return the first KV from each row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/FirstKeyValueMatchingQualifiersFilter.html" title="class in org.apache.hadoop.hbase.filter">FirstKeyValueMatchingQualifiersFilter</a></strong></code>
+<div class="block">The filter looks for the given columns in KeyValue.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/InclusiveStopFilter.html" title="class in org.apache.hadoop.hbase.filter">InclusiveStopFilter</a></strong></code>
+<div class="block">A Filter that stops after the given row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/IncompatibleFilterException.html" title="class in org.apache.hadoop.hbase.filter">IncompatibleFilterException</a></strong></code>
+<div class="block">Used to indicate a filter incompatibility</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/InvalidRowFilterException.html" title="class in org.apache.hadoop.hbase.filter">InvalidRowFilterException</a></strong></code>
+<div class="block">Used to indicate an invalid RowFilter.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/KeyOnlyFilter.html" title="class in org.apache.hadoop.hbase.filter">KeyOnlyFilter</a></strong></code>
+<div class="block">A filter that will only return the key component of each KV (the value will
+ be rewritten as empty).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/LongComparator.html" title="class in org.apache.hadoop.hbase.filter">LongComparator</a></strong></code>
+<div class="block">A long comparator which numerical compares against the specified byte array</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/MultipleColumnPrefixFilter.html" title="class in org.apache.hadoop.hbase.filter">MultipleColumnPrefixFilter</a></strong></code>
+<div class="block">This filter is used for selecting only those keys with columns that matches
+ a particular prefix.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/NullComparator.html" title="class in org.apache.hadoop.hbase.filter">NullComparator</a></strong></code>
+<div class="block">A binary comparator which lexicographically compares against the specified
+ byte array using <a href="../../../../../../org/apache/hadoop/hbase/util/Bytes.html#compareTo(byte[],%20byte[])"><code>Bytes.compareTo(byte[], byte[])</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/PageFilter.html" title="class in org.apache.hadoop.hbase.filter">PageFilter</a></strong></code>
+<div class="block">Implementation of Filter interface that limits results to a specific page
+ size.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ParseConstants.html" title="class in org.apache.hadoop.hbase.filter">ParseConstants</a></strong></code>
+<div class="block">ParseConstants holds a bunch of constants related to parsing Filter Strings
+ Used by <a href="../../../../../../org/apache/hadoop/hbase/filter/ParseFilter.html" title="class in org.apache.hadoop.hbase.filter"><code>ParseFilter</code></a></div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ParseFilter.html" title="class in org.apache.hadoop.hbase.filter">ParseFilter</a></strong></code>
+<div class="block">This class allows a user to specify a filter via a string
+ The string is parsed using the methods of this class and
+ a filter object is constructed.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/PrefixFilter.html" title="class in org.apache.hadoop.hbase.filter">PrefixFilter</a></strong></code>
+<div class="block">Pass results that have same row prefix.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/QualifierFilter.html" title="class in org.apache.hadoop.hbase.filter">QualifierFilter</a></strong></code>
+<div class="block">This filter is used to filter based on the column qualifier.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/RandomRowFilter.html" title="class in org.apache.hadoop.hbase.filter">RandomRowFilter</a></strong></code>
+<div class="block">A filter that includes rows based on a chance.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/RegexStringComparator.html" title="class in org.apache.hadoop.hbase.filter">RegexStringComparator</a></strong></code>
+<div class="block">This comparator is for use with <a href="../../../../../../org/apache/hadoop/hbase/filter/CompareFilter.html" title="class in org.apache.hadoop.hbase.filter"><code>CompareFilter</code></a> implementations, such
+ as <a href="../../../../../../org/apache/hadoop/hbase/filter/RowFilter.html" title="class in org.apache.hadoop.hbase.filter"><code>RowFilter</code></a>, <a href="../../../../../../org/apache/hadoop/hbase/filter/QualifierFilter.html" title="class in org.apache.hadoop.hbase.filter"><code>QualifierFilter</code></a>, and <a href="../../../../../../org/apache/hadoop/hbase/filter/ValueFilter.html" title="class in org.apache.hadoop.hbase.filter"><code>ValueFilter</code></a>, for
+ filtering based on the value of a given column.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/RegexStringComparator.EngineType.html" title="enum in org.apache.hadoop.hbase.filter">RegexStringComparator.EngineType</a></strong></code>
+<div class="block">Engine implementation type (default=JAVA)</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/RowFilter.html" title="class in org.apache.hadoop.hbase.filter">RowFilter</a></strong></code>
+<div class="block">This filter is used to filter based on the key.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/SingleColumnValueExcludeFilter.html" title="class in org.apache.hadoop.hbase.filter">SingleColumnValueExcludeFilter</a></strong></code>
+<div class="block">A <a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html" title="class in org.apache.hadoop.hbase.filter"><code>Filter</code></a> that checks a single column value, but does not emit the
+ tested column.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/SingleColumnValueFilter.html" title="class in org.apache.hadoop.hbase.filter">SingleColumnValueFilter</a></strong></code>
+<div class="block">This filter is used to filter cells based on value.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/SkipFilter.html" title="class in org.apache.hadoop.hbase.filter">SkipFilter</a></strong></code>
+<div class="block">A wrapper filter that filters an entire row if any of the Cell checks do
+ not pass.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/SubstringComparator.html" title="class in org.apache.hadoop.hbase.filter">SubstringComparator</a></strong></code>
+<div class="block">This comparator is for use with SingleColumnValueFilter, for filtering based on
+ the value of a given column.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/TimestampsFilter.html" title="class in org.apache.hadoop.hbase.filter">TimestampsFilter</a></strong></code>
+<div class="block">Filter that returns only cells whose timestamp (version) is
+ in the specified list of timestamps (versions).</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/ValueFilter.html" title="class in org.apache.hadoop.hbase.filter">ValueFilter</a></strong></code>
+<div class="block">This filter is used to filter based on column value.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/WhileMatchFilter.html" title="class in org.apache.hadoop.hbase.filter">WhileMatchFilter</a></strong></code>
+<div class="block">A wrapper filter that returns true from <a href="../../../../../../org/apache/hadoop/hbase/filter/WhileMatchFilter.html#filterAllRemaining()"><code>WhileMatchFilter.filterAllRemaining()</code></a> as soon
+ as the wrapped filters <a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html#filterRowKey(byte[],%20int,%20int)"><code>Filter.filterRowKey(byte[], int, int)</code></a>,
+ <a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html#filterKeyValue(org.apache.hadoop.hbase.Cell)"><code>Filter.filterKeyValue(org.apache.hadoop.hbase.Cell)</code></a>,
+ <a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html#filterRow()"><code>Filter.filterRow()</code></a> or
+ <a href="../../../../../../org/apache/hadoop/hbase/filter/Filter.html#filterAllRemaining()"><code>Filter.filterAllRemaining()</code></a> methods
+ returns true.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.io">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/io/package-summary.html">org.apache.hadoop.hbase.io</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/io/package-summary.html">org.apache.hadoop.hbase.io</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/io/ImmutableBytesWritable.html" title="class in org.apache.hadoop.hbase.io">ImmutableBytesWritable</a></strong></code>
+<div class="block">A byte sequence that is usable as a key or value.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/io/ImmutableBytesWritable.Comparator.html" title="class in org.apache.hadoop.hbase.io">ImmutableBytesWritable.Comparator</a></strong></code>
+<div class="block">A Comparator optimized for ImmutableBytesWritable.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/io/TimeRange.html" title="class in org.apache.hadoop.hbase.io">TimeRange</a></strong></code>
+<div class="block">Represents an interval of version timestamps.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.mapred">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/mapred/package-summary.html">org.apache.hadoop.hbase.mapred</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/mapred/package-summary.html">org.apache.hadoop.hbase.mapred</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/Driver.html" title="class in org.apache.hadoop.hbase.mapred">Driver</a></strong></code>
+<div class="block">Driver for hbase mapreduce jobs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/GroupingTableMap.html" title="class in org.apache.hadoop.hbase.mapred">GroupingTableMap</a></strong></code>
+<div class="block">Extract grouping columns from input record</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/HRegionPartitioner.html" title="class in org.apache.hadoop.hbase.mapred">HRegionPartitioner</a>&lt;K2,V2&gt;</strong></code>
+<div class="block">This is used to partition the output keys into groups of keys.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/IdentityTableMap.html" title="class in org.apache.hadoop.hbase.mapred">IdentityTableMap</a></strong></code>
+<div class="block">Pass the given key and record as-is to reduce</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/IdentityTableReduce.html" title="class in org.apache.hadoop.hbase.mapred">IdentityTableReduce</a></strong></code>
+<div class="block">Write to table each key, record pair</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/RowCounter.html" title="class in org.apache.hadoop.hbase.mapred">RowCounter</a></strong></code>
+<div class="block">A job with a map to count rows.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableInputFormat.html" title="class in org.apache.hadoop.hbase.mapred">TableInputFormat</a></strong></code>
+<div class="block">Convert HBase tabular data into a format that is consumable by Map/Reduce.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableInputFormatBase.html" title="class in org.apache.hadoop.hbase.mapred">TableInputFormatBase</a></strong></code>
+<div class="block">A Base for <a href="../../../../../../org/apache/hadoop/hbase/mapred/TableInputFormat.html" title="class in org.apache.hadoop.hbase.mapred"><code>TableInputFormat</code></a>s.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableMap.html" title="interface in org.apache.hadoop.hbase.mapred">TableMap</a>&lt;K extends org.apache.hadoop.io.WritableComparable&lt;? super K&gt;,V&gt;</strong></code>
+<div class="block">Scan an HBase table to sort by a specified sort column.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableMapReduceUtil.html" title="class in org.apache.hadoop.hbase.mapred">TableMapReduceUtil</a></strong></code>
+<div class="block">Utility for <a href="../../../../../../org/apache/hadoop/hbase/mapred/TableMap.html" title="interface in org.apache.hadoop.hbase.mapred"><code>TableMap</code></a> and <a href="../../../../../../org/apache/hadoop/hbase/mapred/TableReduce.html" title="interface in org.apache.hadoop.hbase.mapred"><code>TableReduce</code></a></div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableOutputFormat.html" title="class in org.apache.hadoop.hbase.mapred">TableOutputFormat</a></strong></code>
+<div class="block">Convert Map/Reduce output and write it to an HBase table</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableRecordReader.html" title="class in org.apache.hadoop.hbase.mapred">TableRecordReader</a></strong></code>
+<div class="block">Iterate over an HBase table data, return (Text, RowResult) pairs</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableRecordReaderImpl.html" title="class in org.apache.hadoop.hbase.mapred">TableRecordReaderImpl</a></strong></code>
+<div class="block">Iterate over an HBase table data, return (Text, RowResult) pairs</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableReduce.html" title="interface in org.apache.hadoop.hbase.mapred">TableReduce</a>&lt;K extends org.apache.hadoop.io.WritableComparable,V&gt;</strong></code>
+<div class="block">Write a table, sorting by the input key</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapred/TableSplit.html" title="class in org.apache.hadoop.hbase.mapred">TableSplit</a></strong></code>
+<div class="block">A table split corresponds to a key range [low, high)</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.mapreduce">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/package-summary.html">org.apache.hadoop.hbase.mapreduce</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/package-summary.html">org.apache.hadoop.hbase.mapreduce</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/CellCounter.html" title="class in org.apache.hadoop.hbase.mapreduce">CellCounter</a></strong></code>
+<div class="block">A job with a a map and reduce phase to count cells in a table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/CopyTable.html" title="class in org.apache.hadoop.hbase.mapreduce">CopyTable</a></strong></code>
+<div class="block">Tool used to copy a table to another one which can be on a different setup.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/Driver.html" title="class in org.apache.hadoop.hbase.mapreduce">Driver</a></strong></code>
+<div class="block">Driver for hbase mapreduce jobs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/Export.html" title="class in org.apache.hadoop.hbase.mapreduce">Export</a></strong></code>
+<div class="block">Export an HBase table.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/GroupingTableMapper.html" title="class in org.apache.hadoop.hbase.mapreduce">GroupingTableMapper</a></strong></code>
+<div class="block">Extract grouping columns from input record.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/HFileOutputFormat.html" title="class in org.apache.hadoop.hbase.mapreduce">HFileOutputFormat</a></strong></code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/HFileOutputFormat2.html" title="class in org.apache.hadoop.hbase.mapreduce"><code>HFileOutputFormat2</code></a> instead.</i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/HRegionPartitioner.html" title="class in org.apache.hadoop.hbase.mapreduce">HRegionPartitioner</a>&lt;KEY,VALUE&gt;</strong></code>
+<div class="block">This is used to partition the output keys into groups of keys.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/IdentityTableMapper.html" title="class in org.apache.hadoop.hbase.mapreduce">IdentityTableMapper</a></strong></code>
+<div class="block">Pass the given key and record as-is to the reduce phase.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/IdentityTableReducer.html" title="class in org.apache.hadoop.hbase.mapreduce">IdentityTableReducer</a></strong></code>
+<div class="block">Convenience class that simply writes all values (which must be
+ <a href="../../../../../../org/apache/hadoop/hbase/client/Put.html" title="class in org.apache.hadoop.hbase.client"><code>Put</code></a> or
+ <a href="../../../../../../org/apache/hadoop/hbase/client/Delete.html" title="class in org.apache.hadoop.hbase.client"><code>Delete</code></a> instances)
+ passed to it out to the configured HBase table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/Import.html" title="class in org.apache.hadoop.hbase.mapreduce">Import</a></strong></code>
+<div class="block">Import data written by <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/Export.html" title="class in org.apache.hadoop.hbase.mapreduce"><code>Export</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/ImportTsv.html" title="class in org.apache.hadoop.hbase.mapreduce">ImportTsv</a></strong></code>
+<div class="block">Tool to import data from a TSV file.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/KeyValueSortReducer.html" title="class in org.apache.hadoop.hbase.mapreduce">KeyValueSortReducer</a></strong></code>
+<div class="block">Emits sorted KeyValues.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/LoadIncrementalHFiles.html" title="class in org.apache.hadoop.hbase.mapreduce">LoadIncrementalHFiles</a></strong></code>
+<div class="block">Tool to load the output of HFileOutputFormat into an existing table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/MultiTableOutputFormat.html" title="class in org.apache.hadoop.hbase.mapreduce">MultiTableOutputFormat</a></strong></code>
+<div class="block">
+ Hadoop output format that writes to one or more HBase tables.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/PutSortReducer.html" title="class in org.apache.hadoop.hbase.mapreduce">PutSortReducer</a></strong></code>
+<div class="block">Emits sorted Puts.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/RowCounter.html" title="class in org.apache.hadoop.hbase.mapreduce">RowCounter</a></strong></code>
+<div class="block">A job with a just a map phase to count rows.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/SimpleTotalOrderPartitioner.html" title="class in org.apache.hadoop.hbase.mapreduce">SimpleTotalOrderPartitioner</a>&lt;VALUE&gt;</strong></code>
+<div class="block">A partitioner that takes start and end keys and uses bigdecimal to figure
+ which reduce a key belongs to.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableInputFormat.html" title="class in org.apache.hadoop.hbase.mapreduce">TableInputFormat</a></strong></code>
+<div class="block">Convert HBase tabular data into a format that is consumable by Map/Reduce.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableInputFormatBase.html" title="class in org.apache.hadoop.hbase.mapreduce">TableInputFormatBase</a></strong></code>
+<div class="block">A base for <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableInputFormat.html" title="class in org.apache.hadoop.hbase.mapreduce"><code>TableInputFormat</code></a>s.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableMapper.html" title="class in org.apache.hadoop.hbase.mapreduce">TableMapper</a>&lt;KEYOUT,VALUEOUT&gt;</strong></code>
+<div class="block">Extends the base <code>Mapper</code> class to add the required input key
+ and value classes.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableMapReduceUtil.html" title="class in org.apache.hadoop.hbase.mapreduce">TableMapReduceUtil</a></strong></code>
+<div class="block">Utility for <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableMapper.html" title="class in org.apache.hadoop.hbase.mapreduce"><code>TableMapper</code></a> and <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableReducer.html" title="class in org.apache.hadoop.hbase.mapreduce"><code>TableReducer</code></a></div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableOutputCommitter.html" title="class in org.apache.hadoop.hbase.mapreduce">TableOutputCommitter</a></strong></code>
+<div class="block">Small committer class that does not do anything.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableOutputFormat.html" title="class in org.apache.hadoop.hbase.mapreduce">TableOutputFormat</a>&lt;KEY&gt;</strong></code>
+<div class="block">Convert Map/Reduce output and write it to an HBase table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableRecordReader.html" title="class in org.apache.hadoop.hbase.mapreduce">TableRecordReader</a></strong></code>
+<div class="block">Iterate over an HBase table data, return (ImmutableBytesWritable, Result)
+ pairs.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableRecordReaderImpl.html" title="class in org.apache.hadoop.hbase.mapreduce">TableRecordReaderImpl</a></strong></code>
+<div class="block">Iterate over an HBase table data, return (ImmutableBytesWritable, Result)
+ pairs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableReducer.html" title="class in org.apache.hadoop.hbase.mapreduce">TableReducer</a>&lt;KEYIN,VALUEIN,KEYOUT&gt;</strong></code>
+<div class="block">Extends the basic <code>Reducer</code> class to add the required key and
+ value input/output classes.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TsvImporterMapper.html" title="class in org.apache.hadoop.hbase.mapreduce">TsvImporterMapper</a></strong></code>
+<div class="block">Write table content out to files in hdfs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/WALPlayer.html" title="class in org.apache.hadoop.hbase.mapreduce">WALPlayer</a></strong></code>
+<div class="block">A tool to replay WAL files as a M/R job.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.procedure2">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/procedure2/package-summary.html">org.apache.hadoop.hbase.procedure2</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/procedure2/package-summary.html">org.apache.hadoop.hbase.procedure2</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/procedure2/ProcedureAbortedException.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureAbortedException</a></strong></code>
+<div class="block">Thrown when a procedure is aborted</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/procedure2/ProcedureException.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureException</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/procedure2/ProcedureYieldException.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureYieldException</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.procedure2.store.wal">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/procedure2/store/wal/package-summary.html">org.apache.hadoop.hbase.procedure2.store.wal</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/procedure2/store/wal/package-summary.html">org.apache.hadoop.hbase.procedure2.store.wal</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/procedure2/store/wal/CorruptedWALProcedureStoreException.html" title="class in org.apache.hadoop.hbase.procedure2.store.wal">CorruptedWALProcedureStoreException</a></strong></code>
+<div class="block">Thrown when a procedure WAL is corrupted</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.regionserver">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/regionserver/package-summary.html">org.apache.hadoop.hbase.regionserver</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/regionserver/package-summary.html">org.apache.hadoop.hbase.regionserver</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/RegionAlreadyInTransitionException.html" title="class in org.apache.hadoop.hbase.regionserver">RegionAlreadyInTransitionException</a></strong></code>
+<div class="block">This exception is thrown when a region server is asked to open or close
+ a region but it's already processing it</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/WrongRegionException.html" title="class in org.apache.hadoop.hbase.regionserver">WrongRegionException</a></strong></code>
+<div class="block">Thrown when a request contains a key which is not part of this region</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.replication">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/replication/package-summary.html">org.apache.hadoop.hbase.replication</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/replication/package-summary.html">org.apache.hadoop.hbase.replication</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/replication/ReplicationException.html" title="class in org.apache.hadoop.hbase.replication">ReplicationException</a></strong></code>
+<div class="block">An HBase Replication exception.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.rest">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/rest/package-summary.html">org.apache.hadoop.hbase.rest</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/rest/package-summary.html">org.apache.hadoop.hbase.rest</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Interface and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/rest/Constants.html" title="interface in org.apache.hadoop.hbase.rest">Constants</a></strong></code>
+<div class="block">Common constants for org.apache.hadoop.hbase.rest</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.rest.client">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/rest/client/package-summary.html">org.apache.hadoop.hbase.rest.client</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/rest/client/package-summary.html">org.apache.hadoop.hbase.rest.client</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/rest/client/Client.html" title="class in org.apache.hadoop.hbase.rest.client">Client</a></strong></code>
+<div class="block">A wrapper around HttpClient which provides some useful function and
+ semantics for interacting with the REST gateway.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/rest/client/Cluster.html" title="class in org.apache.hadoop.hbase.rest.client">Cluster</a></strong></code>
+<div class="block">A list of 'host:port' addresses of HTTP servers operating as a single
+ entity, for example multiple redundant web service gateways.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/rest/client/RemoteAdmin.html" title="class in org.apache.hadoop.hbase.rest.client">RemoteAdmin</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/rest/client/RemoteHTable.html" title="class in org.apache.hadoop.hbase.rest.client">RemoteHTable</a></strong></code>
+<div class="block">HTable interface to remote tables accessed via REST gateway</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/rest/client/Response.html" title="class in org.apache.hadoop.hbase.rest.client">Response</a></strong></code>
+<div class="block">The HTTP result code, response headers, and body of a HTTP response.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.security">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/security/package-summary.html">org.apache.hadoop.hbase.security</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/security/package-summary.html">org.apache.hadoop.hbase.security</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a></strong></code>
+<div class="block">Wrapper to abstract out usage of user and group information in HBase.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.snapshot">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/snapshot/package-summary.html">org.apache.hadoop.hbase.snapshot</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/snapshot/package-summary.html">org.apache.hadoop.hbase.snapshot</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/snapshot/ExportSnapshotException.html" title="class in org.apache.hadoop.hbase.snapshot">ExportSnapshotException</a></strong></code>
+<div class="block">Thrown when a snapshot could not be exported due to an error during the operation.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.types">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/types/package-summary.html">org.apache.hadoop.hbase.types</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/types/package-summary.html">org.apache.hadoop.hbase.types</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/types/CopyOnWriteArrayMap.html" title="class in org.apache.hadoop.hbase.types">CopyOnWriteArrayMap</a>&lt;K,V&gt;</strong></code>
+<div class="block">A Map that keeps a sorted array in order to provide the concurrent map interface.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.util">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a> in <a href="../../../../../../org/apache/hadoop/hbase/util/package-summary.html">org.apache.hadoop.hbase.util</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../../org/apache/hadoop/hbase/util/package-summary.html">org.apache.hadoop.hbase.util</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Base64.html" title="class in org.apache.hadoop.hbase.util">Base64</a></strong></code>
+<div class="block">Encodes and decodes to and from Base64 notation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Base64.Base64InputStream.html" title="class in org.apache.hadoop.hbase.util">Base64.Base64InputStream</a></strong></code>
+<div class="block">A <a href="../../../../../../org/apache/hadoop/hbase/util/Base64.Base64InputStream.html" title="class in org.apache.hadoop.hbase.util"><code>Base64.Base64InputStream</code></a> will read data from another
+ <tt>InputStream</tt>, given in the constructor, and
+ encode/decode to/from Base64 notation on the fly.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Base64.Base64OutputStream.html" title="class in org.apache.hadoop.hbase.util">Base64.Base64OutputStream</a></strong></code>
+<div class="block">A <a href="../../../../../../org/apache/hadoop/hbase/util/Base64.Base64OutputStream.html" title="class in org.apache.hadoop.hbase.util"><code>Base64.Base64OutputStream</code></a> will write data to another
+ <tt>OutputStream</tt>, given in the constructor, and
+ encode/decode to/from Base64 notation on the fly.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/BoundedPriorityBlockingQueue.html" title="class in org.apache.hadoop.hbase.util">BoundedPriorityBlockingQueue</a>&lt;E&gt;</strong></code>
+<div class="block">A generic bounded blocking Priority-Queue.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Bytes.html" title="class in org.apache.hadoop.hbase.util">Bytes</a></strong></code>
+<div class="block">Utility class that handles byte arrays, conversions to/from other types,
+ comparisons, hash code generation, manufacturing keys for HashMaps or
+ HashSets, etc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Bytes.ByteArrayComparator.html" title="class in org.apache.hadoop.hbase.util">Bytes.ByteArrayComparator</a></strong></code>
+<div class="block">Byte array comparator class.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Bytes.RowEndKeyComparator.html" title="class in org.apache.hadoop.hbase.util">Bytes.RowEndKeyComparator</a></strong></code>
+<div class="block">A <a href="../../../../../../org/apache/hadoop/hbase/util/Bytes.ByteArrayComparator.html" title="class in org.apache.hadoop.hbase.util"><code>Bytes.ByteArrayComparator</code></a> that treats the empty array as the largest value.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Hash.html" title="class in org.apache.hadoop.hbase.util">Hash</a></strong></code>
+<div class="block">This class represents a common API for hashing functions.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/HashedBytes.html" title="class in org.apache.hadoop.hbase.util">HashedBytes</a></strong></code>
+<div class="block">This class encapsulates a byte array and overrides hashCode and equals so
+ that it's identity is based on the data rather than the array instance.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/JenkinsHash.html" title="class in org.apache.hadoop.hbase.util">JenkinsHash</a></strong></code>
+<div class="block">Produces 32-bit hash for hash table lookup.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/JvmVersion.html" title="class in org.apache.hadoop.hbase.util">JvmVersion</a></strong></code>
+<div class="block">Certain JVM versions are known to be unstable with HBase.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/LeaseNotRecoveredException.html" title="class in org.apache.hadoop.hbase.util">LeaseNotRecoveredException</a></strong></code>
+<div class="block">Thrown when the lease was expected to be recovered,
+ but the file can't be opened.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/MD5Hash.html" title="class in org.apache.hadoop.hbase.util">MD5Hash</a></strong></code>
+<div class="block">Utility class for MD5
+ MD5 hash produces a 128-bit digest.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/MurmurHash.html" title="class in org.apache.hadoop.hbase.util">MurmurHash</a></strong></code>
+<div class="block">This is a very fast, non-cryptographic hash suitable for general hash-based
+ lookup.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/MurmurHash3.html" title="class in org.apache.hadoop.hbase.util">MurmurHash3</a></strong></code>
+<div class="block">This is a very fast, non-cryptographic hash suitable for general hash-based
+ lookup.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;T1,T2&gt;</strong></code>
+<div class="block">A generic class for pairs.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/PairOfSameType.html" title="class in org.apache.hadoop.hbase.util">PairOfSameType</a>&lt;T&gt;</strong></code>
+<div class="block">A generic, immutable class for pairs of objects both of type <code>T</code>.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructors in <a href="../../../../../../org/apache/hadoop/hbase/util/package-summary.html">org.apache.hadoop.hbase.util</a> with annotations of type <a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">InterfaceStability.Stable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Base64.Base64OutputStream.html#Base64.Base64OutputStream(java.io.OutputStream,%20int)">Base64.Base64OutputStream</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out,
+                         int&nbsp;options)</code>
+<div class="block">Constructs a <a href="../../../../../../org/apache/hadoop/hbase/util/Base64.Base64OutputStream.html" title="class in org.apache.hadoop.hbase.util"><code>Base64.Base64OutputStream</code></a> in either ENCODE or DECODE mode.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="../package-summary.html">Package</a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Stable.html" title="annotation in org.apache.hadoop.hbase.classification">Class</a></li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/classification/class-use/InterfaceStability.Stable.html" target="_top">Frames</a></li>
+<li><a href="InterfaceStability.Stable.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

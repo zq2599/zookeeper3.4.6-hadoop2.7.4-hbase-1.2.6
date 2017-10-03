@@ -1,0 +1,1814 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Uses of Package org.apache.hadoop.hbase.client (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="Uses of Package org.apache.hadoop.hbase.client (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li>Class</li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/client/package-use.html" target="_top">Frames</a></li>
+<li><a href="package-use.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<div class="header">
+<h1 title="Uses of Package org.apache.hadoop.hbase.client" class="title">Uses of Package<br>org.apache.hadoop.hbase.client</h1>
+</div>
+<div class="contentContainer">
+<ul class="blockList">
+<li class="blockList">
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing packages, and an explanation">
+<caption><span>Packages that use <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Package</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase">org.apache.hadoop.hbase</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.backup.example">org.apache.hadoop.hbase.backup.example</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client">org.apache.hadoop.hbase.client</a></td>
+<td class="colLast">
+<div class="block">Provides HBase Client</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client.coprocessor">org.apache.hadoop.hbase.client.coprocessor</a></td>
+<td class="colLast">
+<div class="block">Provides client classes for invoking Coprocessor RPC protocols
+
+
+ <a href="../../../../../org/apache/hadoop/hbase/client/coprocessor/#overview">Overview</a>
+ <a href="../../../../../org/apache/hadoop/hbase/client/coprocessor/#usage">Example Usage</a>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client.example">org.apache.hadoop.hbase.client.example</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.constraint">org.apache.hadoop.hbase.constraint</a></td>
+<td class="colLast">
+<div class="block">Restrict the domain of a data attribute, often times to fulfill business rules/requirements.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.coprocessor">org.apache.hadoop.hbase.coprocessor</a></td>
+<td class="colLast">
+<div class="block">Table of Contents</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.coprocessor.example">org.apache.hadoop.hbase.coprocessor.example</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.exceptions">org.apache.hadoop.hbase.exceptions</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.io">org.apache.hadoop.hbase.io</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.ipc">org.apache.hadoop.hbase.ipc</a></td>
+<td class="colLast">
+<div class="block">Tools to help define network clients and servers.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.mapred">org.apache.hadoop.hbase.mapred</a></td>
+<td class="colLast">
+<div class="block">Provides HBase <a href="http://wiki.apache.org/hadoop/HadoopMapReduce">MapReduce</a>
+Input/OutputFormats, a table indexing MapReduce job, and utility methods.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.mapreduce">org.apache.hadoop.hbase.mapreduce</a></td>
+<td class="colLast">
+<div class="block">Provides HBase <a href="http://wiki.apache.org/hadoop/HadoopMapReduce">MapReduce</a>
+Input/OutputFormats, a table indexing MapReduce job, and utility methods.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.mapreduce.replication">org.apache.hadoop.hbase.mapreduce.replication</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.master">org.apache.hadoop.hbase.master</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.master.balancer">org.apache.hadoop.hbase.master.balancer</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.master.normalizer">org.apache.hadoop.hbase.master.normalizer</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.protobuf">org.apache.hadoop.hbase.protobuf</a></td>
+<td class="colLast">
+<div class="block">Holds classes generated from <a href="https://developers.google.com/protocol-buffers/">protobuf</a>
+<code>src/main/protobuf</code> definition files.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.quotas">org.apache.hadoop.hbase.quotas</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.regionserver">org.apache.hadoop.hbase.regionserver</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.regionserver.handler">org.apache.hadoop.hbase.regionserver.handler</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.regionserver.wal">org.apache.hadoop.hbase.regionserver.wal</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.replication.regionserver">org.apache.hadoop.hbase.replication.regionserver</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.rest">org.apache.hadoop.hbase.rest</a></td>
+<td class="colLast">
+<div class="block">HBase REST</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.rest.client">org.apache.hadoop.hbase.rest.client</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.rest.model">org.apache.hadoop.hbase.rest.model</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.security.access">org.apache.hadoop.hbase.security.access</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.security.token">org.apache.hadoop.hbase.security.token</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.security.visibility">org.apache.hadoop.hbase.security.visibility</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.snapshot">org.apache.hadoop.hbase.snapshot</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.thrift">org.apache.hadoop.hbase.thrift</a></td>
+<td class="colLast">
+<div class="block">Provides an HBase <a href="http://incubator.apache.org/thrift/">Thrift</a>
+service.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.thrift2">org.apache.hadoop.hbase.thrift2</a></td>
+<td class="colLast">
+<div class="block">Provides an HBase <a href="http://thrift.apache.org/">Thrift</a>
+service.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.tool">org.apache.hadoop.hbase.tool</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.util">org.apache.hadoop.hbase.util</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.wal">org.apache.hadoop.hbase.wal</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.zookeeper">org.apache.hadoop.hbase.zookeeper</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/package-summary.html">org.apache.hadoop.hbase</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/DoNotRetryRegionException.html#org.apache.hadoop.hbase">DoNotRetryRegionException</a>
+<div class="block">Similar to RegionException, but disables retries.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTableInterface.html#org.apache.hadoop.hbase">HTableInterface</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a> instead</i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.backup.example">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/backup/example/package-summary.html">org.apache.hadoop.hbase.backup.example</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase.backup.example">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/AbstractClientScanner.html#org.apache.hadoop.hbase.client">AbstractClientScanner</a>
+<div class="block">Helper class for custom client scanners.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Action.html#org.apache.hadoop.hbase.client">Action</a>
+<div class="block">A Get, Put, Increment, Append, or Delete associated with it's region.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Admin.html#org.apache.hadoop.hbase.client">Admin</a>
+<div class="block">The administrative API for HBase.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.client">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Attributes.html#org.apache.hadoop.hbase.client">Attributes</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/BufferedMutator.html#org.apache.hadoop.hbase.client">BufferedMutator</a>
+<div class="block">Used to communicate with a single HBase table similar to <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a> but meant for
+ batched, asynchronous puts.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/BufferedMutator.ExceptionListener.html#org.apache.hadoop.hbase.client">BufferedMutator.ExceptionListener</a>
+<div class="block">Listens for asynchronous exceptions on a <a href="../../../../../org/apache/hadoop/hbase/client/BufferedMutator.html" title="interface in org.apache.hadoop.hbase.client"><code>BufferedMutator</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/BufferedMutatorImpl.html#org.apache.hadoop.hbase.client">BufferedMutatorImpl</a>
+<div class="block">
+ Used to communicate with a single HBase table similar to <a href="../../../../../org/apache/hadoop/hbase/client/HTable.html" title="class in org.apache.hadoop.hbase.client"><code>HTable</code></a>
+ but meant for batched, potentially asynchronous puts.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/BufferedMutatorParams.html#org.apache.hadoop.hbase.client">BufferedMutatorParams</a>
+<div class="block">Parameters for instantiating a <a href="../../../../../org/apache/hadoop/hbase/client/BufferedMutator.html" title="interface in org.apache.hadoop.hbase.client"><code>BufferedMutator</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClientScanner.html#org.apache.hadoop.hbase.client">ClientScanner</a>
+<div class="block">Implements the scanner interface for the HBase client.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClientSmallReversedScanner.SmallReversedScannerCallableFactory.html#org.apache.hadoop.hbase.client">ClientSmallReversedScanner.SmallReversedScannerCallableFactory</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClientSmallScanner.SmallScannerCallableFactory.html#org.apache.hadoop.hbase.client">ClientSmallScanner.SmallScannerCallableFactory</a>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase.client">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.client">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ConnectionConfiguration.html#org.apache.hadoop.hbase.client">ConnectionConfiguration</a>
+<div class="block">Configuration parameters for the connection.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ConnectionFactory.html#org.apache.hadoop.hbase.client">ConnectionFactory</a>
+<div class="block">A non-instantiable class that manages creation of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a>s.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Consistency.html#org.apache.hadoop.hbase.client">Consistency</a>
+<div class="block">Consistency defines the expected consistency level for an operation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.client">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/DoNotRetryRegionException.html#org.apache.hadoop.hbase.client">DoNotRetryRegionException</a>
+<div class="block">Similar to RegionException, but disables retries.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.client">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.client">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HBaseAdmin.html#org.apache.hadoop.hbase.client">HBaseAdmin</a>
+<div class="block">HBaseAdmin is no longer a client API.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HBaseAdmin.ProcedureFuture.WaitForStateCallable.html#org.apache.hadoop.hbase.client">HBaseAdmin.ProcedureFuture.WaitForStateCallable</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnectable.html#org.apache.hadoop.hbase.client">HConnectable</a>
+<div class="block">This class makes it convenient for one to execute a command in the context
+ of a <a href="../../../../../org/apache/hadoop/hbase/client/HConnection.html" title="interface in org.apache.hadoop.hbase.client"><code>HConnection</code></a> instance based on the given <code>Configuration</code>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnection.html#org.apache.hadoop.hbase.client">HConnection</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTable.html#org.apache.hadoop.hbase.client">HTable</a>
+<div class="block">An implementation of <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTableInterface.html#org.apache.hadoop.hbase.client">HTableInterface</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a> instead</i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTableInterfaceFactory.html#org.apache.hadoop.hbase.client">HTableInterfaceFactory</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a>.</i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTableMultiplexer.HTableMultiplexerStatus.html#org.apache.hadoop.hbase.client">HTableMultiplexer.HTableMultiplexerStatus</a>
+<div class="block">HTableMultiplexerStatus keeps track of the current status of the HTableMultiplexer.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.client">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/IsolationLevel.html#org.apache.hadoop.hbase.client">IsolationLevel</a>
+<div class="block">Specify Isolation levels in Scan operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetaScanner.DefaultMetaScannerVisitor.html#org.apache.hadoop.hbase.client">MetaScanner.DefaultMetaScannerVisitor</a>
+<div class="block">A MetaScannerVisitor that skips offline regions and split parents</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetaScanner.MetaScannerVisitor.html#org.apache.hadoop.hbase.client">MetaScanner.MetaScannerVisitor</a>
+<div class="block">Visitor class called to process each row of the hbase:meta table</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetaScanner.MetaScannerVisitorBase.html#org.apache.hadoop.hbase.client">MetaScanner.MetaScannerVisitorBase</a>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.html#org.apache.hadoop.hbase.client">MetricsConnection</a>
+<div class="block">This class is for maintaining the various connection statistics and publishing them through
+ the metrics interfaces.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.CallStats.html#org.apache.hadoop.hbase.client">MetricsConnection.CallStats</a>
+<div class="block">A container class for collecting details about the RPC call as it percolates.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.CallTracker.html#org.apache.hadoop.hbase.client">MetricsConnection.CallTracker</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.RegionStats.html#org.apache.hadoop.hbase.client">MetricsConnection.RegionStats</a>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.RunnerStats.html#org.apache.hadoop.hbase.client">MetricsConnection.RunnerStats</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MultiAction.html#org.apache.hadoop.hbase.client">MultiAction</a>
+<div class="block">Container for Actions (i.e.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.client">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/NonceGenerator.html#org.apache.hadoop.hbase.client">NonceGenerator</a>
+<div class="block">NonceGenerator interface.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Operation.html#org.apache.hadoop.hbase.client">Operation</a>
+<div class="block">Superclass for any type that maps to a potentially application-level query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/OperationWithAttributes.html#org.apache.hadoop.hbase.client">OperationWithAttributes</a>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.client">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Query.html#org.apache.hadoop.hbase.client">Query</a>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RegionAdminServiceCallable.html#org.apache.hadoop.hbase.client">RegionAdminServiceCallable</a>
+<div class="block">Similar to <a href="../../../../../org/apache/hadoop/hbase/client/RegionServerCallable.html" title="class in org.apache.hadoop.hbase.client"><code>RegionServerCallable</code></a> but for the AdminService interface.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RegionLocator.html#org.apache.hadoop.hbase.client">RegionLocator</a>
+<div class="block">Used to view region location information for a single HBase table.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RegionServerCallable.html#org.apache.hadoop.hbase.client">RegionServerCallable</a>
+<div class="block">Implementations call a RegionServer and implement <a href="../../../../../org/apache/hadoop/hbase/client/RetryingCallable.html#call(int)"><code>RetryingCallable.call(int)</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.client">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ResultScanner.html#org.apache.hadoop.hbase.client">ResultScanner</a>
+<div class="block">Interface for client-side scanning.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RetriesExhaustedException.html#org.apache.hadoop.hbase.client">RetriesExhaustedException</a>
+<div class="block">Exception thrown by HTable methods when an attempt to do something (like
+ commit changes) fails after a bunch of retries.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RetriesExhaustedException.ThrowableWithExtraContext.html#org.apache.hadoop.hbase.client">RetriesExhaustedException.ThrowableWithExtraContext</a>
+<div class="block">Datastructure that allows adding more info around Throwable incident.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RetriesExhaustedWithDetailsException.html#org.apache.hadoop.hbase.client">RetriesExhaustedWithDetailsException</a>
+<div class="block">This subclass of <a href="../../../../../org/apache/hadoop/hbase/client/RetriesExhaustedException.html" title="class in org.apache.hadoop.hbase.client"><code>RetriesExhaustedException</code></a>
+ is thrown when we have more information about which rows were causing which
+ exceptions on what servers.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RetryingCallable.html#org.apache.hadoop.hbase.client">RetryingCallable</a>
+<div class="block">A Callable&lt;T&gt; that will be retried.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ReversedClientScanner.html#org.apache.hadoop.hbase.client">ReversedClientScanner</a>
+<div class="block">A reversed client scanner which support backward scanning</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Row.html#org.apache.hadoop.hbase.client">Row</a>
+<div class="block">Has a row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RowMutations.html#org.apache.hadoop.hbase.client">RowMutations</a>
+<div class="block">Performs multiple mutations atomically on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RpcRetryingCaller.html#org.apache.hadoop.hbase.client">RpcRetryingCaller</a>
+<div class="block">Runs an rpc'ing <a href="../../../../../org/apache/hadoop/hbase/client/RetryingCallable.html" title="interface in org.apache.hadoop.hbase.client"><code>RetryingCallable</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RpcRetryingCallerFactory.html#org.apache.hadoop.hbase.client">RpcRetryingCallerFactory</a>
+<div class="block">Factory to create an <a href="../../../../../org/apache/hadoop/hbase/client/RpcRetryingCaller.html" title="class in org.apache.hadoop.hbase.client"><code>RpcRetryingCaller</code></a></div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.client">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ScannerCallable.html#org.apache.hadoop.hbase.client">ScannerCallable</a>
+<div class="block">Scanner operations such as create, next, etc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ServerStatisticTracker.html#org.apache.hadoop.hbase.client">ServerStatisticTracker</a>
+<div class="block">Tracks the statistics for multiple regions</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase.client">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client.coprocessor">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/client/coprocessor/package-summary.html">org.apache.hadoop.hbase.client.coprocessor</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.client.coprocessor">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase.client.coprocessor">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client.example">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/client/example/package-summary.html">org.apache.hadoop.hbase.client.example</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.client.example">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.constraint">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/constraint/package-summary.html">org.apache.hadoop.hbase.constraint</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.constraint">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.constraint">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.coprocessor">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/coprocessor/package-summary.html">org.apache.hadoop.hbase.coprocessor</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.coprocessor">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.coprocessor">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.coprocessor">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.coprocessor">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTableInterface.html#org.apache.hadoop.hbase.coprocessor">HTableInterface</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a> instead</i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.coprocessor">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.coprocessor">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.coprocessor">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.coprocessor">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.coprocessor">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.coprocessor.example">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/coprocessor/example/package-summary.html">org.apache.hadoop.hbase.coprocessor.example</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.coprocessor.example">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.exceptions">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/exceptions/package-summary.html">org.apache.hadoop.hbase.exceptions</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/DoNotRetryRegionException.html#org.apache.hadoop.hbase.exceptions">DoNotRetryRegionException</a>
+<div class="block">Similar to RegionException, but disables retries.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.io">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/io/package-summary.html">org.apache.hadoop.hbase.io</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.io">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.ipc">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/ipc/package-summary.html">org.apache.hadoop.hbase.ipc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase.ipc">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.html#org.apache.hadoop.hbase.ipc">MetricsConnection</a>
+<div class="block">This class is for maintaining the various connection statistics and publishing them through
+ the metrics interfaces.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MetricsConnection.CallStats.html#org.apache.hadoop.hbase.ipc">MetricsConnection.CallStats</a>
+<div class="block">A container class for collecting details about the RPC call as it percolates.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.mapred">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/mapred/package-summary.html">org.apache.hadoop.hbase.mapred</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/BufferedMutator.html#org.apache.hadoop.hbase.mapred">BufferedMutator</a>
+<div class="block">Used to communicate with a single HBase table similar to <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a> but meant for
+ batched, asynchronous puts.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.mapred">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.mapred">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.mapreduce">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/mapreduce/package-summary.html">org.apache.hadoop.hbase.mapreduce</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Admin.html#org.apache.hadoop.hbase.mapreduce">Admin</a>
+<div class="block">The administrative API for HBase.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClientSideRegionScanner.html#org.apache.hadoop.hbase.mapreduce">ClientSideRegionScanner</a>
+<div class="block">A client scanner for a region opened for read-only on the client side.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.mapreduce">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.mapreduce">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnection.html#org.apache.hadoop.hbase.mapreduce">HConnection</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTable.html#org.apache.hadoop.hbase.mapreduce">HTable</a>
+<div class="block">An implementation of <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.mapreduce">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.mapreduce">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RegionLocator.html#org.apache.hadoop.hbase.mapreduce">RegionLocator</a>
+<div class="block">Used to view region location information for a single HBase table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.mapreduce">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.mapreduce">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase.mapreduce">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.mapreduce.replication">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/mapreduce/replication/package-summary.html">org.apache.hadoop.hbase.mapreduce.replication</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.mapreduce.replication">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.master">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/master/package-summary.html">org.apache.hadoop.hbase.master</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase.master">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.master">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.master.balancer">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/master/balancer/package-summary.html">org.apache.hadoop.hbase.master.balancer</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.master.balancer">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.master.normalizer">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/master/normalizer/package-summary.html">org.apache.hadoop.hbase.master.normalizer</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Admin.html#org.apache.hadoop.hbase.master.normalizer">Admin</a>
+<div class="block">The administrative API for HBase.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.protobuf">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/protobuf/package-summary.html">org.apache.hadoop.hbase.protobuf</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Action.html#org.apache.hadoop.hbase.protobuf">Action</a>
+<div class="block">A Get, Put, Increment, Append, or Delete associated with it's region.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.protobuf">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Consistency.html#org.apache.hadoop.hbase.protobuf">Consistency</a>
+<div class="block">Consistency defines the expected consistency level for an operation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.protobuf">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.protobuf">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.protobuf">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.protobuf">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/MultiResponse.html#org.apache.hadoop.hbase.protobuf">MultiResponse</a>
+<div class="block">A container for Result objects, grouped by regionName.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.protobuf">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.protobuf">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.protobuf">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RowMutations.html#org.apache.hadoop.hbase.protobuf">RowMutations</a>
+<div class="block">Performs multiple mutations atomically on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.protobuf">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.quotas">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/quotas/package-summary.html">org.apache.hadoop.hbase.quotas</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.quotas">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.quotas">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.quotas">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.quotas">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.quotas">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.regionserver">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/regionserver/package-summary.html">org.apache.hadoop.hbase.regionserver</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.regionserver">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Attributes.html#org.apache.hadoop.hbase.regionserver">Attributes</a>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase.regionserver">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.regionserver">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.regionserver">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.regionserver">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.regionserver">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/IsolationLevel.html#org.apache.hadoop.hbase.regionserver">IsolationLevel</a>
+<div class="block">Specify Isolation levels in Scan operations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.regionserver">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Operation.html#org.apache.hadoop.hbase.regionserver">Operation</a>
+<div class="block">Superclass for any type that maps to a potentially application-level query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/OperationWithAttributes.html#org.apache.hadoop.hbase.regionserver">OperationWithAttributes</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.regionserver">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Query.html#org.apache.hadoop.hbase.regionserver">Query</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.regionserver">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RowMutations.html#org.apache.hadoop.hbase.regionserver">RowMutations</a>
+<div class="block">Performs multiple mutations atomically on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.regionserver">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.regionserver.handler">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/regionserver/handler/package-summary.html">org.apache.hadoop.hbase.regionserver.handler</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ClusterConnection.html#org.apache.hadoop.hbase.regionserver.handler">ClusterConnection</a>
+<div class="block">Internal methods on Connection that should not be used by user code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RpcRetryingCallerFactory.html#org.apache.hadoop.hbase.regionserver.handler">RpcRetryingCallerFactory</a>
+<div class="block">Factory to create an <a href="../../../../../org/apache/hadoop/hbase/client/RpcRetryingCaller.html" title="class in org.apache.hadoop.hbase.client"><code>RpcRetryingCaller</code></a></div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.regionserver.wal">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/package-summary.html">org.apache.hadoop.hbase.regionserver.wal</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnection.html#org.apache.hadoop.hbase.regionserver.wal">HConnection</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.replication.regionserver">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/replication/regionserver/package-summary.html">org.apache.hadoop.hbase.replication.regionserver</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnection.html#org.apache.hadoop.hbase.replication.regionserver">HConnection</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Row.html#org.apache.hadoop.hbase.replication.regionserver">Row</a>
+<div class="block">Has a row.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.rest">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/rest/package-summary.html">org.apache.hadoop.hbase.rest</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ResultScanner.html#org.apache.hadoop.hbase.rest">ResultScanner</a>
+<div class="block">Interface for client-side scanning.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.rest.client">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/rest/client/package-summary.html">org.apache.hadoop.hbase.rest.client</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.rest.client">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.rest.client">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.rest.client">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.rest.client">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.rest.client">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.rest.client">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.rest.client">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ResultScanner.html#org.apache.hadoop.hbase.rest.client">ResultScanner</a>
+<div class="block">Interface for client-side scanning.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Row.html#org.apache.hadoop.hbase.rest.client">Row</a>
+<div class="block">Has a row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RowMutations.html#org.apache.hadoop.hbase.rest.client">RowMutations</a>
+<div class="block">Performs multiple mutations atomically on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.rest.client">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase.rest.client">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.rest.model">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/rest/model/package-summary.html">org.apache.hadoop.hbase.rest.model</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Admin.html#org.apache.hadoop.hbase.rest.model">Admin</a>
+<div class="block">The administrative API for HBase.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.rest.model">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.security.access">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/security/access/package-summary.html">org.apache.hadoop.hbase.security.access</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.security.access">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.security.access">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.security.access">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.security.access">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.security.access">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.security.access">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.security.access">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.security.access">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.security.access">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.security.access">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.security.token">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/security/token/package-summary.html">org.apache.hadoop.hbase.security.token</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.security.token">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.security.visibility">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/security/visibility/package-summary.html">org.apache.hadoop.hbase.security.visibility</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.security.visibility">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.security.visibility">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.security.visibility">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.security.visibility">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.security.visibility">Mutation</a>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.security.visibility">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.security.visibility">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.snapshot">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/snapshot/package-summary.html">org.apache.hadoop.hbase.snapshot</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.snapshot">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.thrift">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/thrift/package-summary.html">org.apache.hadoop.hbase.thrift</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Append.html#org.apache.hadoop.hbase.thrift">Append</a>
+<div class="block">Performs Append operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Increment.html#org.apache.hadoop.hbase.thrift">Increment</a>
+<div class="block">Used to perform Increment operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Result.html#org.apache.hadoop.hbase.thrift">Result</a>
+<div class="block">Single row result of a <a href="../../../../../org/apache/hadoop/hbase/client/Get.html" title="class in org.apache.hadoop.hbase.client"><code>Get</code></a> or <a href="../../../../../org/apache/hadoop/hbase/client/Scan.html" title="class in org.apache.hadoop.hbase.client"><code>Scan</code></a> query.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ResultScanner.html#org.apache.hadoop.hbase.thrift">ResultScanner</a>
+<div class="block">Interface for client-side scanning.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase.thrift">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.thrift2">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/thrift2/package-summary.html">org.apache.hadoop.hbase.thrift2</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Delete.html#org.apache.hadoop.hbase.thrift2">Delete</a>
+<div class="block">Used to perform Delete operations on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Get.html#org.apache.hadoop.hbase.thrift2">Get</a>
+<div class="block">Used to perform Get operations on a single row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Put.html#org.apache.hadoop.hbase.thrift2">Put</a>
+<div class="block">Used to perform Put operations for a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/ResultScanner.html#org.apache.hadoop.hbase.thrift2">ResultScanner</a>
+<div class="block">Interface for client-side scanning.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RowMutations.html#org.apache.hadoop.hbase.thrift2">RowMutations</a>
+<div class="block">Performs multiple mutations atomically on a single row.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Scan.html#org.apache.hadoop.hbase.thrift2">Scan</a>
+<div class="block">Used to perform Scan operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.tool">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/tool/package-summary.html">org.apache.hadoop.hbase.tool</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Admin.html#org.apache.hadoop.hbase.tool">Admin</a>
+<div class="block">The administrative API for HBase.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Connection.html#org.apache.hadoop.hbase.tool">Connection</a>
+<div class="block">A cluster connection encapsulating lower level individual connections to actual servers and
+ a connection to zookeeper.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.tool">Mutation</a>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.util">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/util/package-summary.html">org.apache.hadoop.hbase.util</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Admin.html#org.apache.hadoop.hbase.util">Admin</a>
+<div class="block">The administrative API for HBase.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnection.html#org.apache.hadoop.hbase.util">HConnection</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HTable.html#org.apache.hadoop.hbase.util">HTable</a>
+<div class="block">An implementation of <a href="../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client"><code>Table</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RegionLocator.html#org.apache.hadoop.hbase.util">RegionLocator</a>
+<div class="block">Used to view region location information for a single HBase table.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/RegionReplicaUtil.html#org.apache.hadoop.hbase.util">RegionReplicaUtil</a>
+<div class="block">Utility methods which contain the logic for regions and replicas.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Row.html#org.apache.hadoop.hbase.util">Row</a>
+<div class="block">Has a row.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Table.html#org.apache.hadoop.hbase.util">Table</a>
+<div class="block">Used to communicate with a single HBase table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.wal">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/wal/package-summary.html">org.apache.hadoop.hbase.wal</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Durability.html#org.apache.hadoop.hbase.wal">Durability</a>
+<div class="block">Enum describing the durability guarantees for tables and <a href="../../../../../org/apache/hadoop/hbase/client/Mutation.html" title="class in org.apache.hadoop.hbase.client"><code>Mutation</code></a>s
+ Note that the items must be sorted in order of increasing durability</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/Mutation.html#org.apache.hadoop.hbase.wal">Mutation</a>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.zookeeper">
+<!--   -->
+</a>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> used by <a href="../../../../../org/apache/hadoop/hbase/zookeeper/package-summary.html">org.apache.hadoop.hbase.zookeeper</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="../../../../../org/apache/hadoop/hbase/client/class-use/HConnection.html#org.apache.hadoop.hbase.zookeeper">HConnection</a>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>in favor of <a href="../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client"><code>Connection</code></a> and <a href="../../../../../org/apache/hadoop/hbase/client/ConnectionFactory.html" title="class in org.apache.hadoop.hbase.client"><code>ConnectionFactory</code></a></i></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li>Class</li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/client/package-use.html" target="_top">Frames</a></li>
+<li><a href="package-use.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

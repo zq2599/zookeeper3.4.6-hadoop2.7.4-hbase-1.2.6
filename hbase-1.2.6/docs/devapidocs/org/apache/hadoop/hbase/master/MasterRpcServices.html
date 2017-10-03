@@ -1,0 +1,1655 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MasterRpcServices (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="MasterRpcServices (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/MasterRpcServices.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/master/MasterFileSystem.html" title="class in org.apache.hadoop.hbase.master"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/master/MasterRpcServices.html" target="_top">Frames</a></li>
+<li><a href="MasterRpcServices.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#fields_inherited_from_class_org.apache.hadoop.hbase.regionserver.RSRpcServices">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.master</div>
+<h2 title="Class MasterRpcServices" class="title">Class MasterRpcServices</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">org.apache.hadoop.hbase.regionserver.RSRpcServices</a></li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.master.MasterRpcServices</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="../../../../../org/apache/hadoop/hbase/conf/ConfigurationObserver.html" title="interface in org.apache.hadoop.hbase.conf">ConfigurationObserver</a>, <a href="../../../../../org/apache/hadoop/hbase/ipc/HBaseRPCErrorHandler.html" title="interface in org.apache.hadoop.hbase.ipc">HBaseRPCErrorHandler</a>, <a href="../../../../../org/apache/hadoop/hbase/ipc/PriorityFunction.html" title="interface in org.apache.hadoop.hbase.ipc">PriorityFunction</a>, org.apache.hadoop.hbase.protobuf.generated.AdminProtos.AdminService.BlockingInterface, org.apache.hadoop.hbase.protobuf.generated.ClientProtos.ClientService.BlockingInterface, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</dd>
+</dl>
+<hr>
+<br>
+<pre><a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.Private.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceAudience.Private</a>
+public class <span class="strong">MasterRpcServices</span>
+extends <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a>
+implements org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</pre>
+<div class="block">Implements the master RPC services.</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_org.apache.hadoop.hbase.regionserver.RSRpcServices">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;org.apache.hadoop.hbase.regionserver.<a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#REGION_SERVER_RPC_SCHEDULER_FACTORY_CLASS">REGION_SERVER_RPC_SCHEDULER_FACTORY_CLASS</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#MasterRpcServices(org.apache.hadoop.hbase.master.HMaster)">MasterRpcServices</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html" title="class in org.apache.hadoop.hbase.master">HMaster</a>&nbsp;m)</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AbortProcedureResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#abortProcedure(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AbortProcedureRequest)">abortProcedure</a></strong>(com.google.protobuf.RpcController&nbsp;rpcController,
+              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AbortProcedureRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AddColumnResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#addColumn(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AddColumnRequest)">addColumn</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+         org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AddColumnRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AssignRegionResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#assignRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AssignRegionRequest)">assignRegion</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AssignRegionRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.BalanceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#balance(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.BalanceRequest)">balance</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+       org.apache.hadoop.hbase.protobuf.generated.MasterProtos.BalanceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateNamespaceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#createNamespace(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateNamespaceRequest)">createNamespace</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateNamespaceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../org/apache/hadoop/hbase/ipc/PriorityFunction.html" title="interface in org.apache.hadoop.hbase.ipc">PriorityFunction</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#createPriority()">createPriority</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateTableResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#createTable(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateTableRequest)">createTable</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+           org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateTableRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteColumnResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#deleteColumn(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteColumnRequest)">deleteColumn</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteColumnRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteNamespaceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#deleteNamespace(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteNamespaceRequest)">deleteNamespace</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteNamespaceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteSnapshotResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#deleteSnapshot(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteSnapshotRequest)">deleteSnapshot</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteSnapshotRequest&nbsp;request)</code>
+<div class="block">Execute Delete Snapshot operation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteTableResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#deleteTable(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteTableRequest)">deleteTable</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+           org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteTableRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DisableTableResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#disableTable(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DisableTableRequest)">disableTable</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DisableTableRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DispatchMergingRegionsResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#dispatchMergingRegions(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DispatchMergingRegionsRequest)">dispatchMergingRegions</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DispatchMergingRegionsRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableCatalogJanitorResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#enableCatalogJanitor(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableCatalogJanitorRequest)">enableCatalogJanitor</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableCatalogJanitorRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableTableResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#enableTable(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableTableRequest)">enableTable</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+           org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableTableRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#execMasterService(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest)">execMasterService</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                 org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#execProcedure(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest)">execProcedure</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+             org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest&nbsp;request)</code>
+<div class="block">Triggers an asynchronous attempt to run a distributed procedure.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#execProcedureWithRet(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest)">execProcedureWithRet</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest&nbsp;request)</code>
+<div class="block">Triggers a synchronous attempt to run a distributed procedure and sets
+ return data in response.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetClusterStatusResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getClusterStatus(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetClusterStatusRequest)">getClusterStatus</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetClusterStatusRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetCompletedSnapshotsResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getCompletedSnapshots(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetCompletedSnapshotsRequest)">getCompletedSnapshots</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                     org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetCompletedSnapshotsRequest&nbsp;request)</code>
+<div class="block">List the currently available/stored snapshots.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.GetLastFlushedSequenceIdResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getLastFlushedSequenceId(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.GetLastFlushedSequenceIdRequest)">getLastFlushedSequenceId</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                        org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.GetLastFlushedSequenceIdRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getLastMajorCompactionTimestamp(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampRequest)">getLastMajorCompactionTimestamp</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getLastMajorCompactionTimestampForRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampForRegionRequest)">getLastMajorCompactionTimestampForRegion</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampForRegionRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetNamespaceDescriptorResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getNamespaceDescriptor(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetNamespaceDescriptorRequest)">getNamespaceDescriptor</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetNamespaceDescriptorRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetProcedureResultResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getProcedureResult(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetProcedureResultRequest)">getProcedureResult</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                  org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetProcedureResultRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetSchemaAlterStatusResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getSchemaAlterStatus(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetSchemaAlterStatusRequest)">getSchemaAlterStatus</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetSchemaAlterStatusRequest&nbsp;req)</code>
+<div class="block">Get the number of regions of the table that have been updated by the alter.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SecurityCapabilitiesResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getSecurityCapabilities(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SecurityCapabilitiesRequest)">getSecurityCapabilities</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                       org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SecurityCapabilitiesRequest&nbsp;request)</code>
+<div class="block">Returns the security capabilities in effect on the cluster</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ipc/RpcServer.BlockingServiceAndInterface.html" title="class in org.apache.hadoop.hbase.ipc">RpcServer.BlockingServiceAndInterface</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getServices()">getServices</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableDescriptorsResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getTableDescriptors(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableDescriptorsRequest)">getTableDescriptors</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                   org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableDescriptorsRequest&nbsp;req)</code>
+<div class="block">Get list of TableDescriptors for requested tables.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableNamesResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#getTableNames(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableNamesRequest)">getTableNames</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+             org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableNamesRequest&nbsp;req)</code>
+<div class="block">Get list of userspace table names</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsBalancerEnabledResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isBalancerEnabled(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsBalancerEnabledRequest)">isBalancerEnabled</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                 org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsBalancerEnabledRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsCatalogJanitorEnabledResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isCatalogJanitorEnabled(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsCatalogJanitorEnabledRequest)">isCatalogJanitorEnabled</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                       org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsCatalogJanitorEnabledRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsMasterRunningResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isMasterRunning(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsMasterRunningRequest)">isMasterRunning</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsMasterRunningRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsNormalizerEnabledResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isNormalizerEnabled(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsNormalizerEnabledRequest)">isNormalizerEnabled</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                   org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsNormalizerEnabledRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsProcedureDoneResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isProcedureDone(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsProcedureDoneRequest)">isProcedureDone</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsProcedureDoneRequest&nbsp;request)</code>
+<div class="block">Checks if the specified procedure is done.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsRestoreSnapshotDoneResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isRestoreSnapshotDone(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsRestoreSnapshotDoneRequest)">isRestoreSnapshotDone</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                     org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsRestoreSnapshotDoneRequest&nbsp;request)</code>
+<div class="block">Returns the status of the requested snapshot restore/clone operation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsSnapshotDoneResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#isSnapshotDone(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsSnapshotDoneRequest)">isSnapshotDone</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsSnapshotDoneRequest&nbsp;request)</code>
+<div class="block">Checks if the specified snapshot is done.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListNamespaceDescriptorsResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#listNamespaceDescriptors(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListNamespaceDescriptorsRequest)">listNamespaceDescriptors</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListNamespaceDescriptorsRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListProceduresResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#listProcedures(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListProceduresRequest)">listProcedures</a></strong>(com.google.protobuf.RpcController&nbsp;rpcController,
+              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListProceduresRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableDescriptorsByNamespaceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#listTableDescriptorsByNamespace(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableDescriptorsByNamespaceRequest)">listTableDescriptorsByNamespace</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableDescriptorsByNamespaceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableNamesByNamespaceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#listTableNamesByNamespace(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableNamesByNamespaceRequest)">listTableNamesByNamespace</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                         org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableNamesByNamespaceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyColumnResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#modifyColumn(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyColumnRequest)">modifyColumn</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyColumnRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyNamespaceResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#modifyNamespace(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyNamespaceRequest)">modifyNamespace</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyNamespaceRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyTableResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#modifyTable(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyTableRequest)">modifyTable</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+           org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyTableRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MoveRegionResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#moveRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MoveRegionRequest)">moveRegion</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MoveRegionRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.NormalizeResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#normalize(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.NormalizeRequest)">normalize</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+         org.apache.hadoop.hbase.protobuf.generated.MasterProtos.NormalizeRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#normalizerSwitch(boolean)">normalizerSwitch</a></strong>(boolean&nbsp;on)</code>
+<div class="block">Sets normalizer on/off flag in ZK.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.OfflineRegionResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#offlineRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.OfflineRegionRequest)">offlineRegion</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+             org.apache.hadoop.hbase.protobuf.generated.MasterProtos.OfflineRegionRequest&nbsp;request)</code>
+<div class="block">Offline specified region from master's in-memory state.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerReportResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#regionServerReport(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerReportRequest)">regionServerReport</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                  org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerReportRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#regionServerStartup(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupRequest)">regionServerStartup</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                   org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#reportRegionStateTransition(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionRequest)">reportRegionStateTransition</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                           org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRSFatalErrorResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#reportRSFatalError(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRSFatalErrorRequest)">reportRSFatalError</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                  org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRSFatalErrorRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RestoreSnapshotResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#restoreSnapshot(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RestoreSnapshotRequest)">restoreSnapshot</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+               org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RestoreSnapshotRequest&nbsp;request)</code>
+<div class="block">Execute Restore/Clone snapshot operation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RunCatalogScanResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#runCatalogScan(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RunCatalogScanRequest)">runCatalogScan</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RunCatalogScanRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetBalancerRunningResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#setBalancerRunning(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetBalancerRunningRequest)">setBalancerRunning</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+                  org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetBalancerRunningRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetNormalizerRunningResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#setNormalizerRunning(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetNormalizerRunningRequest)">setNormalizerRunning</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetNormalizerRunningRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetQuotaResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#setQuota(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetQuotaRequest)">setQuota</a></strong>(com.google.protobuf.RpcController&nbsp;c,
+        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetQuotaRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ShutdownResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#shutdown(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ShutdownRequest)">shutdown</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ShutdownRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#snapshot(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotRequest)">snapshot</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotRequest&nbsp;request)</code>
+<div class="block">Triggers an asynchronous attempt to take a snapshot.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.StopMasterResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#stopMaster(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.StopMasterRequest)">stopMaster</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.StopMasterRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.TruncateTableResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#truncateTable(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.TruncateTableRequest)">truncateTable</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+             org.apache.hadoop.hbase.protobuf.generated.MasterProtos.TruncateTableRequest&nbsp;request)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.UnassignRegionResponse</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html#unassignRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.MasterProtos.UnassignRegionRequest)">unassignRegion</a></strong>(com.google.protobuf.RpcController&nbsp;controller,
+              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.UnassignRegionRequest&nbsp;req)</code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.regionserver.RSRpcServices">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.regionserver.<a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#bulkLoadHFile(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.BulkLoadHFileRequest)">bulkLoadHFile</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#checkOOME(java.lang.Throwable)">checkOOME</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#checkOpen()">checkOpen</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#closeRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.CloseRegionRequest)">closeRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#compactRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.CompactRegionRequest)">compactRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#execRegionServerService(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest)">execRegionServerService</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#execService(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest)">execService</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#exitIfOOME(java.lang.Throwable)">exitIfOOME</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#flushRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.FlushRegionRequest)">flushRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#get(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.GetRequest)">get</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getConfiguration()">getConfiguration</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getDeadline(org.apache.hadoop.hbase.protobuf.generated.RPCProtos.RequestHeader,%20com.google.protobuf.Message)">getDeadline</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getHostname(org.apache.hadoop.conf.Configuration,%20boolean)">getHostname</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getOnlineRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetOnlineRegionRequest)">getOnlineRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getPriority()">getPriority</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getPriority(org.apache.hadoop.hbase.protobuf.generated.RPCProtos.RequestHeader,%20com.google.protobuf.Message,%20org.apache.hadoop.hbase.security.User)">getPriority</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getRegionInfo(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetRegionInfoRequest)">getRegionInfo</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getScanDetailsWithId(long)">getScanDetailsWithId</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getServerInfo(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetServerInfoRequest)">getServerInfo</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getSocketAddress()">getSocketAddress</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getStoreFile(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetStoreFileRequest)">getStoreFile</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#mergeRegions(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.MergeRegionsRequest)">mergeRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#multi(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.MultiRequest)">multi</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#mutate(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.MutateRequest)">mutate</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#onConfigurationChange(org.apache.hadoop.conf.Configuration)">onConfigurationChange</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#openRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.OpenRegionRequest)">openRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#replay(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.ReplicateWALEntryRequest)">replay</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#replicateWALEntry(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.ReplicateWALEntryRequest)">replicateWALEntry</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#rollWALWriter(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.RollWALWriterRequest)">rollWALWriter</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#scan(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.ScanRequest)">scan</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#splitRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.SplitRegionRequest)">splitRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#stopServer(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.StopServerRequest)">stopServer</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#updateConfiguration(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.UpdateConfigurationRequest)">updateConfiguration</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#updateFavoredNodes(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.UpdateFavoredNodesRequest)">updateFavoredNodes</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#warmupRegion(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.AdminProtos.WarmupRegionRequest)">warmupRegion</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="MasterRpcServices(org.apache.hadoop.hbase.master.HMaster)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>MasterRpcServices</h4>
+<pre>public&nbsp;MasterRpcServices(<a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html" title="class in org.apache.hadoop.hbase.master">HMaster</a>&nbsp;m)
+                  throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="createPriority()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createPriority</h4>
+<pre>protected&nbsp;<a href="../../../../../org/apache/hadoop/hbase/ipc/PriorityFunction.html" title="interface in org.apache.hadoop.hbase.ipc">PriorityFunction</a>&nbsp;createPriority()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#createPriority()">createPriority</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="normalizerSwitch(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>normalizerSwitch</h4>
+<pre>public&nbsp;boolean&nbsp;normalizerSwitch(boolean&nbsp;on)</pre>
+<div class="block">Sets normalizer on/off flag in ZK.</div>
+</li>
+</ul>
+<a name="getServices()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServices</h4>
+<pre>protected&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ipc/RpcServer.BlockingServiceAndInterface.html" title="class in org.apache.hadoop.hbase.ipc">RpcServer.BlockingServiceAndInterface</a>&gt;&nbsp;getServices()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html#getServices()">getServices</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>list of blocking services and their security info classes that this server supports</dd></dl>
+</li>
+</ul>
+<a name="getLastFlushedSequenceId(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.GetLastFlushedSequenceIdRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastFlushedSequenceId</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.GetLastFlushedSequenceIdResponse&nbsp;getLastFlushedSequenceId(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                                            org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.GetLastFlushedSequenceIdRequest&nbsp;request)
+                                                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getLastFlushedSequenceId</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="regionServerReport(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerReportRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>regionServerReport</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerReportResponse&nbsp;regionServerReport(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                                org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerReportRequest&nbsp;request)
+                                                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>regionServerReport</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="regionServerStartup(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>regionServerStartup</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupResponse&nbsp;regionServerStartup(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                                  org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupRequest&nbsp;request)
+                                                                                                                    throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>regionServerStartup</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="reportRSFatalError(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRSFatalErrorRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>reportRSFatalError</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRSFatalErrorResponse&nbsp;reportRSFatalError(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                                org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRSFatalErrorRequest&nbsp;request)
+                                                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>reportRSFatalError</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="addColumn(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AddColumnRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addColumn</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AddColumnResponse&nbsp;addColumn(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                  org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AddColumnRequest&nbsp;req)
+                                                                                    throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>addColumn</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="assignRegion(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AssignRegionRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>assignRegion</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AssignRegionResponse&nbsp;assignRegion(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AssignRegionRequest&nbsp;req)
+                                                                                          throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>assignRegion</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="balance(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.BalanceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>balance</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.BalanceResponse&nbsp;balance(com.google.protobuf.RpcController&nbsp;controller,
+                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.BalanceRequest&nbsp;request)
+                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>balance</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="createNamespace(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateNamespaceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createNamespace</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateNamespaceResponse&nbsp;createNamespace(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateNamespaceRequest&nbsp;request)
+                                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>createNamespace</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="createTable(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateTableRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createTable</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateTableResponse&nbsp;createTable(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.CreateTableRequest&nbsp;req)
+                                                                                        throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>createTable</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="deleteColumn(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteColumnRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteColumn</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteColumnResponse&nbsp;deleteColumn(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteColumnRequest&nbsp;req)
+                                                                                          throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>deleteColumn</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="deleteNamespace(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteNamespaceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteNamespace</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteNamespaceResponse&nbsp;deleteNamespace(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteNamespaceRequest&nbsp;request)
+                                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>deleteNamespace</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="deleteSnapshot(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteSnapshotRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteSnapshot</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteSnapshotResponse&nbsp;deleteSnapshot(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteSnapshotRequest&nbsp;request)
+                                                                                              throws com.google.protobuf.ServiceException</pre>
+<div class="block">Execute Delete Snapshot operation.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>deleteSnapshot</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>DeleteSnapshotResponse (a protobuf wrapped void) if the snapshot existed and was
+    deleted properly.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code> - wrapping SnapshotDoesNotExistException if specified snapshot did not
+    exist.</dd></dl>
+</li>
+</ul>
+<a name="deleteTable(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteTableRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteTable</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteTableResponse&nbsp;deleteTable(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DeleteTableRequest&nbsp;request)
+                                                                                        throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>deleteTable</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="truncateTable(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.TruncateTableRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>truncateTable</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.TruncateTableResponse&nbsp;truncateTable(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.TruncateTableRequest&nbsp;request)
+                                                                                            throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>truncateTable</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="disableTable(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DisableTableRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>disableTable</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DisableTableResponse&nbsp;disableTable(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DisableTableRequest&nbsp;request)
+                                                                                          throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>disableTable</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="dispatchMergingRegions(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DispatchMergingRegionsRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dispatchMergingRegions</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DispatchMergingRegionsResponse&nbsp;dispatchMergingRegions(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.DispatchMergingRegionsRequest&nbsp;request)
+                                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>dispatchMergingRegions</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="enableCatalogJanitor(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableCatalogJanitorRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>enableCatalogJanitor</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableCatalogJanitorResponse&nbsp;enableCatalogJanitor(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableCatalogJanitorRequest&nbsp;req)
+                                                                                                          throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>enableCatalogJanitor</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="enableTable(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableTableRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>enableTable</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableTableResponse&nbsp;enableTable(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.EnableTableRequest&nbsp;request)
+                                                                                        throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>enableTable</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="execMasterService(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>execMasterService</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceResponse&nbsp;execMasterService(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                   org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest&nbsp;request)
+                                                                                                     throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>execMasterService</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="execProcedure(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>execProcedure</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureResponse&nbsp;execProcedure(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest&nbsp;request)
+                                                                                            throws com.google.protobuf.ServiceException</pre>
+<div class="block">Triggers an asynchronous attempt to run a distributed procedure.
+ </div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>execProcedure</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="execProcedureWithRet(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>execProcedureWithRet</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureResponse&nbsp;execProcedureWithRet(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                 org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ExecProcedureRequest&nbsp;request)
+                                                                                                   throws com.google.protobuf.ServiceException</pre>
+<div class="block">Triggers a synchronous attempt to run a distributed procedure and sets
+ return data in response.
+ </div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>execProcedureWithRet</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getClusterStatus(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetClusterStatusRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getClusterStatus</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetClusterStatusResponse&nbsp;getClusterStatus(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetClusterStatusRequest&nbsp;req)
+                                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getClusterStatus</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getCompletedSnapshots(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetCompletedSnapshotsRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCompletedSnapshots</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetCompletedSnapshotsResponse&nbsp;getCompletedSnapshots(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetCompletedSnapshotsRequest&nbsp;request)
+                                                                                                            throws com.google.protobuf.ServiceException</pre>
+<div class="block">List the currently available/stored snapshots. Any in-progress snapshots are ignored</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getCompletedSnapshots</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getNamespaceDescriptor(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetNamespaceDescriptorRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNamespaceDescriptor</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetNamespaceDescriptorResponse&nbsp;getNamespaceDescriptor(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetNamespaceDescriptorRequest&nbsp;request)
+                                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getNamespaceDescriptor</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getSchemaAlterStatus(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetSchemaAlterStatusRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSchemaAlterStatus</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetSchemaAlterStatusResponse&nbsp;getSchemaAlterStatus(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetSchemaAlterStatusRequest&nbsp;req)
+                                                                                                          throws com.google.protobuf.ServiceException</pre>
+<div class="block">Get the number of regions of the table that have been updated by the alter.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getSchemaAlterStatus</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Pair indicating the number of regions updated Pair.getFirst is the
+         regions that are yet to be updated Pair.getSecond is the total number
+         of regions of the table</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getTableDescriptors(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableDescriptorsRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTableDescriptors</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableDescriptorsResponse&nbsp;getTableDescriptors(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableDescriptorsRequest&nbsp;req)
+                                                                                                        throws com.google.protobuf.ServiceException</pre>
+<div class="block">Get list of TableDescriptors for requested tables.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getTableDescriptors</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - Unused (set to null).</dd><dd><code>req</code> - GetTableDescriptorsRequest that contains:
+ - tableNames: requested tables, or if empty, all are requested</dd>
+<dt><span class="strong">Returns:</span></dt><dd>GetTableDescriptorsResponse</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getTableNames(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableNamesRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTableNames</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableNamesResponse&nbsp;getTableNames(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetTableNamesRequest&nbsp;req)
+                                                                                            throws com.google.protobuf.ServiceException</pre>
+<div class="block">Get list of userspace table names</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getTableNames</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>controller</code> - Unused (set to null).</dd><dd><code>req</code> - GetTableNamesRequest</dd>
+<dt><span class="strong">Returns:</span></dt><dd>GetTableNamesResponse</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="isCatalogJanitorEnabled(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsCatalogJanitorEnabledRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isCatalogJanitorEnabled</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsCatalogJanitorEnabledResponse&nbsp;isCatalogJanitorEnabled(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsCatalogJanitorEnabledRequest&nbsp;req)
+                                                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isCatalogJanitorEnabled</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="isMasterRunning(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsMasterRunningRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isMasterRunning</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsMasterRunningResponse&nbsp;isMasterRunning(com.google.protobuf.RpcController&nbsp;c,
+                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsMasterRunningRequest&nbsp;req)
+                                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isMasterRunning</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="isProcedureDone(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsProcedureDoneRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isProcedureDone</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsProcedureDoneResponse&nbsp;isProcedureDone(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsProcedureDoneRequest&nbsp;request)
+                                                                                                throws com.google.protobuf.ServiceException</pre>
+<div class="block">Checks if the specified procedure is done.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isProcedureDone</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the procedure is done,
+   false if the procedure is in the process of completing</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code> - if invalid procedure, or
+  a failed procedure with progress failure reason.</dd></dl>
+</li>
+</ul>
+<a name="isRestoreSnapshotDone(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsRestoreSnapshotDoneRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRestoreSnapshotDone</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsRestoreSnapshotDoneResponse&nbsp;isRestoreSnapshotDone(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsRestoreSnapshotDoneRequest&nbsp;request)
+                                                                                                            throws com.google.protobuf.ServiceException</pre>
+<div class="block">Returns the status of the requested snapshot restore/clone operation.
+ This method is not exposed to the user, it is just used internally by HBaseAdmin
+ to verify if the restore is completed.
+
+ No exceptions are thrown if the restore is not running, the result will be "done".</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isRestoreSnapshotDone</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>done <tt>true</tt> if the restore/clone operation is completed.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code> - if the operation failed.</dd></dl>
+</li>
+</ul>
+<a name="isSnapshotDone(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsSnapshotDoneRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isSnapshotDone</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsSnapshotDoneResponse&nbsp;isSnapshotDone(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsSnapshotDoneRequest&nbsp;request)
+                                                                                              throws com.google.protobuf.ServiceException</pre>
+<div class="block">Checks if the specified snapshot is done.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isSnapshotDone</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the snapshot is in file system ready to use,
+   false if the snapshot is in the process of completing</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code> - wrapping UnknownSnapshotException if invalid snapshot, or
+  a wrapped HBaseSnapshotException with progress failure reason.</dd></dl>
+</li>
+</ul>
+<a name="getProcedureResult(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetProcedureResultRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProcedureResult</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetProcedureResultResponse&nbsp;getProcedureResult(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.GetProcedureResultRequest&nbsp;request)
+                                                                                                      throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getProcedureResult</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="abortProcedure(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AbortProcedureRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abortProcedure</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AbortProcedureResponse&nbsp;abortProcedure(com.google.protobuf.RpcController&nbsp;rpcController,
+                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.AbortProcedureRequest&nbsp;request)
+                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>abortProcedure</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="listProcedures(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListProceduresRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listProcedures</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListProceduresResponse&nbsp;listProcedures(com.google.protobuf.RpcController&nbsp;rpcController,
+                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListProceduresRequest&nbsp;request)
+                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>listProcedures</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="listNamespaceDescriptors(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListNamespaceDescriptorsRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listNamespaceDescriptors</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListNamespaceDescriptorsResponse&nbsp;listNamespaceDescriptors(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListNamespaceDescriptorsRequest&nbsp;request)
+                                                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>listNamespaceDescriptors</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="listTableDescriptorsByNamespace(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableDescriptorsByNamespaceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listTableDescriptorsByNamespace</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableDescriptorsByNamespaceResponse&nbsp;listTableDescriptorsByNamespace(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableDescriptorsByNamespaceRequest&nbsp;request)
+                                                                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>listTableDescriptorsByNamespace</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="listTableNamesByNamespace(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableNamesByNamespaceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listTableNamesByNamespace</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableNamesByNamespaceResponse&nbsp;listTableNamesByNamespace(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                                  org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ListTableNamesByNamespaceRequest&nbsp;request)
+                                                                                                                    throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>listTableNamesByNamespace</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="modifyColumn(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyColumnRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>modifyColumn</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyColumnResponse&nbsp;modifyColumn(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyColumnRequest&nbsp;req)
+                                                                                          throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>modifyColumn</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="modifyNamespace(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyNamespaceRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>modifyNamespace</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyNamespaceResponse&nbsp;modifyNamespace(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyNamespaceRequest&nbsp;request)
+                                                                                                throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>modifyNamespace</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="modifyTable(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyTableRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>modifyTable</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyTableResponse&nbsp;modifyTable(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ModifyTableRequest&nbsp;req)
+                                                                                        throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>modifyTable</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="moveRegion(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MoveRegionRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>moveRegion</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MoveRegionResponse&nbsp;moveRegion(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MoveRegionRequest&nbsp;req)
+                                                                                      throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>moveRegion</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="offlineRegion(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.OfflineRegionRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>offlineRegion</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.OfflineRegionResponse&nbsp;offlineRegion(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                          org.apache.hadoop.hbase.protobuf.generated.MasterProtos.OfflineRegionRequest&nbsp;request)
+                                                                                            throws com.google.protobuf.ServiceException</pre>
+<div class="block">Offline specified region from master's in-memory state. It will not attempt to
+ reassign the region as in unassign.
+
+ This is a special method that should be used by experts or hbck.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>offlineRegion</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="restoreSnapshot(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RestoreSnapshotRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>restoreSnapshot</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RestoreSnapshotResponse&nbsp;restoreSnapshot(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                              org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RestoreSnapshotRequest&nbsp;request)
+                                                                                                throws com.google.protobuf.ServiceException</pre>
+<div class="block">Execute Restore/Clone snapshot operation.
+
+ <p>If the specified table exists a "Restore" is executed, replacing the table
+ schema and directory data with the content of the snapshot.
+ The table must be disabled, or a UnsupportedOperationException will be thrown.
+
+ <p>If the table doesn't exist a "Clone" is executed, a new table is created
+ using the schema at the time of the snapshot, and the content of the snapshot.
+
+ <p>The restore/clone operation does not require copying HFiles. Since HFiles
+ are immutable the table can point to and use the same files as the original one.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>restoreSnapshot</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="runCatalogScan(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RunCatalogScanRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>runCatalogScan</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RunCatalogScanResponse&nbsp;runCatalogScan(com.google.protobuf.RpcController&nbsp;c,
+                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.RunCatalogScanRequest&nbsp;req)
+                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>runCatalogScan</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="setBalancerRunning(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetBalancerRunningRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBalancerRunning</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetBalancerRunningResponse&nbsp;setBalancerRunning(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetBalancerRunningRequest&nbsp;req)
+                                                                                                      throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setBalancerRunning</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="shutdown(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ShutdownRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>shutdown</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ShutdownResponse&nbsp;shutdown(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.ShutdownRequest&nbsp;request)
+                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>shutdown</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="snapshot(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>snapshot</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotResponse&nbsp;snapshot(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotRequest&nbsp;request)
+                                                                                  throws com.google.protobuf.ServiceException</pre>
+<div class="block">Triggers an asynchronous attempt to take a snapshot.
+ </div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>snapshot</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="stopMaster(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.StopMasterRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>stopMaster</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.StopMasterResponse&nbsp;stopMaster(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                    org.apache.hadoop.hbase.protobuf.generated.MasterProtos.StopMasterRequest&nbsp;request)
+                                                                                      throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>stopMaster</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="unassignRegion(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.UnassignRegionRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unassignRegion</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.UnassignRegionResponse&nbsp;unassignRegion(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                            org.apache.hadoop.hbase.protobuf.generated.MasterProtos.UnassignRegionRequest&nbsp;req)
+                                                                                              throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>unassignRegion</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="reportRegionStateTransition(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>reportRegionStateTransition</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionResponse&nbsp;reportRegionStateTransition(com.google.protobuf.RpcController&nbsp;c,
+                                                                                                                                  org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionRequest&nbsp;req)
+                                                                                                                                    throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>reportRegionStateTransition</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStatusService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getLastMajorCompactionTimestamp(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastMajorCompactionTimestamp</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampResponse&nbsp;getLastMajorCompactionTimestamp(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                                       org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampRequest&nbsp;request)
+                                                                                                                         throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getLastMajorCompactionTimestamp</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getLastMajorCompactionTimestampForRegion(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampForRegionRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastMajorCompactionTimestampForRegion</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampResponse&nbsp;getLastMajorCompactionTimestampForRegion(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                                                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MajorCompactionTimestampForRegionRequest&nbsp;request)
+                                                                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getLastMajorCompactionTimestampForRegion</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="isBalancerEnabled(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsBalancerEnabledRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isBalancerEnabled</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsBalancerEnabledResponse&nbsp;isBalancerEnabled(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                  org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsBalancerEnabledRequest&nbsp;request)
+                                                                                                    throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isBalancerEnabled</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="normalize(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.NormalizeRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>normalize</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.NormalizeResponse&nbsp;normalize(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                  org.apache.hadoop.hbase.protobuf.generated.MasterProtos.NormalizeRequest&nbsp;request)
+                                                                                    throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>normalize</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="setNormalizerRunning(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetNormalizerRunningRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setNormalizerRunning</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetNormalizerRunningResponse&nbsp;setNormalizerRunning(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                        org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetNormalizerRunningRequest&nbsp;request)
+                                                                                                          throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setNormalizerRunning</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="isNormalizerEnabled(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsNormalizerEnabledRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isNormalizerEnabled</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsNormalizerEnabledResponse&nbsp;isNormalizerEnabled(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                      org.apache.hadoop.hbase.protobuf.generated.MasterProtos.IsNormalizerEnabledRequest&nbsp;request)
+                                                                                                        throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>isNormalizerEnabled</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="setQuota(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetQuotaRequest)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setQuota</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetQuotaResponse&nbsp;setQuota(com.google.protobuf.RpcController&nbsp;c,
+                                                                                org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SetQuotaRequest&nbsp;req)
+                                                                                  throws com.google.protobuf.ServiceException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setQuota</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+<a name="getSecurityCapabilities(com.google.protobuf.RpcController, org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SecurityCapabilitiesRequest)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getSecurityCapabilities</h4>
+<pre>public&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SecurityCapabilitiesResponse&nbsp;getSecurityCapabilities(com.google.protobuf.RpcController&nbsp;controller,
+                                                                                                           org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SecurityCapabilitiesRequest&nbsp;request)
+                                                                                                             throws com.google.protobuf.ServiceException</pre>
+<div class="block">Returns the security capabilities in effect on the cluster</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getSecurityCapabilities</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService.BlockingInterface</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>com.google.protobuf.ServiceException</code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/MasterRpcServices.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/master/MasterFileSystem.html" title="class in org.apache.hadoop.hbase.master"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/master/MasterRpcServices.html" target="_top">Frames</a></li>
+<li><a href="MasterRpcServices.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#fields_inherited_from_class_org.apache.hadoop.hbase.regionserver.RSRpcServices">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

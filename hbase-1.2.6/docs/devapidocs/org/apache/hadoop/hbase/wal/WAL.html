@@ -1,0 +1,603 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>WAL (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="WAL (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/WAL.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/wal/DefaultWALProvider.Writer.html" title="interface in org.apache.hadoop.hbase.wal"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/wal/WAL.html" target="_top">Frames</a></li>
+<li><a href="WAL.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.wal</div>
+<h2 title="Interface WAL" class="title">Interface WAL</h2>
+</div>
+<div class="contentContainer">
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Superinterfaces:</dt>
+<dd><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang">AutoCloseable</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></dd>
+</dl>
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FSHLog</a></dd>
+</dl>
+<hr>
+<br>
+<pre><a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.Private.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceAudience.Private</a>
+<a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Evolving.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceStability.Evolving</a>
+public interface <span class="strong">WAL</span>
+extends <a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></pre>
+<div class="block">A Write Ahead Log (WAL) provides service for reading, writing waledits. This interface provides
+ APIs for WAL users (such as RegionServer) to use the WAL (do append, sync, etc).
+
+ Note that some internals, such as log rolling and performance evaluation tools, will use
+ WAL.equals to determine if they have already seen a given WAL.</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Nested Class Summary table, listing nested classes, and an explanation">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Interface and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal">WAL.Entry</a></strong></code>
+<div class="block">Utility class that lets us keep track of the edit with it's key.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.Reader.html" title="interface in org.apache.hadoop.hbase.wal">WAL.Reader</a></strong></code>
+<div class="block">When outside clients need to consume persisted WALs, they rely on a provided
+ Reader.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])">abortCacheFlush</a></strong>(byte[]&nbsp;encodedRegionName)</code>
+<div class="block">Abort a cache flush.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#append(org.apache.hadoop.hbase.HTableDescriptor,%20org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.wal.WALKey,%20org.apache.hadoop.hbase.regionserver.wal.WALEdit,%20boolean)">append</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;htd,
+      <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;info,
+      <a href="../../../../../org/apache/hadoop/hbase/wal/WALKey.html" title="class in org.apache.hadoop.hbase.wal">WALKey</a>&nbsp;key,
+      <a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALEdit.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALEdit</a>&nbsp;edits,
+      boolean&nbsp;inMemstore)</code>
+<div class="block">Append a set of edits to the WAL.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#close()">close</a></strong>()</code>
+<div class="block">Caller no longer needs any edits from this WAL.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#completeCacheFlush(byte[])">completeCacheFlush</a></strong>(byte[]&nbsp;encodedRegionName)</code>
+<div class="block">Complete the cache flush.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALCoprocessorHost.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALCoprocessorHost</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#getCoprocessorHost()">getCoprocessorHost</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[])">getEarliestMemstoreSeqNum</a></strong>(byte[]&nbsp;encodedRegionName)</code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>Since version 1.2.0. Removing because not used and exposes subtle internal
+ workings. Use <a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[],%20byte[])"><code>getEarliestMemstoreSeqNum(byte[], byte[])</code></a></i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[],%20byte[])">getEarliestMemstoreSeqNum</a></strong>(byte[]&nbsp;encodedRegionName,
+                         byte[]&nbsp;familyName)</code>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the store.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#registerWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">registerWALActionsListener</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</code>
+<div class="block">Registers WALActionsListener</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>byte[][]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#rollWriter()">rollWriter</a></strong>()</code>
+<div class="block">Roll the log writer.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>byte[][]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#rollWriter(boolean)">rollWriter</a></strong>(boolean&nbsp;force)</code>
+<div class="block">Roll the log writer.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#shutdown()">shutdown</a></strong>()</code>
+<div class="block">Stop accepting new writes.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#startCacheFlush(byte[],%20java.util.Set)">startCacheFlush</a></strong>(byte[]&nbsp;encodedRegionName,
+               <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;byte[]&gt;&nbsp;families)</code>
+<div class="block">WAL keeps track of the sequence numbers that are as yet not flushed im memstores
+ in order to be able to do accounting to figure which WALs can be let go.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#sync()">sync</a></strong>()</code>
+<div class="block">Sync what we have in the WAL.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#sync(long)">sync</a></strong>(long&nbsp;txid)</code>
+<div class="block">Sync the WAL if the txId was not already sync'd.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#toString()">toString</a></strong>()</code>
+<div class="block">Human readable identifying information about the state of this WAL.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#unregisterWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">unregisterWALActionsListener</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</code>
+<div class="block">Unregisters WALActionsListener</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="registerWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>registerWALActionsListener</h4>
+<pre>void&nbsp;registerWALActionsListener(<a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</pre>
+<div class="block">Registers WALActionsListener</div>
+</li>
+</ul>
+<a name="unregisterWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unregisterWALActionsListener</h4>
+<pre>boolean&nbsp;unregisterWALActionsListener(<a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</pre>
+<div class="block">Unregisters WALActionsListener</div>
+</li>
+</ul>
+<a name="rollWriter()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rollWriter</h4>
+<pre>byte[][]&nbsp;rollWriter()
+                    throws <a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a>,
+                           <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Roll the log writer. That is, start writing log messages to a new file.
+
+ <p>
+ The implementation is synchronized in order to make sure there's one rollWriter
+ running at any given time.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>If lots of logs, flush the returned regions so next time through we
+         can clean logs. Returns null if nothing to flush. Names are actual
+         region names as returned by <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html#getEncodedName()"><code>HRegionInfo.getEncodedName()</code></a></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="rollWriter(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rollWriter</h4>
+<pre>byte[][]&nbsp;rollWriter(boolean&nbsp;force)
+                    throws <a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a>,
+                           <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Roll the log writer. That is, start writing log messages to a new file.
+
+ <p>
+ The implementation is synchronized in order to make sure there's one rollWriter
+ running at any given time.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>force</code> - If true, force creation of a new writer even if no entries have
+          been written to the current writer</dd>
+<dt><span class="strong">Returns:</span></dt><dd>If lots of logs, flush the returned regions so next time through we
+         can clean logs. Returns null if nothing to flush. Names are actual
+         region names as returned by <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html#getEncodedName()"><code>HRegionInfo.getEncodedName()</code></a></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="shutdown()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>shutdown</h4>
+<pre>void&nbsp;shutdown()
+              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Stop accepting new writes. If we have unsynced writes still in buffer, sync them.
+ Extant edits are left in place in backing storage to be replayed later.</div>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="close()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>close</h4>
+<pre>void&nbsp;close()
+           throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Caller no longer needs any edits from this WAL. Implementers are free to reclaim
+ underlying resources after this call; i.e. filesystem based WALs can archive or
+ delete files.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html?is-external=true#close()" title="class or interface in java.lang">close</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang">AutoCloseable</a></code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true#close()" title="class or interface in java.io">close</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="append(org.apache.hadoop.hbase.HTableDescriptor, org.apache.hadoop.hbase.HRegionInfo, org.apache.hadoop.hbase.wal.WALKey, org.apache.hadoop.hbase.regionserver.wal.WALEdit, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>append</h4>
+<pre>long&nbsp;append(<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;htd,
+          <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;info,
+          <a href="../../../../../org/apache/hadoop/hbase/wal/WALKey.html" title="class in org.apache.hadoop.hbase.wal">WALKey</a>&nbsp;key,
+          <a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALEdit.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALEdit</a>&nbsp;edits,
+          boolean&nbsp;inMemstore)
+            throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction
+ completes BUT on return this edit must have its region edit/sequence id assigned
+ else it messes up our unification of mvcc and sequenceid.  On return <code>key</code> will
+ have the region edit/sequence id filled in.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>info</code> - </dd><dd><code>key</code> - Modified by this call; we add to it this edits region edit/sequence id.</dd><dd><code>edits</code> - Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit
+ sequence id that is after all currently appended edits.</dd><dd><code>htd</code> - used to give scope for replication TODO refactor out in favor of table name and
+ info</dd><dd><code>inMemstore</code> - Always true except for case where we are writing a compaction completion
+ record into the WAL; in this case the entry is just so we can finish an unfinished compaction
+ -- it is not an edit for memstore.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns a 'transaction id' and <code>key</code> will have the region edit/sequence id
+ in it.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="sync()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sync</h4>
+<pre>void&nbsp;sync()
+          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Sync what we have in the WAL.</div>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="sync(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sync</h4>
+<pre>void&nbsp;sync(long&nbsp;txid)
+          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Sync the WAL if the txId was not already sync'd.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>txid</code> - Transaction id to sync to.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="startCacheFlush(byte[], java.util.Set)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>startCacheFlush</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;startCacheFlush(byte[]&nbsp;encodedRegionName,
+                   <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;byte[]&gt;&nbsp;families)</pre>
+<div class="block">WAL keeps track of the sequence numbers that are as yet not flushed im memstores
+ in order to be able to do accounting to figure which WALs can be let go. This method tells WAL
+ that some region is about to flush. The flush can be the whole region or for a column family
+ of the region only.
+
+ <p>Currently, it is expected that the update lock is held for the region; i.e. no
+ concurrent appends while we set up cache flush.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>families</code> - Families to flush. May be a subset of all families in the region.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns <a href="../../../../../org/apache/hadoop/hbase/HConstants.html#NO_SEQNUM"><code>HConstants.NO_SEQNUM</code></a> if we are flushing the whole region OR if
+ we are flushing a subset of all families but there are no edits in those families not
+ being flushed; in other words, this is effectively same as a flush of all of the region
+ though we were passed a subset of regions. Otherwise, it returns the sequence id of the
+ oldest/lowest outstanding edit.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#completeCacheFlush(byte[])"><code>completeCacheFlush(byte[])</code></a>, 
+<a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])"><code>abortCacheFlush(byte[])</code></a></dd></dl>
+</li>
+</ul>
+<a name="completeCacheFlush(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>completeCacheFlush</h4>
+<pre>void&nbsp;completeCacheFlush(byte[]&nbsp;encodedRegionName)</pre>
+<div class="block">Complete the cache flush.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - Encoded region name.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#startCacheFlush(byte[],%20java.util.Set)"><code>startCacheFlush(byte[], Set)</code></a>, 
+<a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])"><code>abortCacheFlush(byte[])</code></a></dd></dl>
+</li>
+</ul>
+<a name="abortCacheFlush(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abortCacheFlush</h4>
+<pre>void&nbsp;abortCacheFlush(byte[]&nbsp;encodedRegionName)</pre>
+<div class="block">Abort a cache flush. Call if the flush fails. Note that the only recovery
+ for an aborted flush currently is a restart of the regionserver so the
+ snapshot content dropped by the failure gets restored to the memstore.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - Encoded region name.</dd></dl>
+</li>
+</ul>
+<a name="getCoprocessorHost()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCoprocessorHost</h4>
+<pre><a href="../../../../../org/apache/hadoop/hbase/regionserver/wal/WALCoprocessorHost.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALCoprocessorHost</a>&nbsp;getCoprocessorHost()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>Coprocessor host.</dd></dl>
+</li>
+</ul>
+<a name="getEarliestMemstoreSeqNum(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEarliestMemstoreSeqNum</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang">@Deprecated</a>
+long&nbsp;getEarliestMemstoreSeqNum(byte[]&nbsp;encodedRegionName)</pre>
+<div class="block"><span class="strong">Deprecated.</span>&nbsp;<i>Since version 1.2.0. Removing because not used and exposes subtle internal
+ workings. Use <a href="../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[],%20byte[])"><code>getEarliestMemstoreSeqNum(byte[], byte[])</code></a></i></div>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the region.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - The region to get the number for.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.</dd></dl>
+</li>
+</ul>
+<a name="getEarliestMemstoreSeqNum(byte[], byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEarliestMemstoreSeqNum</h4>
+<pre>long&nbsp;getEarliestMemstoreSeqNum(byte[]&nbsp;encodedRegionName,
+                             byte[]&nbsp;familyName)</pre>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the store.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - The region to get the number for.</dd><dd><code>familyName</code> - The family to get the number for.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.</dd></dl>
+</li>
+</ul>
+<a name="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;toString()</pre>
+<div class="block">Human readable identifying information about the state of this WAL.
+ Implementors are encouraged to include information appropriate for debugging.
+ Consumers are advised not to rely on the details of the returned String; it does
+ not have a defined structure.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/WAL.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/wal/DefaultWALProvider.Writer.html" title="interface in org.apache.hadoop.hbase.wal"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/wal/WAL.html" target="_top">Frames</a></li>
+<li><a href="WAL.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

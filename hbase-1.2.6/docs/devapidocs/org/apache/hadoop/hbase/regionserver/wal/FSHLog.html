@@ -1,0 +1,1063 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FSHLog (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="FSHLog (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/FSHLog.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedSyncBeforeLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/HLogKey.html" title="class in org.apache.hadoop.hbase.regionserver.wal"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/regionserver/wal/FSHLog.html" target="_top">Frames</a></li>
+<li><a href="FSHLog.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.regionserver.wal</div>
+<h2 title="Class FSHLog" class="title">Class FSHLog</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.regionserver.wal.FSHLog</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang">AutoCloseable</a>, <a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></dd>
+</dl>
+<hr>
+<br>
+<pre><a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.Private.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceAudience.Private</a>
+public class <span class="strong">FSHLog</span>
+extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
+implements <a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></pre>
+<div class="block">Implementation of <a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal"><code>WAL</code></a> to go against <code>FileSystem</code>; i.e. keep WALs in HDFS.
+ Only one WAL is ever being written at a time.  When a WAL hits a configured maximum size,
+ it is rolled.  This is done internal to the implementation.
+
+ <p>As data is flushed from the MemStore to other on-disk structures (files sorted by
+ key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given
+ HRegion-sequence id.  A bunch of work in the below is done keeping account of these region
+ sequence ids -- what is flushed out to hfiles, and what is yet in WAL and in memory only.
+
+ <p>It is only practical to delete entire files. Thus, we delete an entire on-disk file
+ <code>F</code> when all of the edits in <code>F</code> have a log-sequence-id that's older
+ (smaller) than the most-recent flush.
+
+ <p>To read an WAL, call <a href="../../../../../../org/apache/hadoop/hbase/wal/WALFactory.html#createReader(org.apache.hadoop.fs.FileSystem,%20org.apache.hadoop.fs.Path)"><code>WALFactory.createReader(org.apache.hadoop.fs.FileSystem,
+ org.apache.hadoop.fs.Path)</code></a>.
+
+ <h2>Failure Semantic</h2>
+ If an exception on append or sync, roll the WAL because the current WAL is now a lame duck;
+ any more appends or syncs will fail also with the same original exception. If we have made
+ successful appends to the WAL and we then are unable to sync them, our current semantic is to
+ return error to the client that the appends failed but also to abort the current context,
+ usually the hosting server. We need to replay the WALs. TODO: Change this semantic. A roll of
+ WAL may be sufficient as long as we have flagged client that the append failed. TODO:
+ replication may pick up these last edits though they have been marked as failed append (Need to
+ keep our own file lengths, not rely on HDFS).</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_org.apache.hadoop.hbase.wal.WAL">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;org.apache.hadoop.hbase.wal.<a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal">WAL.Entry</a>, <a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.Reader.html" title="interface in org.apache.hadoop.hbase.wal">WAL.Reader</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected org.apache.hadoop.conf.Configuration</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#conf">conf</a></strong></code>
+<div class="block">conf object</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#FIXED_OVERHEAD">FIXED_OVERHEAD</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected org.apache.hadoop.fs.FileSystem</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#fs">fs</a></strong></code>
+<div class="block">file system instance</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#FSHLog(org.apache.hadoop.fs.FileSystem,%20org.apache.hadoop.fs.Path,%20java.lang.String,%20org.apache.hadoop.conf.Configuration)">FSHLog</a></strong>(org.apache.hadoop.fs.FileSystem&nbsp;fs,
+      org.apache.hadoop.fs.Path&nbsp;root,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;logDir,
+      org.apache.hadoop.conf.Configuration&nbsp;conf)</code>
+<div class="block">Constructor.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#FSHLog(org.apache.hadoop.fs.FileSystem,%20org.apache.hadoop.fs.Path,%20java.lang.String,%20java.lang.String,%20org.apache.hadoop.conf.Configuration,%20java.util.List,%20boolean,%20java.lang.String,%20java.lang.String)">FSHLog</a></strong>(org.apache.hadoop.fs.FileSystem&nbsp;fs,
+      org.apache.hadoop.fs.Path&nbsp;rootDir,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;logDir,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;archiveDir,
+      org.apache.hadoop.conf.Configuration&nbsp;conf,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&gt;&nbsp;listeners,
+      boolean&nbsp;failIfWALExists,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;suffix)</code>
+<div class="block">Create an edit log at the given <code>dir</code> location.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#abortCacheFlush(byte[])">abortCacheFlush</a></strong>(byte[]&nbsp;encodedRegionName)</code>
+<div class="block">Abort a cache flush.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#afterCreatingZigZagLatch()">afterCreatingZigZagLatch</a></strong>()</code>
+<div class="block">Used to manufacture race condition reliably.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#append(org.apache.hadoop.hbase.HTableDescriptor,%20org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.wal.WALKey,%20org.apache.hadoop.hbase.regionserver.wal.WALEdit,%20boolean)">append</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;htd,
+      <a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;hri,
+      <a href="../../../../../../org/apache/hadoop/hbase/wal/WALKey.html" title="class in org.apache.hadoop.hbase.wal">WALKey</a>&nbsp;key,
+      <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALEdit.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALEdit</a>&nbsp;edits,
+      boolean&nbsp;inMemstore)</code>
+<div class="block">Append a set of edits to the WAL.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#beforeWaitOnSafePoint()">beforeWaitOnSafePoint</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#close()">close</a></strong>()</code>
+<div class="block">Caller no longer needs any edits from this WAL.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#completeCacheFlush(byte[])">completeCacheFlush</a></strong>(byte[]&nbsp;encodedRegionName)</code>
+<div class="block">Complete the cache flush.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected org.apache.hadoop.fs.Path</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#computeFilename(long)">computeFilename</a></strong>(long&nbsp;filenum)</code>
+<div class="block">This is a convenience method that computes a new filename with a given
+ file-number.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/wal/WALProvider.Writer.html" title="interface in org.apache.hadoop.hbase.wal">WALProvider.Writer</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#createWriterInstance(org.apache.hadoop.fs.Path)">createWriterInstance</a></strong>(org.apache.hadoop.fs.Path&nbsp;path)</code>
+<div class="block">This method allows subclasses to inject different writers without having to
+ extend other methods like rollWriter().</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALCoprocessorHost.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALCoprocessorHost</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getCoprocessorHost()">getCoprocessorHost</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>org.apache.hadoop.fs.Path</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getCurrentFileName()">getCurrentFileName</a></strong>()</code>
+<div class="block">This is a convenience method that computes a new filename with a given
+ using the current WAL file-number</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getEarliestMemstoreSeqNum(byte[])">getEarliestMemstoreSeqNum</a></strong>(byte[]&nbsp;encodedRegionName)</code>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the region.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getEarliestMemstoreSeqNum(byte[],%20byte[])">getEarliestMemstoreSeqNum</a></strong>(byte[]&nbsp;encodedRegionName,
+                         byte[]&nbsp;familyName)</code>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the store.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getFileNumFromFileName(org.apache.hadoop.fs.Path)">getFileNumFromFileName</a></strong>(org.apache.hadoop.fs.Path&nbsp;fileName)</code>
+<div class="block">A log file has a creation timestamp (in ms) in its file name (<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#filenum"><code>filenum</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected org.apache.hadoop.fs.FileStatus[]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getFiles()">getFiles</a></strong>()</code>
+<div class="block">Get the backing files associated with this WAL.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getLogFileSize()">getLogFileSize</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getNumLogFiles()">getNumLogFiles</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getNumRolledLogFiles()">getNumRolledLogFiles</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static org.apache.hadoop.fs.Path</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#getWALArchivePath(org.apache.hadoop.fs.Path,%20org.apache.hadoop.fs.Path)">getWALArchivePath</a></strong>(org.apache.hadoop.fs.Path&nbsp;archiveDir,
+                 org.apache.hadoop.fs.Path&nbsp;p)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#main(java.lang.String[])">main</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</code>
+<div class="block">Pass one or more log file names and it will either dump out a text version
+ on <code>stdout</code> or split the specified log files.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#registerWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">registerWALActionsListener</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</code>
+<div class="block">Registers WALActionsListener</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#requestLogRoll()">requestLogRoll</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>byte[][]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#rollWriter()">rollWriter</a></strong>()</code>
+<div class="block">Roll the log writer.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>byte[][]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#rollWriter(boolean)">rollWriter</a></strong>(boolean&nbsp;force)</code>
+<div class="block">Roll the log writer.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#shutdown()">shutdown</a></strong>()</code>
+<div class="block">Stop accepting new writes.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#startCacheFlush(byte[],%20java.util.Set)">startCacheFlush</a></strong>(byte[]&nbsp;encodedRegionName,
+               <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;byte[]&gt;&nbsp;families)</code>
+<div class="block">WAL keeps track of the sequence numbers that are as yet not flushed im memstores
+ in order to be able to do accounting to figure which WALs can be let go.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#sync()">sync</a></strong>()</code>
+<div class="block">Sync what we have in the WAL.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#sync(long)">sync</a></strong>(long&nbsp;txid)</code>
+<div class="block">Sync the WAL if the txId was not already sync'd.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#toString()">toString</a></strong>()</code>
+<div class="block">Human readable identifying information about the state of this WAL.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#unregisterWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">unregisterWALActionsListener</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</code>
+<div class="block">Unregisters WALActionsListener</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="fs">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fs</h4>
+<pre>protected final&nbsp;org.apache.hadoop.fs.FileSystem fs</pre>
+<div class="block">file system instance</div>
+</li>
+</ul>
+<a name="conf">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>conf</h4>
+<pre>protected final&nbsp;org.apache.hadoop.conf.Configuration conf</pre>
+<div class="block">conf object</div>
+</li>
+</ul>
+<a name="FIXED_OVERHEAD">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>FIXED_OVERHEAD</h4>
+<pre>public static final&nbsp;long FIXED_OVERHEAD</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="FSHLog(org.apache.hadoop.fs.FileSystem, org.apache.hadoop.fs.Path, java.lang.String, org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>FSHLog</h4>
+<pre>public&nbsp;FSHLog(org.apache.hadoop.fs.FileSystem&nbsp;fs,
+      org.apache.hadoop.fs.Path&nbsp;root,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;logDir,
+      org.apache.hadoop.conf.Configuration&nbsp;conf)
+       throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Constructor.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>fs</code> - filesystem handle</dd><dd><code>root</code> - path for stored and archived wals</dd><dd><code>logDir</code> - dir where wals are stored</dd><dd><code>conf</code> - configuration to use</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="FSHLog(org.apache.hadoop.fs.FileSystem, org.apache.hadoop.fs.Path, java.lang.String, java.lang.String, org.apache.hadoop.conf.Configuration, java.util.List, boolean, java.lang.String, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>FSHLog</h4>
+<pre>public&nbsp;FSHLog(org.apache.hadoop.fs.FileSystem&nbsp;fs,
+      org.apache.hadoop.fs.Path&nbsp;rootDir,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;logDir,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;archiveDir,
+      org.apache.hadoop.conf.Configuration&nbsp;conf,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&gt;&nbsp;listeners,
+      boolean&nbsp;failIfWALExists,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+      <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;suffix)
+       throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Create an edit log at the given <code>dir</code> location.
+
+ You should never have to load an existing log. If there is a log at
+ startup, it should have already been processed and deleted by the time the
+ WAL object is started up.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>fs</code> - filesystem handle</dd><dd><code>rootDir</code> - path to where logs and oldlogs</dd><dd><code>logDir</code> - dir where wals are stored</dd><dd><code>archiveDir</code> - dir where wals are archived</dd><dd><code>conf</code> - configuration to use</dd><dd><code>listeners</code> - Listeners on WAL events. Listeners passed here will
+ be registered before we do anything else; e.g. the
+ Constructor <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#rollWriter()"><code>rollWriter()</code></a>.</dd><dd><code>failIfWALExists</code> - If true IOException will be thrown if files related to this wal
+        already exist.</dd><dd><code>prefix</code> - should always be hostname and port in distributed env and
+        it will be URL encoded before being used.
+        If prefix is null, "wal" will be used</dd><dd><code>suffix</code> - will be url encoded. null is treated as empty. non-empty must start with
+        <a href="../../../../../../org/apache/hadoop/hbase/wal/DefaultWALProvider.html#WAL_FILE_NAME_DELIMITER"><code>DefaultWALProvider.WAL_FILE_NAME_DELIMITER</code></a></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="registerWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>registerWALActionsListener</h4>
+<pre>public&nbsp;void&nbsp;registerWALActionsListener(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#registerWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">WAL</a></code></strong></div>
+<div class="block">Registers WALActionsListener</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#registerWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">registerWALActionsListener</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="unregisterWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unregisterWALActionsListener</h4>
+<pre>public&nbsp;boolean&nbsp;unregisterWALActionsListener(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALActionsListener.html" title="interface in org.apache.hadoop.hbase.regionserver.wal">WALActionsListener</a>&nbsp;listener)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#unregisterWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">WAL</a></code></strong></div>
+<div class="block">Unregisters WALActionsListener</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#unregisterWALActionsListener(org.apache.hadoop.hbase.regionserver.wal.WALActionsListener)">unregisterWALActionsListener</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getCoprocessorHost()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCoprocessorHost</h4>
+<pre>public&nbsp;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALCoprocessorHost.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALCoprocessorHost</a>&nbsp;getCoprocessorHost()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#getCoprocessorHost()">getCoprocessorHost</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Coprocessor host.</dd></dl>
+</li>
+</ul>
+<a name="getFiles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFiles</h4>
+<pre>protected&nbsp;org.apache.hadoop.fs.FileStatus[]&nbsp;getFiles()
+                                              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Get the backing files associated with this WAL.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>may be null if there are no files.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="rollWriter()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rollWriter</h4>
+<pre>public&nbsp;byte[][]&nbsp;rollWriter()
+                    throws <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a>,
+                           <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#rollWriter()">WAL</a></code></strong></div>
+<div class="block">Roll the log writer. That is, start writing log messages to a new file.
+
+ <p>
+ The implementation is synchronized in order to make sure there's one rollWriter
+ running at any given time.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#rollWriter()">rollWriter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>If lots of logs, flush the returned regions so next time through we
+         can clean logs. Returns null if nothing to flush. Names are actual
+         region names as returned by <a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html#getEncodedName()"><code>HRegionInfo.getEncodedName()</code></a></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="rollWriter(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rollWriter</h4>
+<pre>public&nbsp;byte[][]&nbsp;rollWriter(boolean&nbsp;force)
+                    throws <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a>,
+                           <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#rollWriter(boolean)">WAL</a></code></strong></div>
+<div class="block">Roll the log writer. That is, start writing log messages to a new file.
+
+ <p>
+ The implementation is synchronized in order to make sure there's one rollWriter
+ running at any given time.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#rollWriter(boolean)">rollWriter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>force</code> - If true, force creation of a new writer even if no entries have
+          been written to the current writer</dd>
+<dt><span class="strong">Returns:</span></dt><dd>If lots of logs, flush the returned regions so next time through we
+         can clean logs. Returns null if nothing to flush. Names are actual
+         region names as returned by <a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html#getEncodedName()"><code>HRegionInfo.getEncodedName()</code></a></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal">FailedLogCloseException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="createWriterInstance(org.apache.hadoop.fs.Path)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createWriterInstance</h4>
+<pre>protected&nbsp;<a href="../../../../../../org/apache/hadoop/hbase/wal/WALProvider.Writer.html" title="interface in org.apache.hadoop.hbase.wal">WALProvider.Writer</a>&nbsp;createWriterInstance(org.apache.hadoop.fs.Path&nbsp;path)
+                                           throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">This method allows subclasses to inject different writers without having to
+ extend other methods like rollWriter().</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>Writer instance</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="afterCreatingZigZagLatch()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>afterCreatingZigZagLatch</h4>
+<pre>protected&nbsp;void&nbsp;afterCreatingZigZagLatch()</pre>
+<div class="block">Used to manufacture race condition reliably. For testing only.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#beforeWaitOnSafePoint()"><code>beforeWaitOnSafePoint()</code></a></dd></dl>
+</li>
+</ul>
+<a name="beforeWaitOnSafePoint()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>beforeWaitOnSafePoint</h4>
+<pre>protected&nbsp;void&nbsp;beforeWaitOnSafePoint()</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#afterCreatingZigZagLatch()"><code>afterCreatingZigZagLatch()</code></a></dd></dl>
+</li>
+</ul>
+<a name="getWALArchivePath(org.apache.hadoop.fs.Path, org.apache.hadoop.fs.Path)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getWALArchivePath</h4>
+<pre>public static&nbsp;org.apache.hadoop.fs.Path&nbsp;getWALArchivePath(org.apache.hadoop.fs.Path&nbsp;archiveDir,
+                                          org.apache.hadoop.fs.Path&nbsp;p)</pre>
+</li>
+</ul>
+<a name="computeFilename(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>computeFilename</h4>
+<pre>protected&nbsp;org.apache.hadoop.fs.Path&nbsp;computeFilename(long&nbsp;filenum)</pre>
+<div class="block">This is a convenience method that computes a new filename with a given
+ file-number.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>filenum</code> - to use</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Path</dd></dl>
+</li>
+</ul>
+<a name="getCurrentFileName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCurrentFileName</h4>
+<pre>public&nbsp;org.apache.hadoop.fs.Path&nbsp;getCurrentFileName()</pre>
+<div class="block">This is a convenience method that computes a new filename with a given
+ using the current WAL file-number</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>Path</dd></dl>
+</li>
+</ul>
+<a name="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;toString()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#toString()">WAL</a></code></strong></div>
+<div class="block">Human readable identifying information about the state of this WAL.
+ Implementors are encouraged to include information appropriate for debugging.
+ Consumers are advised not to rely on the details of the returned String; it does
+ not have a defined structure.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#toString()">toString</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getFileNumFromFileName(org.apache.hadoop.fs.Path)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileNumFromFileName</h4>
+<pre>protected&nbsp;long&nbsp;getFileNumFromFileName(org.apache.hadoop.fs.Path&nbsp;fileName)</pre>
+<div class="block">A log file has a creation timestamp (in ms) in its file name (<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#filenum"><code>filenum</code></a>.
+ This helper method returns the creation timestamp from a given log file.
+ It extracts the timestamp assuming the filename is created with the
+ <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FSHLog.html#computeFilename(long)"><code>computeFilename(long filenum)</code></a> method.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>fileName</code> - </dd>
+<dt><span class="strong">Returns:</span></dt><dd>timestamp, as in the log file name.</dd></dl>
+</li>
+</ul>
+<a name="close()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>close</h4>
+<pre>public&nbsp;void&nbsp;close()
+           throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#close()">WAL</a></code></strong></div>
+<div class="block">Caller no longer needs any edits from this WAL. Implementers are free to reclaim
+ underlying resources after this call; i.e. filesystem based WALs can archive or
+ delete files.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true#close()" title="class or interface in java.io">close</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html?is-external=true#close()" title="class or interface in java.lang">close</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang">AutoCloseable</a></code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#close()">close</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="shutdown()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>shutdown</h4>
+<pre>public&nbsp;void&nbsp;shutdown()
+              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#shutdown()">WAL</a></code></strong></div>
+<div class="block">Stop accepting new writes. If we have unsynced writes still in buffer, sync them.
+ Extant edits are left in place in backing storage to be replayed later.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#shutdown()">shutdown</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="append(org.apache.hadoop.hbase.HTableDescriptor, org.apache.hadoop.hbase.HRegionInfo, org.apache.hadoop.hbase.wal.WALKey, org.apache.hadoop.hbase.regionserver.wal.WALEdit, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>append</h4>
+<pre>public&nbsp;long&nbsp;append(<a href="../../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;htd,
+          <a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;hri,
+          <a href="../../../../../../org/apache/hadoop/hbase/wal/WALKey.html" title="class in org.apache.hadoop.hbase.wal">WALKey</a>&nbsp;key,
+          <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALEdit.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALEdit</a>&nbsp;edits,
+          boolean&nbsp;inMemstore)
+            throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#append(org.apache.hadoop.hbase.HTableDescriptor,%20org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.wal.WALKey,%20org.apache.hadoop.hbase.regionserver.wal.WALEdit,%20boolean)">WAL</a></code></strong></div>
+<div class="block">Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction
+ completes BUT on return this edit must have its region edit/sequence id assigned
+ else it messes up our unification of mvcc and sequenceid.  On return <code>key</code> will
+ have the region edit/sequence id filled in.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#append(org.apache.hadoop.hbase.HTableDescriptor,%20org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.wal.WALKey,%20org.apache.hadoop.hbase.regionserver.wal.WALEdit,%20boolean)">append</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>htd</code> - used to give scope for replication TODO refactor out in favor of table name and
+ info</dd><dd><code>key</code> - Modified by this call; we add to it this edits region edit/sequence id.</dd><dd><code>edits</code> - Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit
+ sequence id that is after all currently appended edits.</dd><dd><code>inMemstore</code> - Always true except for case where we are writing a compaction completion
+ record into the WAL; in this case the entry is just so we can finish an unfinished compaction
+ -- it is not an edit for memstore.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns a 'transaction id' and <code>key</code> will have the region edit/sequence id
+ in it.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="sync()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sync</h4>
+<pre>public&nbsp;void&nbsp;sync()
+          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#sync()">WAL</a></code></strong></div>
+<div class="block">Sync what we have in the WAL.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#sync()">sync</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="sync(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sync</h4>
+<pre>public&nbsp;void&nbsp;sync(long&nbsp;txid)
+          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#sync(long)">WAL</a></code></strong></div>
+<div class="block">Sync the WAL if the txId was not already sync'd.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#sync(long)">sync</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>txid</code> - Transaction id to sync to.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="requestLogRoll()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>requestLogRoll</h4>
+<pre>public&nbsp;void&nbsp;requestLogRoll()</pre>
+</li>
+</ul>
+<a name="getNumRolledLogFiles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNumRolledLogFiles</h4>
+<pre>public&nbsp;int&nbsp;getNumRolledLogFiles()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the number of rolled log files</dd></dl>
+</li>
+</ul>
+<a name="getNumLogFiles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNumLogFiles</h4>
+<pre>public&nbsp;int&nbsp;getNumLogFiles()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the number of log files in use</dd></dl>
+</li>
+</ul>
+<a name="getLogFileSize()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLogFileSize</h4>
+<pre>public&nbsp;long&nbsp;getLogFileSize()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the size of log files in use</dd></dl>
+</li>
+</ul>
+<a name="startCacheFlush(byte[], java.util.Set)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>startCacheFlush</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;startCacheFlush(byte[]&nbsp;encodedRegionName,
+                   <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;byte[]&gt;&nbsp;families)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#startCacheFlush(byte[],%20java.util.Set)">WAL</a></code></strong></div>
+<div class="block">WAL keeps track of the sequence numbers that are as yet not flushed im memstores
+ in order to be able to do accounting to figure which WALs can be let go. This method tells WAL
+ that some region is about to flush. The flush can be the whole region or for a column family
+ of the region only.
+
+ <p>Currently, it is expected that the update lock is held for the region; i.e. no
+ concurrent appends while we set up cache flush.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#startCacheFlush(byte[],%20java.util.Set)">startCacheFlush</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dd><code>families</code> - Families to flush. May be a subset of all families in the region.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns <a href="../../../../../../org/apache/hadoop/hbase/HConstants.html#NO_SEQNUM"><code>HConstants.NO_SEQNUM</code></a> if we are flushing the whole region OR if
+ we are flushing a subset of all families but there are no edits in those families not
+ being flushed; in other words, this is effectively same as a flush of all of the region
+ though we were passed a subset of regions. Otherwise, it returns the sequence id of the
+ oldest/lowest outstanding edit.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#completeCacheFlush(byte[])"><code>WAL.completeCacheFlush(byte[])</code></a>, 
+<a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])"><code>WAL.abortCacheFlush(byte[])</code></a></dd></dl>
+</li>
+</ul>
+<a name="completeCacheFlush(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>completeCacheFlush</h4>
+<pre>public&nbsp;void&nbsp;completeCacheFlush(byte[]&nbsp;encodedRegionName)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#completeCacheFlush(byte[])">WAL</a></code></strong></div>
+<div class="block">Complete the cache flush.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#completeCacheFlush(byte[])">completeCacheFlush</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - Encoded region name.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#startCacheFlush(byte[],%20java.util.Set)"><code>WAL.startCacheFlush(byte[], Set)</code></a>, 
+<a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])"><code>WAL.abortCacheFlush(byte[])</code></a></dd></dl>
+</li>
+</ul>
+<a name="abortCacheFlush(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abortCacheFlush</h4>
+<pre>public&nbsp;void&nbsp;abortCacheFlush(byte[]&nbsp;encodedRegionName)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])">WAL</a></code></strong></div>
+<div class="block">Abort a cache flush. Call if the flush fails. Note that the only recovery
+ for an aborted flush currently is a restart of the regionserver so the
+ snapshot content dropped by the failure gets restored to the memstore.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#abortCacheFlush(byte[])">abortCacheFlush</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - Encoded region name.</dd></dl>
+</li>
+</ul>
+<a name="getEarliestMemstoreSeqNum(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEarliestMemstoreSeqNum</h4>
+<pre>public&nbsp;long&nbsp;getEarliestMemstoreSeqNum(byte[]&nbsp;encodedRegionName)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[])">WAL</a></code></strong></div>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the region.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[])">getEarliestMemstoreSeqNum</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - The region to get the number for.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.</dd></dl>
+</li>
+</ul>
+<a name="getEarliestMemstoreSeqNum(byte[], byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEarliestMemstoreSeqNum</h4>
+<pre>public&nbsp;long&nbsp;getEarliestMemstoreSeqNum(byte[]&nbsp;encodedRegionName,
+                             byte[]&nbsp;familyName)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[],%20byte[])">WAL</a></code></strong></div>
+<div class="block">Gets the earliest unflushed sequence id in the memstore for the store.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html#getEarliestMemstoreSeqNum(byte[],%20byte[])">getEarliestMemstoreSeqNum</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.html" title="interface in org.apache.hadoop.hbase.wal">WAL</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>encodedRegionName</code> - The region to get the number for.</dd><dd><code>familyName</code> - The family to get the number for.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.</dd></dl>
+</li>
+</ul>
+<a name="main(java.lang.String[])">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>main</h4>
+<pre>public static&nbsp;void&nbsp;main(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Pass one or more log file names and it will either dump out a text version
+ on <code>stdout</code> or split the specified log files.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>args</code> - </dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/FSHLog.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/FailedSyncBeforeLogCloseException.html" title="class in org.apache.hadoop.hbase.regionserver.wal"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/HLogKey.html" title="class in org.apache.hadoop.hbase.regionserver.wal"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/regionserver/wal/FSHLog.html" target="_top">Frames</a></li>
+<li><a href="FSHLog.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

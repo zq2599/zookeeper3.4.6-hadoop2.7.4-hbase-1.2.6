@@ -1,0 +1,609 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>StochasticLoadBalancer (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="StochasticLoadBalancer (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/StochasticLoadBalancer.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/SimpleLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer"><span class="strong">Prev Class</span></a></li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html" target="_top">Frames</a></li>
+<li><a href="StochasticLoadBalancer.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_classes_inherited_from_class_org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.master.balancer</div>
+<h2 title="Class StochasticLoadBalancer" class="title">Class StochasticLoadBalancer</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer</a></li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.master.balancer.StochasticLoadBalancer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd>org.apache.hadoop.conf.Configurable, <a href="../../../../../../org/apache/hadoop/hbase/conf/ConfigurationObserver.html" title="interface in org.apache.hadoop.hbase.conf">ConfigurationObserver</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master">LoadBalancer</a>, <a href="../../../../../../org/apache/hadoop/hbase/Stoppable.html" title="interface in org.apache.hadoop.hbase">Stoppable</a></dd>
+</dl>
+<hr>
+<br>
+<pre><a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.LimitedPrivate.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceAudience.LimitedPrivate</a>(<a href="../../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.LimitedPrivate.html#value()">value</a>="Configuration")
+public class <span class="strong">StochasticLoadBalancer</span>
+extends <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></pre>
+<div class="block"><p>This is a best effort load balancer. Given a Cost function F(C) =&gt; x It will
+ randomly try and mutate the cluster to Cprime. If F(Cprime) &lt; F(C) then the
+ new cluster state becomes the plan. It includes costs functions to compute the cost of:</p>
+ <ul>
+ <li>Region Load</li>
+ <li>Table Load</li>
+ <li>Data Locality</li>
+ <li>Memstore Sizes</li>
+ <li>Storefile Sizes</li>
+ </ul>
+
+
+ <p>Every cost function returns a number between 0 and 1 inclusive; where 0 is the lowest cost
+ best solution, and 1 is the highest possible cost and the worst solution.  The computed costs are
+ scaled by their respective multipliers:</p>
+
+ <ul>
+   <li>hbase.master.balancer.stochastic.regionLoadCost</li>
+   <li>hbase.master.balancer.stochastic.moveCost</li>
+   <li>hbase.master.balancer.stochastic.tableLoadCost</li>
+   <li>hbase.master.balancer.stochastic.localityCost</li>
+   <li>hbase.master.balancer.stochastic.memstoreSizeCost</li>
+   <li>hbase.master.balancer.stochastic.storefileSizeCost</li>
+ </ul>
+
+ <p>In addition to the above configurations, the balancer can be tuned by the following
+ configuration values:</p>
+ <ul>
+   <li>hbase.master.balancer.stochastic.maxMoveRegions which
+   controls what the max number of regions that can be moved in a single invocation of this
+   balancer.</li>
+   <li>hbase.master.balancer.stochastic.stepsPerRegion is the coefficient by which the number of
+   regions is multiplied to try and get the number of times the balancer will
+   mutate all servers.</li>
+   <li>hbase.master.balancer.stochastic.maxSteps which controls the maximum number of times that
+   the balancer will try and mutate all the servers. The balancer will use the minimum of this
+   value and the above computation.</li>
+ </ul>
+
+ <p>This balancer is best used with hbase.master.loadbalance.bytable set to false
+ so that the balancer gets the full picture of all loads on the cluster.</p></div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;org.apache.hadoop.hbase.master.balancer.<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#KEEP_REGION_LOADS">KEEP_REGION_LOADS</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#MAX_RUNNING_TIME_KEY">MAX_RUNNING_TIME_KEY</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#MAX_STEPS_KEY">MAX_STEPS_KEY</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#STEPS_PER_REGION_KEY">STEPS_PER_REGION_KEY</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;org.apache.hadoop.hbase.master.balancer.<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#clusterStatus">clusterStatus</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#config">config</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#masterServerName">masterServerName</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#metricsBalancer">metricsBalancer</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#rackManager">rackManager</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#regionFinder">regionFinder</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#services">services</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#slop">slop</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#TABLES_ON_MASTER">TABLES_ON_MASTER</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#tablesOnMaster">tablesOnMaster</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#StochasticLoadBalancer()">StochasticLoadBalancer</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#areSomeRegionReplicasColocated(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">areSomeRegionReplicasColocated</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;c)</code>
+<div class="block">Subclasses should implement this to return true if the cluster has nodes that hosts
+ multiple replicas for the same region, or, if there are multiple racks and the same
+ rack hosts replicas of the same region</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/RegionPlan.html" title="class in org.apache.hadoop.hbase.master">RegionPlan</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#balanceCluster(java.util.Map)">balanceCluster</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&gt;&gt;&nbsp;clusterState)</code>
+<div class="block">Given the cluster state this will try and approach an optimal balance.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected double</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#computeCost(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster,%20double)">computeCost</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;cluster,
+           double&nbsp;previousCost)</code>
+<div class="block">This is the main cost function.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#initCosts(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">initCosts</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;cluster)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#onConfigurationChange(org.apache.hadoop.conf.Configuration)">onConfigurationChange</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>
+<div class="block">This method would be called by the <a href="../../../../../../org/apache/hadoop/hbase/conf/ConfigurationManager.html" title="class in org.apache.hadoop.hbase.conf"><code>ConfigurationManager</code></a>
+ object when the <code>Configuration</code> object is reloaded from disk.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#setClusterStatus(org.apache.hadoop.hbase.ClusterStatus)">setClusterStatus</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/ClusterStatus.html" title="class in org.apache.hadoop.hbase">ClusterStatus</a>&nbsp;st)</code>
+<div class="block">Set the current cluster status.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#setConf(org.apache.hadoop.conf.Configuration)">setConf</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#setMasterServices(org.apache.hadoop.hbase.master.MasterServices)">setMasterServices</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a>&nbsp;masterServices)</code>
+<div class="block">Set the master service.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#setSlop(org.apache.hadoop.conf.Configuration)">setSlop</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html#updateCostsWithAction(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster,%20org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster.Action)">updateCostsWithAction</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;cluster,
+                     <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.Action.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster.Action</a>&nbsp;action)</code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.master.balancer.<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#assignMasterRegions(java.util.Collection,%20java.util.List)">assignMasterRegions</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#balanceMasterRegions(java.util.Map)">balanceMasterRegions</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#createCluster(java.util.List,%20java.util.Collection)">createCluster</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#getConf()">getConf</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#getRegionAssignmentsByServer(java.util.Collection)">getRegionAssignmentsByServer</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#getTablesOnMaster(org.apache.hadoop.conf.Configuration)">getTablesOnMaster</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#immediateAssignment(java.util.List,%20java.util.List)">immediateAssignment</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#initialize()">initialize</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#isStopped()">isStopped</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#needsBalance(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">needsBalance</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#randomAssignment(org.apache.hadoop.hbase.HRegionInfo,%20java.util.List)">randomAssignment</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#regionOffline(org.apache.hadoop.hbase.HRegionInfo)">regionOffline</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#regionOnline(org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.ServerName)">regionOnline</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#retainAssignment(java.util.Map,%20java.util.List)">retainAssignment</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#roundRobinAssignment(java.util.List,%20java.util.List)">roundRobinAssignment</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#setRackManager(org.apache.hadoop.hbase.master.RackManager)">setRackManager</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#shouldBeOnMaster(org.apache.hadoop.hbase.HRegionInfo)">shouldBeOnMaster</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#stop(java.lang.String)">stop</a>, <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#tablesOnMaster(org.apache.hadoop.conf.Configuration)">tablesOnMaster</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="STEPS_PER_REGION_KEY">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>STEPS_PER_REGION_KEY</h4>
+<pre>protected static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> STEPS_PER_REGION_KEY</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.balancer.StochasticLoadBalancer.STEPS_PER_REGION_KEY">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="MAX_STEPS_KEY">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>MAX_STEPS_KEY</h4>
+<pre>protected static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> MAX_STEPS_KEY</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.balancer.StochasticLoadBalancer.MAX_STEPS_KEY">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="MAX_RUNNING_TIME_KEY">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>MAX_RUNNING_TIME_KEY</h4>
+<pre>protected static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> MAX_RUNNING_TIME_KEY</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.balancer.StochasticLoadBalancer.MAX_RUNNING_TIME_KEY">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEEP_REGION_LOADS">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>KEEP_REGION_LOADS</h4>
+<pre>protected static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEEP_REGION_LOADS</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.balancer.StochasticLoadBalancer.KEEP_REGION_LOADS">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="StochasticLoadBalancer()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>StochasticLoadBalancer</h4>
+<pre>public&nbsp;StochasticLoadBalancer()</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="onConfigurationChange(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>onConfigurationChange</h4>
+<pre>public&nbsp;void&nbsp;onConfigurationChange(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/conf/ConfigurationObserver.html#onConfigurationChange(org.apache.hadoop.conf.Configuration)">ConfigurationObserver</a></code></strong></div>
+<div class="block">This method would be called by the <a href="../../../../../../org/apache/hadoop/hbase/conf/ConfigurationManager.html" title="class in org.apache.hadoop.hbase.conf"><code>ConfigurationManager</code></a>
+ object when the <code>Configuration</code> object is reloaded from disk.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/conf/ConfigurationObserver.html#onConfigurationChange(org.apache.hadoop.conf.Configuration)">onConfigurationChange</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/conf/ConfigurationObserver.html" title="interface in org.apache.hadoop.hbase.conf">ConfigurationObserver</a></code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html#onConfigurationChange(org.apache.hadoop.conf.Configuration)">onConfigurationChange</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master">LoadBalancer</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#onConfigurationChange(org.apache.hadoop.conf.Configuration)">onConfigurationChange</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="setConf(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setConf</h4>
+<pre>public&nbsp;void&nbsp;setConf(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setConf</code>&nbsp;in interface&nbsp;<code>org.apache.hadoop.conf.Configurable</code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#setConf(org.apache.hadoop.conf.Configuration)">setConf</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="setSlop(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSlop</h4>
+<pre>protected&nbsp;void&nbsp;setSlop(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#setSlop(org.apache.hadoop.conf.Configuration)">setSlop</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="setClusterStatus(org.apache.hadoop.hbase.ClusterStatus)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setClusterStatus</h4>
+<pre>public&nbsp;void&nbsp;setClusterStatus(<a href="../../../../../../org/apache/hadoop/hbase/ClusterStatus.html" title="class in org.apache.hadoop.hbase">ClusterStatus</a>&nbsp;st)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html#setClusterStatus(org.apache.hadoop.hbase.ClusterStatus)">LoadBalancer</a></code></strong></div>
+<div class="block">Set the current cluster status.  This allows a LoadBalancer to map host name to a server</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html#setClusterStatus(org.apache.hadoop.hbase.ClusterStatus)">setClusterStatus</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master">LoadBalancer</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#setClusterStatus(org.apache.hadoop.hbase.ClusterStatus)">setClusterStatus</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="setMasterServices(org.apache.hadoop.hbase.master.MasterServices)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMasterServices</h4>
+<pre>public&nbsp;void&nbsp;setMasterServices(<a href="../../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a>&nbsp;masterServices)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html#setMasterServices(org.apache.hadoop.hbase.master.MasterServices)">LoadBalancer</a></code></strong></div>
+<div class="block">Set the master service.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html#setMasterServices(org.apache.hadoop.hbase.master.MasterServices)">setMasterServices</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master">LoadBalancer</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#setMasterServices(org.apache.hadoop.hbase.master.MasterServices)">setMasterServices</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="areSomeRegionReplicasColocated(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>areSomeRegionReplicasColocated</h4>
+<pre>protected&nbsp;boolean&nbsp;areSomeRegionReplicasColocated(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;c)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#areSomeRegionReplicasColocated(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">BaseLoadBalancer</a></code></strong></div>
+<div class="block">Subclasses should implement this to return true if the cluster has nodes that hosts
+ multiple replicas for the same region, or, if there are multiple racks and the same
+ rack hosts replicas of the same region</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html#areSomeRegionReplicasColocated(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">areSomeRegionReplicasColocated</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - Cluster information</dd>
+<dt><span class="strong">Returns:</span></dt><dd>whether region replicas are currently co-located</dd></dl>
+</li>
+</ul>
+<a name="balanceCluster(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>balanceCluster</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/RegionPlan.html" title="class in org.apache.hadoop.hbase.master">RegionPlan</a>&gt;&nbsp;balanceCluster(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&gt;&gt;&nbsp;clusterState)</pre>
+<div class="block">Given the cluster state this will try and approach an optimal balance. This
+ should always approach the optimal state given enough steps.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>List of plans</dd></dl>
+</li>
+</ul>
+<a name="initCosts(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>initCosts</h4>
+<pre>protected&nbsp;void&nbsp;initCosts(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;cluster)</pre>
+</li>
+</ul>
+<a name="updateCostsWithAction(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster, org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster.Action)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>updateCostsWithAction</h4>
+<pre>protected&nbsp;void&nbsp;updateCostsWithAction(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;cluster,
+                         <a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.Action.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster.Action</a>&nbsp;action)</pre>
+</li>
+</ul>
+<a name="computeCost(org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer.Cluster, double)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>computeCost</h4>
+<pre>protected&nbsp;double&nbsp;computeCost(<a href="../../../../../../org/apache/hadoop/hbase/master/balancer/BaseLoadBalancer.Cluster.html" title="class in org.apache.hadoop.hbase.master.balancer">BaseLoadBalancer.Cluster</a>&nbsp;cluster,
+                 double&nbsp;previousCost)</pre>
+<div class="block">This is the main cost function.  It will compute a cost associated with a proposed cluster
+ state.  All different costs will be combined with their multipliers to produce a double cost.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>cluster</code> - The state of the cluster</dd><dd><code>previousCost</code> - the previous cost. This is used as an early out.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>a double of a cost associated with the proposed cluster state.  This cost is an
+         aggregate of all individual cost functions.</dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/StochasticLoadBalancer.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/balancer/SimpleLoadBalancer.html" title="class in org.apache.hadoop.hbase.master.balancer"><span class="strong">Prev Class</span></a></li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/master/balancer/StochasticLoadBalancer.html" target="_top">Frames</a></li>
+<li><a href="StochasticLoadBalancer.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_classes_inherited_from_class_org.apache.hadoop.hbase.master.balancer.BaseLoadBalancer">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Uses of Class org.apache.hadoop.hbase.util.Pair (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="Uses of Class org.apache.hadoop.hbase.util.Pair (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="../package-summary.html">Package</a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Class</a></li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/util/class-use/Pair.html" target="_top">Frames</a></li>
+<li><a href="Pair.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<div class="header">
+<h2 title="Uses of Class org.apache.hadoop.hbase.util.Pair" class="title">Uses of Class<br>org.apache.hadoop.hbase.util.Pair</h2>
+</div>
+<div class="classUseContainer">
+<ul class="blockList">
+<li class="blockList">
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing packages, and an explanation">
+<caption><span>Packages that use <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Package</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase">org.apache.hadoop.hbase</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client">org.apache.hadoop.hbase.client</a></td>
+<td class="colLast">
+<div class="block">Provides HBase Client</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.client.coprocessor">org.apache.hadoop.hbase.client.coprocessor</a></td>
+<td class="colLast">
+<div class="block">Provides client classes for invoking Coprocessor RPC protocols
+
+
+ <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/#overview">Overview</a>
+ <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/#usage">Example Usage</a>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.constraint">org.apache.hadoop.hbase.constraint</a></td>
+<td class="colLast">
+<div class="block">Restrict the domain of a data attribute, often times to fulfill business rules/requirements.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.coprocessor">org.apache.hadoop.hbase.coprocessor</a></td>
+<td class="colLast">
+<div class="block">Table of Contents</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.filter">org.apache.hadoop.hbase.filter</a></td>
+<td class="colLast">
+<div class="block">Provides row-level filters applied to HRegion scan results during calls to
+ <a href="../../../../../../org/apache/hadoop/hbase/client/ResultScanner.html#next()"><code>ResultScanner.next()</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.io.util">org.apache.hadoop.hbase.io.util</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.ipc">org.apache.hadoop.hbase.ipc</a></td>
+<td class="colLast">
+<div class="block">Tools to help define network clients and servers.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.mapreduce">org.apache.hadoop.hbase.mapreduce</a></td>
+<td class="colLast">
+<div class="block">Provides HBase <a href="http://wiki.apache.org/hadoop/HadoopMapReduce">MapReduce</a>
+Input/OutputFormats, a table indexing MapReduce job, and utility methods.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.master">org.apache.hadoop.hbase.master</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.master.snapshot">org.apache.hadoop.hbase.master.snapshot</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.procedure2">org.apache.hadoop.hbase.procedure2</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.protobuf">org.apache.hadoop.hbase.protobuf</a></td>
+<td class="colLast">
+<div class="block">Holds classes generated from <a href="https://developers.google.com/protocol-buffers/">protobuf</a>
+<code>src/main/protobuf</code> definition files.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.regionserver">org.apache.hadoop.hbase.regionserver</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.regionserver.wal">org.apache.hadoop.hbase.regionserver.wal</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.replication">org.apache.hadoop.hbase.replication</a></td>
+<td class="colLast">
+<div class="block">Multi Cluster Replication</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.security.access">org.apache.hadoop.hbase.security.access</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.security.visibility">org.apache.hadoop.hbase.security.visibility</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.util">org.apache.hadoop.hbase.util</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.wal">org.apache.hadoop.hbase.wal</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#org.apache.hadoop.hbase.zookeeper">org.apache.hadoop.hbase.zookeeper</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList">
+<ul class="blockList">
+<li class="blockList"><a name="org.apache.hadoop.hbase">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/package-summary.html">org.apache.hadoop.hbase</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/package-summary.html">org.apache.hadoop.hbase</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;</code></td>
+<td class="colLast"><span class="strong">HRegionInfo.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html#getHRegionInfoAndServerName(org.apache.hadoop.hbase.client.Result)">getHRegionInfoAndServerName</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/client/Result.html" title="class in org.apache.hadoop.hbase.client">Result</a>&nbsp;r)</code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use MetaTableAccessor methods for interacting with meta layouts</i></div>
+</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;</code></td>
+<td class="colLast"><span class="strong">MetaTableAccessor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/MetaTableAccessor.html#getRegion(org.apache.hadoop.hbase.client.Connection,%20byte[])">getRegion</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client">Connection</a>&nbsp;connection,
+         byte[]&nbsp;regionName)</code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>use <a href="../../../../../../org/apache/hadoop/hbase/MetaTableAccessor.html#getRegionLocation(org.apache.hadoop.hbase.client.Connection,%20byte[])"><code>MetaTableAccessor.getRegionLocation(Connection, byte[])</code></a> instead</i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&gt;</code></td>
+<td class="colLast"><span class="strong">MetaTableAccessor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/MetaTableAccessor.html#getRegionsFromMergeQualifier(org.apache.hadoop.hbase.client.Connection,%20byte[])">getRegionsFromMergeQualifier</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client">Connection</a>&nbsp;connection,
+                            byte[]&nbsp;regionName)</code>
+<div class="block">Get regions from the merge qualifier of the specified merged region</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/package-summary.html">org.apache.hadoop.hbase</a> that return types with arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">MetaTableAccessor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/MetaTableAccessor.html#getTableRegionsAndLocations(org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher,%20org.apache.hadoop.hbase.client.Connection,%20org.apache.hadoop.hbase.TableName)">getTableRegionsAndLocations</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/zookeeper/ZooKeeperWatcher.html" title="class in org.apache.hadoop.hbase.zookeeper">ZooKeeperWatcher</a>&nbsp;zkw,
+                           <a href="../../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client">Connection</a>&nbsp;connection,
+                           <a href="../../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">MetaTableAccessor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/MetaTableAccessor.html#getTableRegionsAndLocations(org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher,%20org.apache.hadoop.hbase.client.Connection,%20org.apache.hadoop.hbase.TableName,%20boolean)">getTableRegionsAndLocations</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/zookeeper/ZooKeeperWatcher.html" title="class in org.apache.hadoop.hbase.zookeeper">ZooKeeperWatcher</a>&nbsp;zkw,
+                           <a href="../../../../../../org/apache/hadoop/hbase/client/Connection.html" title="interface in org.apache.hadoop.hbase.client">Connection</a>&nbsp;connection,
+                           <a href="../../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+                           boolean&nbsp;excludeOfflinedSplitParents)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/client/package-summary.html">org.apache.hadoop.hbase.client</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">HBaseAdmin.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HBaseAdmin.html#getAlterStatus(byte[])">getAlterStatus</a></strong>(byte[]&nbsp;tableName)</code>
+<div class="block">Get the status of alter command - indicates how many regions have received
+ the updated schema Asynchronous operation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">Admin.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Admin.html#getAlterStatus(byte[])">getAlterStatus</a></strong>(byte[]&nbsp;tableName)</code>
+<div class="block">Get the status of alter command - indicates how many regions have received the updated schema
+ Asynchronous operation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">HBaseAdmin.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HBaseAdmin.html#getAlterStatus(org.apache.hadoop.hbase.TableName)">getAlterStatus</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName)</code>
+<div class="block">Get the status of alter command - indicates how many regions have received
+ the updated schema Asynchronous operation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">Admin.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/Admin.html#getAlterStatus(org.apache.hadoop.hbase.TableName)">getAlterStatus</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName)</code>
+<div class="block">Get the status of alter command - indicates how many regions have received the updated schema
+ Asynchronous operation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[][],byte[][]&gt;</code></td>
+<td class="colLast"><span class="strong">RegionLocator.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/RegionLocator.html#getStartEndKeys()">getStartEndKeys</a></strong>()</code>
+<div class="block">Gets the starting and ending row keys for every region in the currently
+ open table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[][],byte[][]&gt;</code></td>
+<td class="colLast"><span class="strong">HTable.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HTable.html#getStartEndKeys()">getStartEndKeys</a></strong>()</code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;
+<div class="block"><i>Since 1.1.0. Use <a href="../../../../../../org/apache/hadoop/hbase/client/RegionLocator.html#getStartEndKeys()"><code>RegionLocator.getStartEndKeys()</code></a> instead;</i></div>
+</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[][],byte[][]&gt;</code></td>
+<td class="colLast"><span class="strong">HRegionLocator.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/HRegionLocator.html#getStartEndKeys()">getStartEndKeys</a></strong>()</code>
+<div class="block">Gets the starting and ending row keys for every region in the currently
+ open table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.client.coprocessor">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/package-summary.html">org.apache.hadoop.hbase.client.coprocessor</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/package-summary.html">org.apache.hadoop.hbase.client.coprocessor</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">SecureBulkLoadClient.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/client/coprocessor/SecureBulkLoadClient.html#bulkLoadHFiles(java.util.List,%20org.apache.hadoop.security.token.Token,%20java.lang.String,%20byte[])">bulkLoadHFiles</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+              org.apache.hadoop.security.token.Token&lt;?&gt;&nbsp;userToken,
+              <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bulkToken,
+              byte[]&nbsp;startRow)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.constraint">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/constraint/package-summary.html">org.apache.hadoop.hbase.constraint</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/constraint/package-summary.html">org.apache.hadoop.hbase.constraint</a> with parameters of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><span class="strong">Constraints.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/constraint/Constraints.html#add(org.apache.hadoop.hbase.HTableDescriptor,%20org.apache.hadoop.hbase.util.Pair...)">add</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;desc,
+   <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../../../org/apache/hadoop/hbase/constraint/Constraint.html" title="interface in org.apache.hadoop.hbase.constraint">Constraint</a>&gt;,org.apache.hadoop.conf.Configuration&gt;...&nbsp;constraints)</code>
+<div class="block">Add constraints and their associated configurations to the table.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.coprocessor">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/coprocessor/package-summary.html">org.apache.hadoop.hbase.coprocessor</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/coprocessor/package-summary.html">org.apache.hadoop.hbase.coprocessor</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">RegionObserver.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionObserver.html#postBulkLoadHFile(org.apache.hadoop.hbase.coprocessor.ObserverContext,%20java.util.List,%20boolean)">postBulkLoadHFile</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/ObserverContext.html" title="class in org.apache.hadoop.hbase.coprocessor">ObserverContext</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionCoprocessorEnvironment.html" title="interface in org.apache.hadoop.hbase.coprocessor">RegionCoprocessorEnvironment</a>&gt;&nbsp;ctx,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+                 boolean&nbsp;hasLoaded)</code>
+<div class="block">Called after bulkLoadHFile.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">BaseRegionObserver.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/coprocessor/BaseRegionObserver.html#postBulkLoadHFile(org.apache.hadoop.hbase.coprocessor.ObserverContext,%20java.util.List,%20boolean)">postBulkLoadHFile</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/ObserverContext.html" title="class in org.apache.hadoop.hbase.coprocessor">ObserverContext</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionCoprocessorEnvironment.html" title="interface in org.apache.hadoop.hbase.coprocessor">RegionCoprocessorEnvironment</a>&gt;&nbsp;ctx,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+                 boolean&nbsp;hasLoaded)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">RegionObserver.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionObserver.html#preBulkLoadHFile(org.apache.hadoop.hbase.coprocessor.ObserverContext,%20java.util.List)">preBulkLoadHFile</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/ObserverContext.html" title="class in org.apache.hadoop.hbase.coprocessor">ObserverContext</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionCoprocessorEnvironment.html" title="interface in org.apache.hadoop.hbase.coprocessor">RegionCoprocessorEnvironment</a>&gt;&nbsp;ctx,
+                <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths)</code>
+<div class="block">Called before bulkLoadHFile.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">BaseRegionObserver.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/coprocessor/BaseRegionObserver.html#preBulkLoadHFile(org.apache.hadoop.hbase.coprocessor.ObserverContext,%20java.util.List)">preBulkLoadHFile</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/ObserverContext.html" title="class in org.apache.hadoop.hbase.coprocessor">ObserverContext</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionCoprocessorEnvironment.html" title="interface in org.apache.hadoop.hbase.coprocessor">RegionCoprocessorEnvironment</a>&gt;&nbsp;ctx,
+                <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.filter">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/filter/package-summary.html">org.apache.hadoop.hbase.filter</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructor parameters in <a href="../../../../../../org/apache/hadoop/hbase/filter/package-summary.html">org.apache.hadoop.hbase.filter</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/filter/FuzzyRowFilter.html#FuzzyRowFilter(java.util.List)">FuzzyRowFilter</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],byte[]&gt;&gt;&nbsp;fuzzyKeysData)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.io.util">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/io/util/package-summary.html">org.apache.hadoop.hbase.io.util</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/io/util/package-summary.html">org.apache.hadoop.hbase.io.util</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">StreamUtils.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/io/util/StreamUtils.html#readRawVarint32(byte[],%20int)">readRawVarint32</a></strong>(byte[]&nbsp;input,
+               int&nbsp;offset)</code>
+<div class="block">Reads a varInt value stored in an array.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.ipc">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/ipc/package-summary.html">org.apache.hadoop.hbase.ipc</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/ipc/package-summary.html">org.apache.hadoop.hbase.ipc</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;com.google.protobuf.Message,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">RpcServerInterface.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/ipc/RpcServerInterface.html#call(com.google.protobuf.BlockingService,%20com.google.protobuf.Descriptors.MethodDescriptor,%20com.google.protobuf.Message,%20org.apache.hadoop.hbase.CellScanner,%20long,%20org.apache.hadoop.hbase.monitoring.MonitoredRPCHandler)">call</a></strong>(com.google.protobuf.BlockingService&nbsp;service,
+    com.google.protobuf.Descriptors.MethodDescriptor&nbsp;md,
+    com.google.protobuf.Message&nbsp;param,
+    <a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&nbsp;cellScanner,
+    long&nbsp;receiveTime,
+    <a href="../../../../../../org/apache/hadoop/hbase/monitoring/MonitoredRPCHandler.html" title="interface in org.apache.hadoop.hbase.monitoring">MonitoredRPCHandler</a>&nbsp;status)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;com.google.protobuf.Message,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">RpcServer.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/ipc/RpcServer.html#call(com.google.protobuf.BlockingService,%20com.google.protobuf.Descriptors.MethodDescriptor,%20com.google.protobuf.Message,%20org.apache.hadoop.hbase.CellScanner,%20long,%20org.apache.hadoop.hbase.monitoring.MonitoredRPCHandler)">call</a></strong>(com.google.protobuf.BlockingService&nbsp;service,
+    com.google.protobuf.Descriptors.MethodDescriptor&nbsp;md,
+    com.google.protobuf.Message&nbsp;param,
+    <a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&nbsp;cellScanner,
+    long&nbsp;receiveTime,
+    <a href="../../../../../../org/apache/hadoop/hbase/monitoring/MonitoredRPCHandler.html" title="interface in org.apache.hadoop.hbase.monitoring">MonitoredRPCHandler</a>&nbsp;status)</code>
+<div class="block">This is a server side method, which is invoked over RPC.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;com.google.protobuf.Message,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">RpcClientImpl.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/ipc/RpcClientImpl.html#call(org.apache.hadoop.hbase.ipc.PayloadCarryingRpcController,%20com.google.protobuf.Descriptors.MethodDescriptor,%20com.google.protobuf.Message,%20com.google.protobuf.Message,%20org.apache.hadoop.hbase.security.User,%20java.net.InetSocketAddress,%20org.apache.hadoop.hbase.client.MetricsConnection.CallStats)">call</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/ipc/PayloadCarryingRpcController.html" title="class in org.apache.hadoop.hbase.ipc">PayloadCarryingRpcController</a>&nbsp;pcrc,
+    com.google.protobuf.Descriptors.MethodDescriptor&nbsp;md,
+    com.google.protobuf.Message&nbsp;param,
+    com.google.protobuf.Message&nbsp;returnType,
+    <a href="../../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;ticket,
+    <a href="http://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;addr,
+    <a href="../../../../../../org/apache/hadoop/hbase/client/MetricsConnection.CallStats.html" title="class in org.apache.hadoop.hbase.client">MetricsConnection.CallStats</a>&nbsp;callStats)</code>
+<div class="block">Make a call, passing <code>param</code>, to the IPC server running at
+ <code>address</code> which is servicing the <code>protocol</code> protocol,
+ with the <code>ticket</code> credentials, returning the value.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;com.google.protobuf.Message,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">AsyncRpcClient.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/ipc/AsyncRpcClient.html#call(org.apache.hadoop.hbase.ipc.PayloadCarryingRpcController,%20com.google.protobuf.Descriptors.MethodDescriptor,%20com.google.protobuf.Message,%20com.google.protobuf.Message,%20org.apache.hadoop.hbase.security.User,%20java.net.InetSocketAddress,%20org.apache.hadoop.hbase.client.MetricsConnection.CallStats)">call</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/ipc/PayloadCarryingRpcController.html" title="class in org.apache.hadoop.hbase.ipc">PayloadCarryingRpcController</a>&nbsp;pcrc,
+    com.google.protobuf.Descriptors.MethodDescriptor&nbsp;md,
+    com.google.protobuf.Message&nbsp;param,
+    com.google.protobuf.Message&nbsp;returnType,
+    <a href="../../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;ticket,
+    <a href="http://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;addr,
+    <a href="../../../../../../org/apache/hadoop/hbase/client/MetricsConnection.CallStats.html" title="class in org.apache.hadoop.hbase.client">MetricsConnection.CallStats</a>&nbsp;callStats)</code>
+<div class="block">Make a call, passing <code>param</code>, to the IPC server running at
+ <code>address</code> which is servicing the <code>protocol</code> protocol,
+ with the <code>ticket</code> credentials, returning the value.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected abstract <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;com.google.protobuf.Message,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">AbstractRpcClient.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/ipc/AbstractRpcClient.html#call(org.apache.hadoop.hbase.ipc.PayloadCarryingRpcController,%20com.google.protobuf.Descriptors.MethodDescriptor,%20com.google.protobuf.Message,%20com.google.protobuf.Message,%20org.apache.hadoop.hbase.security.User,%20java.net.InetSocketAddress,%20org.apache.hadoop.hbase.client.MetricsConnection.CallStats)">call</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/ipc/PayloadCarryingRpcController.html" title="class in org.apache.hadoop.hbase.ipc">PayloadCarryingRpcController</a>&nbsp;pcrc,
+    com.google.protobuf.Descriptors.MethodDescriptor&nbsp;md,
+    com.google.protobuf.Message&nbsp;param,
+    com.google.protobuf.Message&nbsp;returnType,
+    <a href="../../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;ticket,
+    <a href="http://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;isa,
+    <a href="../../../../../../org/apache/hadoop/hbase/client/MetricsConnection.CallStats.html" title="class in org.apache.hadoop.hbase.client">MetricsConnection.CallStats</a>&nbsp;callStats)</code>
+<div class="block">Make a call, passing <code>param</code>, to the IPC server running at
+ <code>address</code> which is servicing the <code>protocol</code> protocol,
+ with the <code>ticket</code> credentials, returning the value.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.mapreduce">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/package-summary.html">org.apache.hadoop.hbase.mapreduce</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/package-summary.html">org.apache.hadoop.hbase.mapreduce</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[][],byte[][]&gt;</code></td>
+<td class="colLast"><span class="strong">TableInputFormatBase.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableInputFormatBase.html#getStartEndKeys()">getStartEndKeys</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[][],byte[][]&gt;</code></td>
+<td class="colLast"><span class="strong">TableInputFormat.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/TableInputFormat.html#getStartEndKeys()">getStartEndKeys</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">ImportTsv.TsvParser.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/ImportTsv.TsvParser.html#parseRowKey(byte[],%20int)">parseRowKey</a></strong>(byte[]&nbsp;lineBytes,
+           int&nbsp;length)</code>
+<div class="block">Return starting position and length of row key from the specified line bytes.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/mapreduce/package-summary.html">org.apache.hadoop.hbase.mapreduce</a> with parameters of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles.LoadQueueItem&gt;</code></td>
+<td class="colLast"><span class="strong">LoadIncrementalHFiles.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/mapreduce/LoadIncrementalHFiles.html#groupOrSplit(com.google.common.collect.Multimap,%20org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles.LoadQueueItem,%20org.apache.hadoop.hbase.client.Table,%20org.apache.hadoop.hbase.util.Pair)">groupOrSplit</a></strong>(com.google.common.collect.Multimap&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>,org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles.LoadQueueItem&gt;&nbsp;regionGroups,
+            org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles.LoadQueueItem&nbsp;item,
+            <a href="../../../../../../org/apache/hadoop/hbase/client/Table.html" title="interface in org.apache.hadoop.hbase.client">Table</a>&nbsp;table,
+            <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[][],byte[][]&gt;&nbsp;startEndKeys)</code>
+<div class="block">Attempt to assign the given load queue item into its target region group.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.master">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/master/package-summary.html">org.apache.hadoop.hbase.master</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/master/package-summary.html">org.apache.hadoop.hbase.master</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
+<td class="colLast"><span class="strong">AssignmentManager.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/AssignmentManager.html#getReopenStatus(org.apache.hadoop.hbase.TableName)">getReopenStatus</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName)</code>
+<div class="block">Used by the client to identify if all regions have the schema updates</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/master/package-summary.html">org.apache.hadoop.hbase.master</a> that return types with arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">DeadServer.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/DeadServer.html#copyDeadServersSince(long)">copyDeadServersSince</a></strong>(long&nbsp;ts)</code>
+<div class="block">Extract all the servers dead since a given time, and sort them.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">ClusterStatusPublisher.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/ClusterStatusPublisher.html#getDeadServers(long)">getDeadServers</a></strong>(long&nbsp;since)</code>
+<div class="block">Get the servers which died since a given timestamp.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.master.snapshot">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/master/snapshot/package-summary.html">org.apache.hadoop.hbase.master.snapshot</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/master/snapshot/package-summary.html">org.apache.hadoop.hbase.master.snapshot</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>protected abstract void</code></td>
+<td class="colLast"><span class="strong">TakeSnapshotHandler.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/snapshot/TakeSnapshotHandler.html#snapshotRegions(java.util.List)">snapshotRegions</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;&nbsp;regions)</code>
+<div class="block">Snapshot the specified regions</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><span class="strong">EnabledTableSnapshotHandler.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/snapshot/EnabledTableSnapshotHandler.html#snapshotRegions(java.util.List)">snapshotRegions</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;&nbsp;regions)</code>
+<div class="block">This method kicks off a snapshot procedure.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">DisabledTableSnapshotHandler.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/snapshot/DisabledTableSnapshotHandler.html#snapshotRegions(java.util.List)">snapshotRegions</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;&nbsp;regionsAndLocations)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.procedure2">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/procedure2/package-summary.html">org.apache.hadoop.hbase.procedure2</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/procedure2/package-summary.html">org.apache.hadoop.hbase.procedure2</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&gt;</code></td>
+<td class="colLast"><span class="strong">ProcedureExecutor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getResultOrProcedure(long)">getResultOrProcedure</a></strong>(long&nbsp;procId)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.protobuf">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/protobuf/package-summary.html">org.apache.hadoop.hbase.protobuf</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/protobuf/package-summary.html">org.apache.hadoop.hbase.protobuf</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;org.apache.hadoop.hbase.protobuf.generated.AdminProtos.ReplicateWALEntryRequest,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">ReplicationProtbufUtil.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/protobuf/ReplicationProtbufUtil.html#buildReplicateWALEntryRequest(org.apache.hadoop.hbase.wal.WAL.Entry[])">buildReplicateWALEntryRequest</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal">WAL.Entry</a>[]&nbsp;entries)</code>
+<div class="block">Create a new ReplicateWALEntryRequest from a list of WAL entries</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;org.apache.hadoop.hbase.protobuf.generated.AdminProtos.ReplicateWALEntryRequest,<a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&gt;</code></td>
+<td class="colLast"><span class="strong">ReplicationProtbufUtil.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/protobuf/ReplicationProtbufUtil.html#buildReplicateWALEntryRequest(org.apache.hadoop.hbase.wal.WAL.Entry[],%20byte[])">buildReplicateWALEntryRequest</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal">WAL.Entry</a>[]&nbsp;entries,
+                             byte[]&nbsp;encodedRegionName)</code>
+<div class="block">Create a new ReplicateWALEntryRequest from a list of HLog entries</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/protobuf/package-summary.html">org.apache.hadoop.hbase.protobuf</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static org.apache.hadoop.hbase.protobuf.generated.ClientProtos.BulkLoadHFileRequest</code></td>
+<td class="colLast"><span class="strong">RequestConverter.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/protobuf/RequestConverter.html#buildBulkLoadHFileRequest(java.util.List,%20byte[],%20boolean)">buildBulkLoadHFileRequest</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+                         byte[]&nbsp;regionName,
+                         boolean&nbsp;assignSeqNum)</code>
+<div class="block">Create a protocol buffer bulk load request</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static org.apache.hadoop.hbase.protobuf.generated.AdminProtos.UpdateFavoredNodesRequest</code></td>
+<td class="colLast"><span class="strong">RequestConverter.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/protobuf/RequestConverter.html#buildUpdateFavoredNodesRequest(java.util.List)">buildUpdateFavoredNodesRequest</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;&gt;&nbsp;updateRegionInfos)</code>
+<div class="block">Create a protocol buffer UpdateFavoredNodesRequest to update a list of favorednode mappings</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">ProtobufUtil.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/protobuf/ProtobufUtil.html#bulkLoadHFile(org.apache.hadoop.hbase.protobuf.generated.ClientProtos.ClientService.BlockingInterface,%20java.util.List,%20byte[],%20boolean)">bulkLoadHFile</a></strong>(org.apache.hadoop.hbase.protobuf.generated.ClientProtos.ClientService.BlockingInterface&nbsp;client,
+             <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+             byte[]&nbsp;regionName,
+             boolean&nbsp;assignSeqNum)</code>
+<div class="block">A helper to bulk load a list of HFiles using client protocol.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.regionserver">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/regionserver/package-summary.html">org.apache.hadoop.hbase.regionserver</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/regionserver/package-summary.html">org.apache.hadoop.hbase.regionserver</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">Region.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.html#bulkLoadHFiles(java.util.Collection,%20boolean,%20org.apache.hadoop.hbase.regionserver.Region.BulkLoadListener)">bulkLoadHFiles</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+              boolean&nbsp;assignSeqId,
+              <a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.BulkLoadListener.html" title="interface in org.apache.hadoop.hbase.regionserver">Region.BulkLoadListener</a>&nbsp;bulkLoadListener)</code>
+<div class="block">Attempts to atomically load a group of hfiles.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">HRegion.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/HRegion.html#bulkLoadHFiles(java.util.Collection,%20boolean,%20org.apache.hadoop.hbase.regionserver.Region.BulkLoadListener)">bulkLoadHFiles</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+              boolean&nbsp;assignSeqId,
+              <a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.BulkLoadListener.html" title="interface in org.apache.hadoop.hbase.regionserver">Region.BulkLoadListener</a>&nbsp;bulkLoadListener)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">RegionCoprocessorHost.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/RegionCoprocessorHost.html#postBulkLoadHFile(java.util.List,%20boolean)">postBulkLoadHFile</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths,
+                 boolean&nbsp;hasLoaded)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">RegionCoprocessorHost.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/RegionCoprocessorHost.html#preBulkLoadHFile(java.util.List)">preBulkLoadHFile</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>&gt;</code></td>
+<td class="colLast"><span class="strong">CompactionRequestor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/CompactionRequestor.html#requestCompaction(org.apache.hadoop.hbase.regionserver.Region,%20java.lang.String,%20int,%20java.util.List,%20org.apache.hadoop.hbase.security.User)">requestCompaction</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.html" title="interface in org.apache.hadoop.hbase.regionserver">Region</a>&nbsp;r,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;why,
+                 int&nbsp;pri,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>,<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Store.html" title="interface in org.apache.hadoop.hbase.regionserver">Store</a>&gt;&gt;&nbsp;requests,
+                 <a href="../../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;user)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>&gt;</code></td>
+<td class="colLast"><span class="strong">CompactSplitThread.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/CompactSplitThread.html#requestCompaction(org.apache.hadoop.hbase.regionserver.Region,%20java.lang.String,%20int,%20java.util.List,%20org.apache.hadoop.hbase.security.User)">requestCompaction</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.html" title="interface in org.apache.hadoop.hbase.regionserver">Region</a>&nbsp;r,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;why,
+                 int&nbsp;p,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>,<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Store.html" title="interface in org.apache.hadoop.hbase.regionserver">Store</a>&gt;&gt;&nbsp;requests,
+                 <a href="../../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;user)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>&gt;</code></td>
+<td class="colLast"><span class="strong">CompactionRequestor.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/CompactionRequestor.html#requestCompaction(org.apache.hadoop.hbase.regionserver.Region,%20java.lang.String,%20java.util.List)">requestCompaction</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.html" title="interface in org.apache.hadoop.hbase.regionserver">Region</a>&nbsp;r,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;why,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>,<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Store.html" title="interface in org.apache.hadoop.hbase.regionserver">Store</a>&gt;&gt;&nbsp;requests)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>&gt;</code></td>
+<td class="colLast"><span class="strong">CompactSplitThread.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/CompactSplitThread.html#requestCompaction(org.apache.hadoop.hbase.regionserver.Region,%20java.lang.String,%20java.util.List)">requestCompaction</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Region.html" title="interface in org.apache.hadoop.hbase.regionserver">Region</a>&nbsp;r,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;why,
+                 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/regionserver/compactions/CompactionRequest.html" title="class in org.apache.hadoop.hbase.regionserver.compactions">CompactionRequest</a>,<a href="../../../../../../org/apache/hadoop/hbase/regionserver/Store.html" title="interface in org.apache.hadoop.hbase.regionserver">Store</a>&gt;&gt;&nbsp;requests)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.regionserver.wal">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/package-summary.html">org.apache.hadoop.hbase.regionserver.wal</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/package-summary.html">org.apache.hadoop.hbase.regionserver.wal</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">WALEditsReplaySink.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALEditsReplaySink.html#replayEntries(java.util.List)">replayEntries</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionLocation.html" title="class in org.apache.hadoop.hbase">HRegionLocation</a>,<a href="../../../../../../org/apache/hadoop/hbase/wal/WAL.Entry.html" title="class in org.apache.hadoop.hbase.wal">WAL.Entry</a>&gt;&gt;&nbsp;entries)</code>
+<div class="block">Replay an array of actions of the same region directly into the newly assigned Region Server</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.replication">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/replication/package-summary.html">org.apache.hadoop.hbase.replication</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/replication/package-summary.html">org.apache.hadoop.hbase.replication</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/replication/ReplicationPeerConfig.html" title="class in org.apache.hadoop.hbase.replication">ReplicationPeerConfig</a>,org.apache.hadoop.conf.Configuration&gt;</code></td>
+<td class="colLast"><span class="strong">ReplicationPeersZKImpl.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/replication/ReplicationPeersZKImpl.html#getPeerConf(java.lang.String)">getPeerConf</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peerId)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/replication/ReplicationPeerConfig.html" title="class in org.apache.hadoop.hbase.replication">ReplicationPeerConfig</a>,org.apache.hadoop.conf.Configuration&gt;</code></td>
+<td class="colLast"><span class="strong">ReplicationPeers.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/replication/ReplicationPeers.html#getPeerConf(java.lang.String)">getPeerConf</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peerId)</code>
+<div class="block">Returns the configuration needed to talk to the remote slave cluster.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.security.access">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/security/access/package-summary.html">org.apache.hadoop.hbase.security.access</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../../../org/apache/hadoop/hbase/security/access/package-summary.html">org.apache.hadoop.hbase.security.access</a> with type arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">AccessController.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/security/access/AccessController.html#preBulkLoadHFile(org.apache.hadoop.hbase.coprocessor.ObserverContext,%20java.util.List)">preBulkLoadHFile</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/ObserverContext.html" title="class in org.apache.hadoop.hbase.coprocessor">ObserverContext</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/coprocessor/RegionCoprocessorEnvironment.html" title="interface in org.apache.hadoop.hbase.coprocessor">RegionCoprocessorEnvironment</a>&gt;&nbsp;ctx,
+                <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;byte[],<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&gt;&nbsp;familyPaths)</code>
+<div class="block">Verifies user has CREATE privileges on
+ the Column Families involved in the bulkLoadHFile
+ request.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.security.visibility">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/security/visibility/package-summary.html">org.apache.hadoop.hbase.security.visibility</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/security/visibility/package-summary.html">org.apache.hadoop.hbase.security.visibility</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">DefaultVisibilityLabelServiceImpl.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/security/visibility/DefaultVisibilityLabelServiceImpl.html#extractLabelsAndAuths(java.util.List)">extractLabelsAndAuths</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/Cell.html" title="interface in org.apache.hadoop.hbase">Cell</a>&gt;&gt;&nbsp;labelDetails)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.util">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/util/package-summary.html">org.apache.hadoop.hbase.util</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/util/package-summary.html">org.apache.hadoop.hbase.util</a> that return <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static &lt;T1,T2&gt;&nbsp;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;T1,T2&gt;</code></td>
+<td class="colLast"><span class="strong">Pair.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html#newPair(T1,%20T2)">newPair</a></strong>(T1&nbsp;a,
+       T2&nbsp;b)</code>
+<div class="block">Constructs a new pair, inferring the type via the passed arguments</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.wal">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/wal/package-summary.html">org.apache.hadoop.hbase.wal</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/wal/package-summary.html">org.apache.hadoop.hbase.wal</a> with parameters of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/wal/WALSplitter.MutationReplay.html" title="class in org.apache.hadoop.hbase.wal">WALSplitter.MutationReplay</a>&gt;</code></td>
+<td class="colLast"><span class="strong">WALSplitter.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/wal/WALSplitter.html#getMutationsFromWALEntry(org.apache.hadoop.hbase.protobuf.generated.AdminProtos.WALEntry,%20org.apache.hadoop.hbase.CellScanner,%20org.apache.hadoop.hbase.util.Pair,%20org.apache.hadoop.hbase.client.Durability)">getMutationsFromWALEntry</a></strong>(org.apache.hadoop.hbase.protobuf.generated.AdminProtos.WALEntry&nbsp;entry,
+                        <a href="../../../../../../org/apache/hadoop/hbase/CellScanner.html" title="interface in org.apache.hadoop.hbase">CellScanner</a>&nbsp;cells,
+                        <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/wal/WALKey.html" title="class in org.apache.hadoop.hbase.wal">WALKey</a>,<a href="../../../../../../org/apache/hadoop/hbase/regionserver/wal/WALEdit.html" title="class in org.apache.hadoop.hbase.regionserver.wal">WALEdit</a>&gt;&nbsp;logEntry,
+                        <a href="../../../../../../org/apache/hadoop/hbase/client/Durability.html" title="enum in org.apache.hadoop.hbase.client">Durability</a>&nbsp;durability)</code>
+<div class="block">This function is used to construct mutations from a WALEntry.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="org.apache.hadoop.hbase.zookeeper">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a> in <a href="../../../../../../org/apache/hadoop/hbase/zookeeper/package-summary.html">org.apache.hadoop.hbase.zookeeper</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../../../org/apache/hadoop/hbase/zookeeper/package-summary.html">org.apache.hadoop.hbase.zookeeper</a> that return types with arguments of type <a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">MetaTableLocator.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/zookeeper/MetaTableLocator.html#getMetaRegionsAndLocations(org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher)">getMetaRegionsAndLocations</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/zookeeper/ZooKeeperWatcher.html" title="class in org.apache.hadoop.hbase.zookeeper">ZooKeeperWatcher</a>&nbsp;zkw)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>,<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&gt;&gt;</code></td>
+<td class="colLast"><span class="strong">MetaTableLocator.</span><code><strong><a href="../../../../../../org/apache/hadoop/hbase/zookeeper/MetaTableLocator.html#getMetaRegionsAndLocations(org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher,%20int)">getMetaRegionsAndLocations</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/zookeeper/ZooKeeperWatcher.html" title="class in org.apache.hadoop.hbase.zookeeper">ZooKeeperWatcher</a>&nbsp;zkw,
+                          int&nbsp;replicaId)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="../package-summary.html">Package</a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Class</a></li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/util/class-use/Pair.html" target="_top">Frames</a></li>
+<li><a href="Pair.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

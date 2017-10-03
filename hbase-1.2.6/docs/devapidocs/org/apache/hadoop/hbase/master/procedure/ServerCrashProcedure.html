@@ -1,0 +1,841 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ServerCrashProcedure (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="ServerCrashProcedure (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/ServerCrashProcedure.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ProcedureSyncWait.Predicate.html" title="interface in org.apache.hadoop.hbase.master.procedure"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html" target="_top">Frames</a></li>
+<li><a href="ServerCrashProcedure.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_classes_inherited_from_class_org.apache.hadoop.hbase.procedure2.StateMachineProcedure">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.master.procedure</div>
+<h2 title="Class ServerCrashProcedure" class="title">Class ServerCrashProcedure</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">org.apache.hadoop.hbase.procedure2.Procedure</a>&lt;TEnvironment&gt;</li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">org.apache.hadoop.hbase.procedure2.StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&gt;, <a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public class <span class="strong">ServerCrashProcedure</span>
+extends <a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;
+implements <a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface</a></pre>
+<div class="block">Handle crashed server. This is a port to ProcedureV2 of what used to be euphemistically called
+ ServerShutdownHandler.
+
+ <p>The procedure flow varies dependent on whether meta is assigned, if we are
+ doing distributed log replay versus distributed log splitting, and if we are to split logs at
+ all.
+
+ <p>This procedure asks that all crashed servers get processed equally; we yield after the
+ completion of each successful flow step. We do this so that we do not 'deadlock' waiting on
+ a region assignment so we can replay edits which could happen if a region moved there are edits
+ on two servers for replay.
+
+ <p>TODO: ASSIGN and WAIT_ON_ASSIGN (at least) are not idempotent. Revisit when assign is pv2.
+ TODO: We do not have special handling for system tables.</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_org.apache.hadoop.hbase.procedure2.StateMachineProcedure">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;org.apache.hadoop.hbase.procedure2.<a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.Flow.html" title="enum in org.apache.hadoop.hbase.procedure2">StateMachineProcedure.Flow</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_org.apache.hadoop.hbase.master.procedure.ServerProcedureInterface">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;org.apache.hadoop.hbase.master.procedure.<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.ServerOperationType.html" title="enum in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface.ServerOperationType</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#DEFAULT_RETRIES_ON_META">DEFAULT_RETRIES_ON_META</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#DEFAULT_SHORT_WAIT_ON_META">DEFAULT_SHORT_WAIT_ON_META</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#DEFAULT_WAIT_ON_RIT">DEFAULT_WAIT_ON_RIT</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#KEY_RETRIES_ON_META">KEY_RETRIES_ON_META</a></strong></code>
+<div class="block">Configuration key to set how many retries to cycle before we give up on meta.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#KEY_SHORT_WAIT_ON_META">KEY_SHORT_WAIT_ON_META</a></strong></code>
+<div class="block">Configuration key to set how long to wait in ms doing a quick check on meta state.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#KEY_WAIT_ON_RIT">KEY_WAIT_ON_RIT</a></strong></code>
+<div class="block">Configuration key to set how long to wait in ms on regions in transition.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#ServerCrashProcedure()">ServerCrashProcedure</a></strong>()</code>
+<div class="block">Used when deserializing from a procedure store; we'll construct one of these then call
+ <a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#deserializeStateData(java.io.InputStream)"><code>deserializeStateData(InputStream)</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#ServerCrashProcedure(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv,%20org.apache.hadoop.hbase.ServerName,%20boolean,%20boolean)">ServerCrashProcedure</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                    <a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;serverName,
+                    boolean&nbsp;shouldSplitWal,
+                    boolean&nbsp;carryingMeta)</code>
+<div class="block">Call this constructor queuing up a Procedure.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#abort(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">abort</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</code>
+<div class="block">The abort() call is asynchronous and each procedure must decide how to deal
+ with that, if they want to be abortable.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#acquireLock(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">acquireLock</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</code>
+<div class="block">The user should override this method, and try to take a lock if necessary.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#deserializeStateData(java.io.InputStream)">deserializeStateData</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;stream)</code>
+<div class="block">Called on store load to allow the user to decode the previously serialized
+ state.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.Flow.html" title="enum in org.apache.hadoop.hbase.procedure2">StateMachineProcedure.Flow</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#executeFromState(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv,%20org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">executeFromState</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)</code>
+<div class="block">called to perform a single step of the specified 'state' of the procedure</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#getInitialState()">getInitialState</a></strong>()</code>
+<div class="block">Return the initial state object that will be used for the first call to executeFromState().</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#getServerName()">getServerName</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.ServerOperationType.html" title="enum in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface.ServerOperationType</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#getServerOperationType()">getServerOperationType</a></strong>()</code>
+<div class="block">Given an operation type we can take decisions about what to do with pending operations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#getState(int)">getState</a></strong>(int&nbsp;stateId)</code>
+<div class="block">Convert an ordinal (or state id) to an Enum (or more descriptive) state object.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#getStateId(org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">getStateId</a></strong>(org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)</code>
+<div class="block">Convert the Enum (or more descriptive) state object to an ordinal (or state id).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#hasMetaTableRegion()">hasMetaTableRegion</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#isYieldBeforeExecuteFromState(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv,%20org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">isYieldBeforeExecuteFromState</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                             org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)</code>
+<div class="block">For this procedure, yield at end of each successful flow step so that all crashed servers
+ can make progress rather than do the default which has each procedure running to completion
+ before we move to the next.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#releaseLock(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">releaseLock</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</code>
+<div class="block">The user should override this method, and release lock if necessary.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#rollbackState(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv,%20org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">rollbackState</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+             org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)</code>
+<div class="block">called to perform the rollback of the specified state</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#serializeStateData(java.io.OutputStream)">serializeStateData</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;stream)</code>
+<div class="block">The user-level code of the procedure may have some state to
+ persist (e.g.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#shouldWaitClientAck(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">shouldWaitClientAck</a></strong>(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</code>
+<div class="block">By default, the executor will keep the procedure result around util
+ the eviction TTL is expired.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#toStringClassDetails(java.lang.StringBuilder)">toStringClassDetails</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html?is-external=true" title="class or interface in java.lang">StringBuilder</a>&nbsp;sb)</code>
+<div class="block">Extend the toString() information with the procedure details
+ e.g.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.procedure2.StateMachineProcedure">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.procedure2.<a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#execute(TEnvironment)">execute</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#isYieldAfterExecutionStep(TEnvironment)">isYieldAfterExecutionStep</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#rollback(TEnvironment)">rollback</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#setNextState(TState)">setNextState</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#toStringState(java.lang.StringBuilder)">toStringState</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.procedure2.Procedure">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.procedure2.<a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a></h3>
+<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#addStackIndex(int)">addStackIndex</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#beforeReplay(TEnvironment)">beforeReplay</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#childrenCountDown()">childrenCountDown</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#compareTo(org.apache.hadoop.hbase.procedure2.Procedure)">compareTo</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#completionCleanup(TEnvironment)">completionCleanup</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#convert(org.apache.hadoop.hbase.procedure2.Procedure)">convert</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#convert(org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.Procedure)">convert</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#createProcedureInfo(org.apache.hadoop.hbase.procedure2.Procedure,%20org.apache.hadoop.hbase.util.NonceKey)">createProcedureInfo</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#doExecute(TEnvironment)">doExecute</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#doRollback(TEnvironment)">doRollback</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#elapsedTime()">elapsedTime</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getException()">getException</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getLastUpdate()">getLastUpdate</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getNonceKey()">getNonceKey</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getOwner()">getOwner</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getParentProcId()">getParentProcId</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getProcId()">getProcId</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getProcIdHashCode(long)">getProcIdHashCode</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getResult()">getResult</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getRootProcedureId(java.util.Map,%20org.apache.hadoop.hbase.procedure2.Procedure)">getRootProcedureId</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getStackIndexes()">getStackIndexes</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getStartTime()">getStartTime</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getState()">getState</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getTimeout()">getTimeout</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#getTimeRemaining()">getTimeRemaining</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#hasException()">hasException</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#hasOwner()">hasOwner</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#hasParent()">hasParent</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#hasTimeout()">hasTimeout</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#incChildrenLatch()">incChildrenLatch</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#isFailed()">isFailed</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#isFinished()">isFinished</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#isSuccess()">isSuccess</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#isWaiting()">isWaiting</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#newInstance(java.lang.String)">newInstance</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#removeStackIndex()">removeStackIndex</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setAbortFailure(java.lang.String,%20java.lang.String)">setAbortFailure</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setChildrenLatch(int)">setChildrenLatch</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setFailure(org.apache.hadoop.hbase.procedure2.RemoteProcedureException)">setFailure</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setFailure(java.lang.String,%20java.lang.Throwable)">setFailure</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setNonceKey(org.apache.hadoop.hbase.util.NonceKey)">setNonceKey</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setOwner(java.lang.String)">setOwner</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setParentProcId(long)">setParentProcId</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setProcId(long)">setProcId</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setResult(byte[])">setResult</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setStackIndexes(java.util.List)">setStackIndexes</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setStartTime(long)">setStartTime</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setState(org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureState)">setState</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setTimeout(int)">setTimeout</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#setTimeoutFailure()">setTimeoutFailure</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#toString()">toString</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#toStringClass()">toStringClass</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#toStringDetails()">toStringDetails</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#toStringSimpleSB()">toStringSimpleSB</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#updateTimestamp()">updateTimestamp</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#validateClass(org.apache.hadoop.hbase.procedure2.Procedure)">validateClass</a>, <a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#wasExecuted()">wasExecuted</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="KEY_SHORT_WAIT_ON_META">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_SHORT_WAIT_ON_META</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_SHORT_WAIT_ON_META</pre>
+<div class="block">Configuration key to set how long to wait in ms doing a quick check on meta state.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.KEY_SHORT_WAIT_ON_META">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_SHORT_WAIT_ON_META">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_SHORT_WAIT_ON_META</h4>
+<pre>public static final&nbsp;int DEFAULT_SHORT_WAIT_ON_META</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.DEFAULT_SHORT_WAIT_ON_META">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEY_RETRIES_ON_META">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_RETRIES_ON_META</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_RETRIES_ON_META</pre>
+<div class="block">Configuration key to set how many retries to cycle before we give up on meta.
+ Each attempt will wait at least <a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#KEY_SHORT_WAIT_ON_META"><code>KEY_SHORT_WAIT_ON_META</code></a> milliseconds.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.KEY_RETRIES_ON_META">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_RETRIES_ON_META">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_RETRIES_ON_META</h4>
+<pre>public static final&nbsp;int DEFAULT_RETRIES_ON_META</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.DEFAULT_RETRIES_ON_META">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEY_WAIT_ON_RIT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_WAIT_ON_RIT</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_WAIT_ON_RIT</pre>
+<div class="block">Configuration key to set how long to wait in ms on regions in transition.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.KEY_WAIT_ON_RIT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_WAIT_ON_RIT">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>DEFAULT_WAIT_ON_RIT</h4>
+<pre>public static final&nbsp;int DEFAULT_WAIT_ON_RIT</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.DEFAULT_WAIT_ON_RIT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="ServerCrashProcedure(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv, org.apache.hadoop.hbase.ServerName, boolean, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ServerCrashProcedure</h4>
+<pre>public&nbsp;ServerCrashProcedure(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                    <a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;serverName,
+                    boolean&nbsp;shouldSplitWal,
+                    boolean&nbsp;carryingMeta)</pre>
+<div class="block">Call this constructor queuing up a Procedure.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>serverName</code> - Name of the crashed server.</dd><dd><code>shouldSplitWal</code> - True if we should split WALs as part of crashed server processing.</dd><dd><code>carryingMeta</code> - True if carrying hbase:meta table region.</dd></dl>
+</li>
+</ul>
+<a name="ServerCrashProcedure()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>ServerCrashProcedure</h4>
+<pre>public&nbsp;ServerCrashProcedure()</pre>
+<div class="block">Used when deserializing from a procedure store; we'll construct one of these then call
+ <a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html#deserializeStateData(java.io.InputStream)"><code>deserializeStateData(InputStream)</code></a>. Do not use directly.</div>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="executeFromState(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv, org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>executeFromState</h4>
+<pre>protected&nbsp;<a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.Flow.html" title="enum in org.apache.hadoop.hbase.procedure2">StateMachineProcedure.Flow</a>&nbsp;executeFromState(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                                          org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)
+                                               throws <a href="../../../../../../org/apache/hadoop/hbase/procedure2/ProcedureYieldException.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureYieldException</a></pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#executeFromState(TEnvironment,%20TState)">StateMachineProcedure</a></code></strong></div>
+<div class="block">called to perform a single step of the specified 'state' of the procedure</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#executeFromState(TEnvironment,%20TState)">executeFromState</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dd><code>state</code> - state to execute</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Flow.NO_MORE_STATE if the procedure is completed,
+         Flow.HAS_MORE_STATE if there is another step.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/ProcedureYieldException.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureYieldException</a></code></dd></dl>
+</li>
+</ul>
+<a name="rollbackState(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv, org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rollbackState</h4>
+<pre>protected&nbsp;void&nbsp;rollbackState(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                 org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)
+                      throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#rollbackState(TEnvironment,%20TState)">StateMachineProcedure</a></code></strong></div>
+<div class="block">called to perform the rollback of the specified state</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#rollbackState(TEnvironment,%20TState)">rollbackState</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dd><code>state</code> - state to rollback</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - temporary failure, the rollback will retry later</dd></dl>
+</li>
+</ul>
+<a name="getState(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getState</h4>
+<pre>protected&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;getState(int&nbsp;stateId)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#getState(int)">StateMachineProcedure</a></code></strong></div>
+<div class="block">Convert an ordinal (or state id) to an Enum (or more descriptive) state object.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#getState(int)">getState</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>stateId</code> - the ordinal() of the state enum (or state id)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the state enum object</dd></dl>
+</li>
+</ul>
+<a name="getStateId(org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStateId</h4>
+<pre>protected&nbsp;int&nbsp;getStateId(org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#getStateId(TState)">StateMachineProcedure</a></code></strong></div>
+<div class="block">Convert the Enum (or more descriptive) state object to an ordinal (or state id).</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#getStateId(TState)">getStateId</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>state</code> - the state enum object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>stateId the ordinal() of the state enum (or state id)</dd></dl>
+</li>
+</ul>
+<a name="getInitialState()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getInitialState</h4>
+<pre>protected&nbsp;org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;getInitialState()</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#getInitialState()">StateMachineProcedure</a></code></strong></div>
+<div class="block">Return the initial state object that will be used for the first call to executeFromState().</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#getInitialState()">getInitialState</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>the initial state enum object</dd></dl>
+</li>
+</ul>
+<a name="abort(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abort</h4>
+<pre>protected&nbsp;boolean&nbsp;abort(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#abort(TEnvironment)">Procedure</a></code></strong></div>
+<div class="block">The abort() call is asynchronous and each procedure must decide how to deal
+ with that, if they want to be abortable. The simplest implementation
+ is to have an AtomicBoolean set in the abort() method and then the execute()
+ will check if the abort flag is set or not.
+ abort() may be called multiple times from the client, so the implementation
+ must be idempotent.
+
+ NOTE: abort() is not like Thread.interrupt() it is just a notification
+ that allows the procedure implementor where to abort to avoid leak and
+ have a better control on what was executed and what not.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#abort(TEnvironment)">abort</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="acquireLock(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>acquireLock</h4>
+<pre>protected&nbsp;boolean&nbsp;acquireLock(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#acquireLock(TEnvironment)">Procedure</a></code></strong></div>
+<div class="block">The user should override this method, and try to take a lock if necessary.
+ A lock can be anything, and it is up to the implementor.
+ Example: in our Master we can execute request in parallel for different tables
+          create t1 and create t2 can be executed at the same time.
+          anything else on t1/t2 is queued waiting that specific table create to happen.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#acquireLock(TEnvironment)">acquireLock</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the lock was acquired and false otherwise</dd></dl>
+</li>
+</ul>
+<a name="releaseLock(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>releaseLock</h4>
+<pre>protected&nbsp;void&nbsp;releaseLock(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#releaseLock(TEnvironment)">Procedure</a></code></strong></div>
+<div class="block">The user should override this method, and release lock if necessary.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#releaseLock(TEnvironment)">releaseLock</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="toStringClassDetails(java.lang.StringBuilder)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toStringClassDetails</h4>
+<pre>public&nbsp;void&nbsp;toStringClassDetails(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html?is-external=true" title="class or interface in java.lang">StringBuilder</a>&nbsp;sb)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#toStringClassDetails(java.lang.StringBuilder)">Procedure</a></code></strong></div>
+<div class="block">Extend the toString() information with the procedure details
+ e.g. className and parameters</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#toStringClassDetails(java.lang.StringBuilder)">toStringClassDetails</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>sb</code> - the string builder to use to append the proc specific information</dd></dl>
+</li>
+</ul>
+<a name="serializeStateData(java.io.OutputStream)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>serializeStateData</h4>
+<pre>public&nbsp;void&nbsp;serializeStateData(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;stream)
+                        throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#serializeStateData(java.io.OutputStream)">Procedure</a></code></strong></div>
+<div class="block">The user-level code of the procedure may have some state to
+ persist (e.g. input arguments) to be able to resume on failure.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#serializeStateData(java.io.OutputStream)">serializeStateData</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>stream</code> - the stream that will contain the user serialized data</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="deserializeStateData(java.io.InputStream)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deserializeStateData</h4>
+<pre>public&nbsp;void&nbsp;deserializeStateData(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;stream)
+                          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#deserializeStateData(java.io.InputStream)">Procedure</a></code></strong></div>
+<div class="block">Called on store load to allow the user to decode the previously serialized
+ state.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#deserializeStateData(java.io.InputStream)">deserializeStateData</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>stream</code> - the stream that contains the user serialized data</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getServerName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServerName</h4>
+<pre>public&nbsp;<a href="../../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;getServerName()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html#getServerName()">getServerName</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Name of this server instance.</dd></dl>
+</li>
+</ul>
+<a name="hasMetaTableRegion()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hasMetaTableRegion</h4>
+<pre>public&nbsp;boolean&nbsp;hasMetaTableRegion()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html#hasMetaTableRegion()">hasMetaTableRegion</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>True if this server has an hbase:meta table region.</dd></dl>
+</li>
+</ul>
+<a name="getServerOperationType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServerOperationType</h4>
+<pre>public&nbsp;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.ServerOperationType.html" title="enum in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface.ServerOperationType</a>&nbsp;getServerOperationType()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html#getServerOperationType()">ServerProcedureInterface</a></code></strong></div>
+<div class="block">Given an operation type we can take decisions about what to do with pending operations.
+ e.g. if we get a crash handler and we have some assignment operation pending
+ we can abort those operations.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html#getServerOperationType()">getServerOperationType</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure">ServerProcedureInterface</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>the operation type that the procedure is executing.</dd></dl>
+</li>
+</ul>
+<a name="isYieldBeforeExecuteFromState(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv, org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isYieldBeforeExecuteFromState</h4>
+<pre>protected&nbsp;boolean&nbsp;isYieldBeforeExecuteFromState(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env,
+                                    org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&nbsp;state)</pre>
+<div class="block">For this procedure, yield at end of each successful flow step so that all crashed servers
+ can make progress rather than do the default which has each procedure running to completion
+ before we move to the next. For crashed servers, especially if running with distributed log
+ replay, we will want all servers to come along; we do not want the scenario where a server is
+ stuck waiting for regions to online so it can replay edits.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html#isYieldBeforeExecuteFromState(TEnvironment,%20TState)">isYieldBeforeExecuteFromState</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/StateMachineProcedure.html" title="class in org.apache.hadoop.hbase.procedure2">StateMachineProcedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>,org.apache.hadoop.hbase.protobuf.generated.MasterProcedureProtos.ServerCrashState&gt;</code></dd>
+<dd><code>state</code> - the state we are going to execute next.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Return true if the executor should yield before the execution of the specified step.
+         Defaults to return false.</dd></dl>
+</li>
+</ul>
+<a name="shouldWaitClientAck(org.apache.hadoop.hbase.master.procedure.MasterProcedureEnv)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>shouldWaitClientAck</h4>
+<pre>protected&nbsp;boolean&nbsp;shouldWaitClientAck(<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&nbsp;env)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#shouldWaitClientAck(TEnvironment)">Procedure</a></code></strong></div>
+<div class="block">By default, the executor will keep the procedure result around util
+ the eviction TTL is expired. The client can cut down the waiting time
+ by requesting that the result is removed from the executor.
+ In case of system started procedure, we can force the executor to auto-ack.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html#shouldWaitClientAck(TEnvironment)">shouldWaitClientAck</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&lt;<a href="../../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>env</code> - the environment passed to the ProcedureExecutor</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the executor should wait the client ack for the result.
+         Defaults to return true.</dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/ServerCrashProcedure.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ProcedureSyncWait.Predicate.html" title="interface in org.apache.hadoop.hbase.master.procedure"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../../org/apache/hadoop/hbase/master/procedure/ServerProcedureInterface.html" title="interface in org.apache.hadoop.hbase.master.procedure"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?org/apache/hadoop/hbase/master/procedure/ServerCrashProcedure.html" target="_top">Frames</a></li>
+<li><a href="ServerCrashProcedure.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_classes_inherited_from_class_org.apache.hadoop.hbase.procedure2.StateMachineProcedure">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

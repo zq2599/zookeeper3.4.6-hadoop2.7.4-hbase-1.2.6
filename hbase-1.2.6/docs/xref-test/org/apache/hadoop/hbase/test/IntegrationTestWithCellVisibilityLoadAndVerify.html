@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>IntegrationTestWithCellVisibilityLoadAndVerify xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../testapidocs/org/apache/hadoop/hbase/test/IntegrationTestWithCellVisibilityLoadAndVerify.html">View Javadoc</a></div><pre>
+
+<a class="jxr_linenumber" name="1" href="#1">1</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="2" href="#2">2</a>   <em class="jxr_javadoccomment"> * Licensed to the Apache Software Foundation (ASF) under one</em>
+<a class="jxr_linenumber" name="3" href="#3">3</a>   <em class="jxr_javadoccomment"> * or more contributor license agreements.  See the NOTICE file</em>
+<a class="jxr_linenumber" name="4" href="#4">4</a>   <em class="jxr_javadoccomment"> * distributed with this work for additional information</em>
+<a class="jxr_linenumber" name="5" href="#5">5</a>   <em class="jxr_javadoccomment"> * regarding copyright ownership.  The ASF licenses this file</em>
+<a class="jxr_linenumber" name="6" href="#6">6</a>   <em class="jxr_javadoccomment"> * to you under the Apache License, Version 2.0 (the</em>
+<a class="jxr_linenumber" name="7" href="#7">7</a>   <em class="jxr_javadoccomment"> * "License"); you may not use this file except in compliance</em>
+<a class="jxr_linenumber" name="8" href="#8">8</a>   <em class="jxr_javadoccomment"> * with the License.  You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="9" href="#9">9</a>   <em class="jxr_javadoccomment"> * &lt;p/&gt;</em>
+<a class="jxr_linenumber" name="10" href="#10">10</a>  <em class="jxr_javadoccomment"> * <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
+<a class="jxr_linenumber" name="11" href="#11">11</a>  <em class="jxr_javadoccomment"> * &lt;p/&gt;</em>
+<a class="jxr_linenumber" name="12" href="#12">12</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="13" href="#13">13</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="14" href="#14">14</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="16" href="#16">16</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="17" href="#17">17</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">package</strong> org.apache.hadoop.hbase.test;
+<a class="jxr_linenumber" name="19" href="#19">19</a>  
+<a class="jxr_linenumber" name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
+<a class="jxr_linenumber" name="21" href="#21">21</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="22" href="#22">22</a>  
+<a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="24" href="#24">24</a>  <strong class="jxr_keyword">import</strong> java.security.PrivilegedExceptionAction;
+<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="26" href="#26">26</a>  
+<a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.cli.CommandLine;
+<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.conf.Configuration;
+<a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.fs.Path;
+<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.HBaseConfiguration;
+<a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.HColumnDescriptor;
+<a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.HConstants;
+<a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.HTableDescriptor;
+<a class="jxr_linenumber" name="34" href="#34">34</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.IntegrationTestingUtility;
+<a class="jxr_linenumber" name="35" href="#35">35</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.testclassification.IntegrationTests;
+<a class="jxr_linenumber" name="36" href="#36">36</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.client.Admin;
+<a class="jxr_linenumber" name="37" href="#37">37</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.client.HBaseAdmin;
+<a class="jxr_linenumber" name="38" href="#38">38</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.client.Put;
+<a class="jxr_linenumber" name="39" href="#39">39</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.client.Result;
+<a class="jxr_linenumber" name="40" href="#40">40</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.client.Scan;
+<a class="jxr_linenumber" name="41" href="#41">41</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.client.ScannerCallable;
+<a class="jxr_linenumber" name="42" href="#42">42</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.io.ImmutableBytesWritable;
+<a class="jxr_linenumber" name="43" href="#43">43</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.io.hfile.HFile;
+<a class="jxr_linenumber" name="44" href="#44">44</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
+<a class="jxr_linenumber" name="45" href="#45">45</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.mapreduce.TableMapper;
+<a class="jxr_linenumber" name="46" href="#46">46</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.mapreduce.TableRecordReaderImpl;
+<a class="jxr_linenumber" name="47" href="#47">47</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.security.User;
+<a class="jxr_linenumber" name="48" href="#48">48</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.security.visibility.Authorizations;
+<a class="jxr_linenumber" name="49" href="#49">49</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.security.visibility.CellVisibility;
+<a class="jxr_linenumber" name="50" href="#50">50</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.security.visibility.VisibilityClient;
+<a class="jxr_linenumber" name="51" href="#51">51</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.security.visibility.VisibilityController;
+<a class="jxr_linenumber" name="52" href="#52">52</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.util.AbstractHBaseTool;
+<a class="jxr_linenumber" name="53" href="#53">53</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.util.Bytes;
+<a class="jxr_linenumber" name="54" href="#54">54</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.io.BytesWritable;
+<a class="jxr_linenumber" name="55" href="#55">55</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.io.NullWritable;
+<a class="jxr_linenumber" name="56" href="#56">56</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.mapreduce.Counter;
+<a class="jxr_linenumber" name="57" href="#57">57</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.mapreduce.Job;
+<a class="jxr_linenumber" name="58" href="#58">58</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+<a class="jxr_linenumber" name="59" href="#59">59</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.util.ToolRunner;
+<a class="jxr_linenumber" name="60" href="#60">60</a>  <strong class="jxr_keyword">import</strong> org.junit.experimental.categories.Category;
+<a class="jxr_linenumber" name="61" href="#61">61</a>  
+<a class="jxr_linenumber" name="62" href="#62">62</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="63" href="#63">63</a>  <em class="jxr_javadoccomment"> * A large test which loads a lot of data with cell visibility, and verifies the data. Test adds 2</em>
+<a class="jxr_linenumber" name="64" href="#64">64</a>  <em class="jxr_javadoccomment"> * users with different sets of visibility labels authenticated for them. Every row (so cells in</em>
+<a class="jxr_linenumber" name="65" href="#65">65</a>  <em class="jxr_javadoccomment"> * that) added with visibility expressions. In load step, 200 map tasks are launched, which in turn</em>
+<a class="jxr_linenumber" name="66" href="#66">66</a>  <em class="jxr_javadoccomment"> * write loadmapper.num_to_write (default 100K) rows to an hbase table. Rows are written in blocks,</em>
+<a class="jxr_linenumber" name="67" href="#67">67</a>  <em class="jxr_javadoccomment"> * for a total of 100 blocks.</em>
+<a class="jxr_linenumber" name="68" href="#68">68</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="69" href="#69">69</a>  <em class="jxr_javadoccomment"> * Verify step scans the table as both users with Authorizations. This step asserts that user can</em>
+<a class="jxr_linenumber" name="70" href="#70">70</a>  <em class="jxr_javadoccomment"> * see only those rows (and so cells) with visibility for which they have label auth.</em>
+<a class="jxr_linenumber" name="71" href="#71">71</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="72" href="#72">72</a>  <em class="jxr_javadoccomment"> * This class can be run as a unit test, as an integration test, or from the command line.</em>
+<a class="jxr_linenumber" name="73" href="#73">73</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="74" href="#74">74</a>  <em class="jxr_javadoccomment"> * Originally taken from Apache Bigtop.</em>
+<a class="jxr_linenumber" name="75" href="#75">75</a>  <em class="jxr_javadoccomment"> * Issue user names as comma seperated list.</em>
+<a class="jxr_linenumber" name="76" href="#76">76</a>  <em class="jxr_javadoccomment"> *./hbase IntegrationTestWithCellVisibilityLoadAndVerify -u usera,userb</em>
+<a class="jxr_linenumber" name="77" href="#77">77</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="78" href="#78">78</a>  @Category(IntegrationTests.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="79" href="#79">79</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestWithCellVisibilityLoadAndVerify.html">IntegrationTestWithCellVisibilityLoadAndVerify</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestLoadAndVerify.html">IntegrationTestLoadAndVerify</a> {
+<a class="jxr_linenumber" name="80" href="#80">80</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ERROR_STR =
+<a class="jxr_linenumber" name="81" href="#81">81</a>        <span class="jxr_string">"Two user names are to be specified seperated by a ',' like 'usera,userb'"</span>;
+<a class="jxr_linenumber" name="82" href="#82">82</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong> NOT = '!';
+<a class="jxr_linenumber" name="83" href="#83">83</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong> OR = '|';
+<a class="jxr_linenumber" name="84" href="#84">84</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong> AND = '&amp;';
+<a class="jxr_linenumber" name="85" href="#85">85</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String TEST_NAME = <span class="jxr_string">"IntegrationTestCellVisibilityLoadAndVerify"</span>;
+<a class="jxr_linenumber" name="86" href="#86">86</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String CONFIDENTIAL = <span class="jxr_string">"confidential"</span>;
+<a class="jxr_linenumber" name="87" href="#87">87</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String TOPSECRET = <span class="jxr_string">"topsecret"</span>;
+<a class="jxr_linenumber" name="88" href="#88">88</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SECRET = <span class="jxr_string">"secret"</span>;
+<a class="jxr_linenumber" name="89" href="#89">89</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String PUBLIC = <span class="jxr_string">"public"</span>;
+<a class="jxr_linenumber" name="90" href="#90">90</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String PRIVATE = <span class="jxr_string">"private"</span>;
+<a class="jxr_linenumber" name="91" href="#91">91</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String[] LABELS = { CONFIDENTIAL, TOPSECRET, SECRET, PRIVATE, PUBLIC };
+<a class="jxr_linenumber" name="92" href="#92">92</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String[] VISIBILITY_EXPS = { CONFIDENTIAL + AND + TOPSECRET + AND + PRIVATE,
+<a class="jxr_linenumber" name="93" href="#93">93</a>        CONFIDENTIAL + OR + TOPSECRET, PUBLIC,
+<a class="jxr_linenumber" name="94" href="#94">94</a>        '(' + SECRET + OR + PRIVATE + ')' + AND + NOT + CONFIDENTIAL };
+<a class="jxr_linenumber" name="95" href="#95">95</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> VISIBILITY_EXPS_COUNT = VISIBILITY_EXPS.length;
+<a class="jxr_linenumber" name="96" href="#96">96</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> byte[] TEST_FAMILY = Bytes.toBytes(<span class="jxr_string">"f1"</span>);
+<a class="jxr_linenumber" name="97" href="#97">97</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> byte[] TEST_QUALIFIER = Bytes.toBytes(<span class="jxr_string">"q1"</span>);
+<a class="jxr_linenumber" name="98" href="#98">98</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String NUM_TO_WRITE_KEY = <span class="jxr_string">"loadmapper.num_to_write"</span>;
+<a class="jxr_linenumber" name="99" href="#99">99</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> NUM_TO_WRITE_DEFAULT = 100 * 1000;
+<a class="jxr_linenumber" name="100" href="#100">100</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> SCANNER_CACHING = 500;
+<a class="jxr_linenumber" name="101" href="#101">101</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String USER_OPT = <span class="jxr_string">"users"</span>;
+<a class="jxr_linenumber" name="102" href="#102">102</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String userNames = <span class="jxr_string">"user1,user2"</span>;
+<a class="jxr_linenumber" name="103" href="#103">103</a> 
+<a class="jxr_linenumber" name="104" href="#104">104</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> numRowsLoadedWithExp1, numRowsLoadedWithExp2, numRowsLoadWithExp3,
+<a class="jxr_linenumber" name="105" href="#105">105</a>       numRowsLoadWithExp4;
+<a class="jxr_linenumber" name="106" href="#106">106</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> numRowsReadWithExp1, numRowsReadWithExp2, numRowsReadWithExp3, numRowsReadWithExp4;
+<a class="jxr_linenumber" name="107" href="#107">107</a> 
+<a class="jxr_linenumber" name="108" href="#108">108</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> User USER1, USER2;
+<a class="jxr_linenumber" name="109" href="#109">109</a> 
+<a class="jxr_linenumber" name="110" href="#110">110</a>   <strong class="jxr_keyword">private</strong> enum <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestWithCellVisibilityLoadAndVerify.html">Counters</a> {
+<a class="jxr_linenumber" name="111" href="#111">111</a>     ROWS_VIS_EXP_1, ROWS_VIS_EXP_2, ROWS_VIS_EXP_3, ROWS_VIS_EXP_4;
+<a class="jxr_linenumber" name="112" href="#112">112</a>   }
+<a class="jxr_linenumber" name="113" href="#113">113</a> 
+<a class="jxr_linenumber" name="114" href="#114">114</a>   @Override
+<a class="jxr_linenumber" name="115" href="#115">115</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUpCluster() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="116" href="#116">116</a>     util = getTestingUtil(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="117" href="#117">117</a>     Configuration conf = util.getConfiguration();
+<a class="jxr_linenumber" name="118" href="#118">118</a>     conf.setInt(HFile.FORMAT_VERSION_KEY, 3);
+<a class="jxr_linenumber" name="119" href="#119">119</a>     conf.set(<span class="jxr_string">"hbase.coprocessor.master.classes"</span>, VisibilityController.<strong class="jxr_keyword">class</strong>.getName());
+<a class="jxr_linenumber" name="120" href="#120">120</a>     conf.set(<span class="jxr_string">"hbase.coprocessor.region.classes"</span>, VisibilityController.<strong class="jxr_keyword">class</strong>.getName());
+<a class="jxr_linenumber" name="121" href="#121">121</a>     conf.set(<span class="jxr_string">"hbase.superuser"</span>, User.getCurrent().getName());
+<a class="jxr_linenumber" name="122" href="#122">122</a>     conf.setBoolean(<span class="jxr_string">"dfs.permissions"</span>, false);
+<a class="jxr_linenumber" name="123" href="#123">123</a>     <strong class="jxr_keyword">super</strong>.setUpCluster();
+<a class="jxr_linenumber" name="124" href="#124">124</a>     String[] users = userNames.split(<span class="jxr_string">","</span>);
+<a class="jxr_linenumber" name="125" href="#125">125</a>     <strong class="jxr_keyword">if</strong> (users.length != 2) {
+<a class="jxr_linenumber" name="126" href="#126">126</a>       System.err.println(ERROR_STR);
+<a class="jxr_linenumber" name="127" href="#127">127</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(ERROR_STR);
+<a class="jxr_linenumber" name="128" href="#128">128</a>     }
+<a class="jxr_linenumber" name="129" href="#129">129</a>     System.out.println(userNames + <span class="jxr_string">" "</span>+users[0]+ <span class="jxr_string">" "</span>+users[1]);
+<a class="jxr_linenumber" name="130" href="#130">130</a>     USER1 = User.createUserForTesting(conf, users[0], <strong class="jxr_keyword">new</strong> String[] {});
+<a class="jxr_linenumber" name="131" href="#131">131</a>     USER2 = User.createUserForTesting(conf, users[1], <strong class="jxr_keyword">new</strong> String[] {});
+<a class="jxr_linenumber" name="132" href="#132">132</a>     addLabelsAndAuths();
+<a class="jxr_linenumber" name="133" href="#133">133</a>   }
+<a class="jxr_linenumber" name="134" href="#134">134</a> 
+<a class="jxr_linenumber" name="135" href="#135">135</a>   @Override
+<a class="jxr_linenumber" name="136" href="#136">136</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> addOptions() {
+<a class="jxr_linenumber" name="137" href="#137">137</a>     <strong class="jxr_keyword">super</strong>.addOptions();
+<a class="jxr_linenumber" name="138" href="#138">138</a>     addOptWithArg(<span class="jxr_string">"u"</span>, USER_OPT, <span class="jxr_string">"User names to be passed"</span>);
+<a class="jxr_linenumber" name="139" href="#139">139</a>   }
+<a class="jxr_linenumber" name="140" href="#140">140</a> 
+<a class="jxr_linenumber" name="141" href="#141">141</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addLabelsAndAuths() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="142" href="#142">142</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="143" href="#143">143</a>       VisibilityClient.addLabels(util.getConnection(), LABELS);
+<a class="jxr_linenumber" name="144" href="#144">144</a>       VisibilityClient.setAuths(util.getConnection(), <strong class="jxr_keyword">new</strong> String[] { CONFIDENTIAL, TOPSECRET,
+<a class="jxr_linenumber" name="145" href="#145">145</a>           SECRET, PRIVATE }, USER1.getName());
+<a class="jxr_linenumber" name="146" href="#146">146</a>       VisibilityClient.setAuths(util.getConnection(), <strong class="jxr_keyword">new</strong> String[] { PUBLIC },
+<a class="jxr_linenumber" name="147" href="#147">147</a>           USER2.getName());
+<a class="jxr_linenumber" name="148" href="#148">148</a>     } <strong class="jxr_keyword">catch</strong> (Throwable t) {
+<a class="jxr_linenumber" name="149" href="#149">149</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(t);
+<a class="jxr_linenumber" name="150" href="#150">150</a>     }
+<a class="jxr_linenumber" name="151" href="#151">151</a>   }
+<a class="jxr_linenumber" name="152" href="#152">152</a> 
+<a class="jxr_linenumber" name="153" href="#153">153</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestWithCellVisibilityLoadAndVerify.html">LoadWithCellVisibilityMapper</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestLoadAndVerify.html">LoadMapper</a> {
+<a class="jxr_linenumber" name="154" href="#154">154</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/apache/hadoop/hbase/PerformanceEvaluation.html">Counter</a> rowsExp1, rowsExp2, rowsExp3, rowsexp4;
+<a class="jxr_linenumber" name="155" href="#155">155</a> 
+<a class="jxr_linenumber" name="156" href="#156">156</a>     @Override
+<a class="jxr_linenumber" name="157" href="#157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setup(Context context) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="158" href="#158">158</a>       <strong class="jxr_keyword">super</strong>.setup(context);
+<a class="jxr_linenumber" name="159" href="#159">159</a>       rowsExp1 = context.getCounter(Counters.ROWS_VIS_EXP_1);
+<a class="jxr_linenumber" name="160" href="#160">160</a>       rowsExp2 = context.getCounter(Counters.ROWS_VIS_EXP_2);
+<a class="jxr_linenumber" name="161" href="#161">161</a>       rowsExp3 = context.getCounter(Counters.ROWS_VIS_EXP_3);
+<a class="jxr_linenumber" name="162" href="#162">162</a>       rowsexp4 = context.getCounter(Counters.ROWS_VIS_EXP_4);
+<a class="jxr_linenumber" name="163" href="#163">163</a>     }
+<a class="jxr_linenumber" name="164" href="#164">164</a> 
+<a class="jxr_linenumber" name="165" href="#165">165</a>     @Override
+<a class="jxr_linenumber" name="166" href="#166">166</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> map(NullWritable key, NullWritable value, Context context) <strong class="jxr_keyword">throws</strong> IOException,
+<a class="jxr_linenumber" name="167" href="#167">167</a>         InterruptedException {
+<a class="jxr_linenumber" name="168" href="#168">168</a>       String suffix = <span class="jxr_string">"/"</span> + shortTaskId;
+<a class="jxr_linenumber" name="169" href="#169">169</a>       <strong class="jxr_keyword">int</strong> BLOCK_SIZE = (<strong class="jxr_keyword">int</strong>) (recordsToWrite / 100);
+<a class="jxr_linenumber" name="170" href="#170">170</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">long</strong> i = 0; i &lt; recordsToWrite;) {
+<a class="jxr_linenumber" name="171" href="#171">171</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">long</strong> idx = 0; idx &lt; BLOCK_SIZE &amp;&amp; i &lt; recordsToWrite; idx++, i++) {
+<a class="jxr_linenumber" name="172" href="#172">172</a>           <strong class="jxr_keyword">int</strong> expIdx = rand.nextInt(BLOCK_SIZE) % VISIBILITY_EXPS_COUNT;
+<a class="jxr_linenumber" name="173" href="#173">173</a>           String exp = VISIBILITY_EXPS[expIdx];
+<a class="jxr_linenumber" name="174" href="#174">174</a>           byte[] row = Bytes.add(Bytes.toBytes(i), Bytes.toBytes(suffix), Bytes.toBytes(exp));
+<a class="jxr_linenumber" name="175" href="#175">175</a>           Put p = <strong class="jxr_keyword">new</strong> Put(row);
+<a class="jxr_linenumber" name="176" href="#176">176</a>           p.add(TEST_FAMILY, TEST_QUALIFIER, HConstants.EMPTY_BYTE_ARRAY);
+<a class="jxr_linenumber" name="177" href="#177">177</a>           p.setCellVisibility(<strong class="jxr_keyword">new</strong> CellVisibility(exp));
+<a class="jxr_linenumber" name="178" href="#178">178</a>           getCounter(expIdx).increment(1);
+<a class="jxr_linenumber" name="179" href="#179">179</a>           mutator.mutate(p);
+<a class="jxr_linenumber" name="180" href="#180">180</a> 
+<a class="jxr_linenumber" name="181" href="#181">181</a>           <strong class="jxr_keyword">if</strong> (i % 100 == 0) {
+<a class="jxr_linenumber" name="182" href="#182">182</a>             context.setStatus(<span class="jxr_string">"Written "</span> + i + <span class="jxr_string">"/"</span> + recordsToWrite + <span class="jxr_string">" records"</span>);
+<a class="jxr_linenumber" name="183" href="#183">183</a>             context.progress();
+<a class="jxr_linenumber" name="184" href="#184">184</a>           }
+<a class="jxr_linenumber" name="185" href="#185">185</a>         }
+<a class="jxr_linenumber" name="186" href="#186">186</a>         <em class="jxr_comment">// End of block, flush all of them before we start writing anything</em>
+<a class="jxr_linenumber" name="187" href="#187">187</a>         <em class="jxr_comment">// pointing to these!</em>
+<a class="jxr_linenumber" name="188" href="#188">188</a>         mutator.flush();
+<a class="jxr_linenumber" name="189" href="#189">189</a>       }
+<a class="jxr_linenumber" name="190" href="#190">190</a>     }
+<a class="jxr_linenumber" name="191" href="#191">191</a> 
+<a class="jxr_linenumber" name="192" href="#192">192</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/apache/hadoop/hbase/PerformanceEvaluation.html">Counter</a> getCounter(<strong class="jxr_keyword">int</strong> idx) {
+<a class="jxr_linenumber" name="193" href="#193">193</a>       <strong class="jxr_keyword">switch</strong> (idx) {
+<a class="jxr_linenumber" name="194" href="#194">194</a>       <strong class="jxr_keyword">case</strong> 0:
+<a class="jxr_linenumber" name="195" href="#195">195</a>         <strong class="jxr_keyword">return</strong> rowsExp1;
+<a class="jxr_linenumber" name="196" href="#196">196</a>       <strong class="jxr_keyword">case</strong> 1:
+<a class="jxr_linenumber" name="197" href="#197">197</a>         <strong class="jxr_keyword">return</strong> rowsExp2;
+<a class="jxr_linenumber" name="198" href="#198">198</a>       <strong class="jxr_keyword">case</strong> 2:
+<a class="jxr_linenumber" name="199" href="#199">199</a>         <strong class="jxr_keyword">return</strong> rowsExp3;
+<a class="jxr_linenumber" name="200" href="#200">200</a>       <strong class="jxr_keyword">case</strong> 3:
+<a class="jxr_linenumber" name="201" href="#201">201</a>         <strong class="jxr_keyword">return</strong> rowsexp4;
+<a class="jxr_linenumber" name="202" href="#202">202</a>       <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="203" href="#203">203</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="204" href="#204">204</a>       }
+<a class="jxr_linenumber" name="205" href="#205">205</a>     }
+<a class="jxr_linenumber" name="206" href="#206">206</a>   }
+<a class="jxr_linenumber" name="207" href="#207">207</a> 
+<a class="jxr_linenumber" name="208" href="#208">208</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestWithCellVisibilityLoadAndVerify.html">VerifyMapper</a> <strong class="jxr_keyword">extends</strong> TableMapper&lt;BytesWritable, BytesWritable&gt; {
+<a class="jxr_linenumber" name="209" href="#209">209</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/apache/hadoop/hbase/PerformanceEvaluation.html">Counter</a> rowsExp1, rowsExp2, rowsExp3, rowsExp4;
+<a class="jxr_linenumber" name="210" href="#210">210</a> 
+<a class="jxr_linenumber" name="211" href="#211">211</a>     @Override
+<a class="jxr_linenumber" name="212" href="#212">212</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setup(Context context) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="213" href="#213">213</a>       rowsExp1 = context.getCounter(Counters.ROWS_VIS_EXP_1);
+<a class="jxr_linenumber" name="214" href="#214">214</a>       rowsExp2 = context.getCounter(Counters.ROWS_VIS_EXP_2);
+<a class="jxr_linenumber" name="215" href="#215">215</a>       rowsExp3 = context.getCounter(Counters.ROWS_VIS_EXP_3);
+<a class="jxr_linenumber" name="216" href="#216">216</a>       rowsExp4 = context.getCounter(Counters.ROWS_VIS_EXP_4);
+<a class="jxr_linenumber" name="217" href="#217">217</a>     }
+<a class="jxr_linenumber" name="218" href="#218">218</a> 
+<a class="jxr_linenumber" name="219" href="#219">219</a>     @Override
+<a class="jxr_linenumber" name="220" href="#220">220</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> map(ImmutableBytesWritable key, Result value, Context context)
+<a class="jxr_linenumber" name="221" href="#221">221</a>         <strong class="jxr_keyword">throws</strong> IOException, InterruptedException {
+<a class="jxr_linenumber" name="222" href="#222">222</a>       byte[] row = value.getRow();
+<a class="jxr_linenumber" name="223" href="#223">223</a>       <a href="../../../../../org/apache/hadoop/hbase/PerformanceEvaluation.html">Counter</a> c = getCounter(row);
+<a class="jxr_linenumber" name="224" href="#224">224</a>       c.increment(1);
+<a class="jxr_linenumber" name="225" href="#225">225</a>     }
+<a class="jxr_linenumber" name="226" href="#226">226</a> 
+<a class="jxr_linenumber" name="227" href="#227">227</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/apache/hadoop/hbase/PerformanceEvaluation.html">Counter</a> getCounter(byte[] row) {
+<a class="jxr_linenumber" name="228" href="#228">228</a>       <a href="../../../../../org/apache/hadoop/hbase/PerformanceEvaluation.html">Counter</a> c = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="229" href="#229">229</a>       <strong class="jxr_keyword">if</strong> (Bytes.indexOf(row, Bytes.toBytes(VISIBILITY_EXPS[0])) != -1) {
+<a class="jxr_linenumber" name="230" href="#230">230</a>         c = rowsExp1;
+<a class="jxr_linenumber" name="231" href="#231">231</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (Bytes.indexOf(row, Bytes.toBytes(VISIBILITY_EXPS[1])) != -1) {
+<a class="jxr_linenumber" name="232" href="#232">232</a>         c = rowsExp2;
+<a class="jxr_linenumber" name="233" href="#233">233</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (Bytes.indexOf(row, Bytes.toBytes(VISIBILITY_EXPS[2])) != -1) {
+<a class="jxr_linenumber" name="234" href="#234">234</a>         c = rowsExp3;
+<a class="jxr_linenumber" name="235" href="#235">235</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (Bytes.indexOf(row, Bytes.toBytes(VISIBILITY_EXPS[3])) != -1) {
+<a class="jxr_linenumber" name="236" href="#236">236</a>         c = rowsExp4;
+<a class="jxr_linenumber" name="237" href="#237">237</a>       }
+<a class="jxr_linenumber" name="238" href="#238">238</a>       <strong class="jxr_keyword">return</strong> c;
+<a class="jxr_linenumber" name="239" href="#239">239</a>     }
+<a class="jxr_linenumber" name="240" href="#240">240</a>   }
+<a class="jxr_linenumber" name="241" href="#241">241</a> 
+<a class="jxr_linenumber" name="242" href="#242">242</a>   @Override
+<a class="jxr_linenumber" name="243" href="#243">243</a>   <strong class="jxr_keyword">protected</strong> Job doLoad(Configuration conf, HTableDescriptor htd) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="244" href="#244">244</a>     Job job = <strong class="jxr_keyword">super</strong>.doLoad(conf, htd);
+<a class="jxr_linenumber" name="245" href="#245">245</a>     <strong class="jxr_keyword">this</strong>.numRowsLoadedWithExp1 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_1).getValue();
+<a class="jxr_linenumber" name="246" href="#246">246</a>     <strong class="jxr_keyword">this</strong>.numRowsLoadedWithExp2 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_2).getValue();
+<a class="jxr_linenumber" name="247" href="#247">247</a>     <strong class="jxr_keyword">this</strong>.numRowsLoadWithExp3 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_3).getValue();
+<a class="jxr_linenumber" name="248" href="#248">248</a>     <strong class="jxr_keyword">this</strong>.numRowsLoadWithExp4 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_4).getValue();
+<a class="jxr_linenumber" name="249" href="#249">249</a>     System.out.println(<span class="jxr_string">"Rows loaded with cell visibility "</span> + VISIBILITY_EXPS[0] + <span class="jxr_string">" : "</span>
+<a class="jxr_linenumber" name="250" href="#250">250</a>         + <strong class="jxr_keyword">this</strong>.numRowsLoadedWithExp1);
+<a class="jxr_linenumber" name="251" href="#251">251</a>     System.out.println(<span class="jxr_string">"Rows loaded with cell visibility "</span> + VISIBILITY_EXPS[1] + <span class="jxr_string">" : "</span>
+<a class="jxr_linenumber" name="252" href="#252">252</a>         + <strong class="jxr_keyword">this</strong>.numRowsLoadedWithExp2);
+<a class="jxr_linenumber" name="253" href="#253">253</a>     System.out.println(<span class="jxr_string">"Rows loaded with cell visibility "</span> + VISIBILITY_EXPS[2] + <span class="jxr_string">" : "</span>
+<a class="jxr_linenumber" name="254" href="#254">254</a>         + <strong class="jxr_keyword">this</strong>.numRowsLoadWithExp3);
+<a class="jxr_linenumber" name="255" href="#255">255</a>     System.out.println(<span class="jxr_string">"Rows loaded with cell visibility "</span> + VISIBILITY_EXPS[3] + <span class="jxr_string">" : "</span>
+<a class="jxr_linenumber" name="256" href="#256">256</a>         + <strong class="jxr_keyword">this</strong>.numRowsLoadWithExp4);
+<a class="jxr_linenumber" name="257" href="#257">257</a>     <strong class="jxr_keyword">return</strong> job;
+<a class="jxr_linenumber" name="258" href="#258">258</a>   }
+<a class="jxr_linenumber" name="259" href="#259">259</a> 
+<a class="jxr_linenumber" name="260" href="#260">260</a>   @Override
+<a class="jxr_linenumber" name="261" href="#261">261</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setMapperClass(Job job) {
+<a class="jxr_linenumber" name="262" href="#262">262</a>     job.setMapperClass(LoadWithCellVisibilityMapper.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="263" href="#263">263</a>   }
+<a class="jxr_linenumber" name="264" href="#264">264</a> 
+<a class="jxr_linenumber" name="265" href="#265">265</a>   @Override
+<a class="jxr_linenumber" name="266" href="#266">266</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> doVerify(<strong class="jxr_keyword">final</strong> Configuration conf, <strong class="jxr_keyword">final</strong> HTableDescriptor htd) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="267" href="#267">267</a>     System.out.println(String.format(<span class="jxr_string">"Verifying for auths %s, %s, %s, %s"</span>, CONFIDENTIAL, TOPSECRET,
+<a class="jxr_linenumber" name="268" href="#268">268</a>         SECRET, PRIVATE));
+<a class="jxr_linenumber" name="269" href="#269">269</a>     PrivilegedExceptionAction&lt;Job&gt; scanAction = <strong class="jxr_keyword">new</strong> PrivilegedExceptionAction&lt;Job&gt;() {
+<a class="jxr_linenumber" name="270" href="#270">270</a>       @Override
+<a class="jxr_linenumber" name="271" href="#271">271</a>       <strong class="jxr_keyword">public</strong> Job run() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="272" href="#272">272</a>         <strong class="jxr_keyword">return</strong> doVerify(conf, htd, CONFIDENTIAL, TOPSECRET, SECRET, PRIVATE);
+<a class="jxr_linenumber" name="273" href="#273">273</a>       }
+<a class="jxr_linenumber" name="274" href="#274">274</a>     };
+<a class="jxr_linenumber" name="275" href="#275">275</a>     Job job = USER1.runAs(scanAction);
+<a class="jxr_linenumber" name="276" href="#276">276</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp1 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_1).getValue();
+<a class="jxr_linenumber" name="277" href="#277">277</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp2 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_2).getValue();
+<a class="jxr_linenumber" name="278" href="#278">278</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp3 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_3).getValue();
+<a class="jxr_linenumber" name="279" href="#279">279</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp4 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_4).getValue();
+<a class="jxr_linenumber" name="280" href="#280">280</a>     assertEquals(<strong class="jxr_keyword">this</strong>.numRowsLoadedWithExp1, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp1);
+<a class="jxr_linenumber" name="281" href="#281">281</a>     assertEquals(<strong class="jxr_keyword">this</strong>.numRowsLoadedWithExp2, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp2);
+<a class="jxr_linenumber" name="282" href="#282">282</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp3);
+<a class="jxr_linenumber" name="283" href="#283">283</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp4);
+<a class="jxr_linenumber" name="284" href="#284">284</a> 
+<a class="jxr_linenumber" name="285" href="#285">285</a>     <em class="jxr_comment">// PUBLIC label auth is not provided for user1 user.</em>
+<a class="jxr_linenumber" name="286" href="#286">286</a>     System.out.println(String.format(<span class="jxr_string">"Verifying for auths %s, %s"</span>, PRIVATE, PUBLIC));
+<a class="jxr_linenumber" name="287" href="#287">287</a>     scanAction = <strong class="jxr_keyword">new</strong> PrivilegedExceptionAction&lt;Job&gt;() {
+<a class="jxr_linenumber" name="288" href="#288">288</a>       @Override
+<a class="jxr_linenumber" name="289" href="#289">289</a>       <strong class="jxr_keyword">public</strong> Job run() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="290" href="#290">290</a>         <strong class="jxr_keyword">return</strong> doVerify(conf, htd, PRIVATE, PUBLIC);
+<a class="jxr_linenumber" name="291" href="#291">291</a>       }
+<a class="jxr_linenumber" name="292" href="#292">292</a>     };
+<a class="jxr_linenumber" name="293" href="#293">293</a>     job = USER1.runAs(scanAction);
+<a class="jxr_linenumber" name="294" href="#294">294</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp1 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_1).getValue();
+<a class="jxr_linenumber" name="295" href="#295">295</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp2 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_2).getValue();
+<a class="jxr_linenumber" name="296" href="#296">296</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp3 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_3).getValue();
+<a class="jxr_linenumber" name="297" href="#297">297</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp4 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_4).getValue();
+<a class="jxr_linenumber" name="298" href="#298">298</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp1);
+<a class="jxr_linenumber" name="299" href="#299">299</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp2);
+<a class="jxr_linenumber" name="300" href="#300">300</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp3);
+<a class="jxr_linenumber" name="301" href="#301">301</a>     assertEquals(<strong class="jxr_keyword">this</strong>.numRowsLoadWithExp4, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp4);
+<a class="jxr_linenumber" name="302" href="#302">302</a> 
+<a class="jxr_linenumber" name="303" href="#303">303</a>     <em class="jxr_comment">// Normal user only having PUBLIC label auth and can view only those cells.</em>
+<a class="jxr_linenumber" name="304" href="#304">304</a>     System.out.println(String.format(<span class="jxr_string">"Verifying for auths %s, %s"</span>, PRIVATE, PUBLIC));
+<a class="jxr_linenumber" name="305" href="#305">305</a>     scanAction = <strong class="jxr_keyword">new</strong> PrivilegedExceptionAction&lt;Job&gt;() {
+<a class="jxr_linenumber" name="306" href="#306">306</a>       @Override
+<a class="jxr_linenumber" name="307" href="#307">307</a>       <strong class="jxr_keyword">public</strong> Job run() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="308" href="#308">308</a>         <strong class="jxr_keyword">return</strong> doVerify(conf, htd, PRIVATE, PUBLIC);
+<a class="jxr_linenumber" name="309" href="#309">309</a>       }
+<a class="jxr_linenumber" name="310" href="#310">310</a>     };
+<a class="jxr_linenumber" name="311" href="#311">311</a>     job = USER2.runAs(scanAction);
+<a class="jxr_linenumber" name="312" href="#312">312</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp1 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_1).getValue();
+<a class="jxr_linenumber" name="313" href="#313">313</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp2 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_2).getValue();
+<a class="jxr_linenumber" name="314" href="#314">314</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp3 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_3).getValue();
+<a class="jxr_linenumber" name="315" href="#315">315</a>     <strong class="jxr_keyword">this</strong>.numRowsReadWithExp4 = job.getCounters().findCounter(Counters.ROWS_VIS_EXP_4).getValue();
+<a class="jxr_linenumber" name="316" href="#316">316</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp1);
+<a class="jxr_linenumber" name="317" href="#317">317</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp2);
+<a class="jxr_linenumber" name="318" href="#318">318</a>     assertEquals(<strong class="jxr_keyword">this</strong>.numRowsLoadWithExp3, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp3);
+<a class="jxr_linenumber" name="319" href="#319">319</a>     assertEquals(0, <strong class="jxr_keyword">this</strong>.numRowsReadWithExp4);
+<a class="jxr_linenumber" name="320" href="#320">320</a>   }
+<a class="jxr_linenumber" name="321" href="#321">321</a> 
+<a class="jxr_linenumber" name="322" href="#322">322</a>   <strong class="jxr_keyword">private</strong> Job doVerify(Configuration conf, HTableDescriptor htd, String... auths)
+<a class="jxr_linenumber" name="323" href="#323">323</a>       <strong class="jxr_keyword">throws</strong> IOException, InterruptedException, ClassNotFoundException {
+<a class="jxr_linenumber" name="324" href="#324">324</a>     Path outputDir = getTestDir(TEST_NAME, <span class="jxr_string">"verify-output"</span>);
+<a class="jxr_linenumber" name="325" href="#325">325</a>     Job job = <strong class="jxr_keyword">new</strong> Job(conf);
+<a class="jxr_linenumber" name="326" href="#326">326</a>     job.setJarByClass(<strong class="jxr_keyword">this</strong>.getClass());
+<a class="jxr_linenumber" name="327" href="#327">327</a>     job.setJobName(TEST_NAME + <span class="jxr_string">" Verification for "</span> + htd.getTableName());
+<a class="jxr_linenumber" name="328" href="#328">328</a>     setJobScannerConf(job);
+<a class="jxr_linenumber" name="329" href="#329">329</a>     Scan scan = <strong class="jxr_keyword">new</strong> Scan();
+<a class="jxr_linenumber" name="330" href="#330">330</a>     scan.setAuthorizations(<strong class="jxr_keyword">new</strong> Authorizations(auths));
+<a class="jxr_linenumber" name="331" href="#331">331</a>     TableMapReduceUtil.initTableMapperJob(htd.getTableName().getNameAsString(), scan,
+<a class="jxr_linenumber" name="332" href="#332">332</a>         VerifyMapper.<strong class="jxr_keyword">class</strong>, NullWritable.<strong class="jxr_keyword">class</strong>, NullWritable.<strong class="jxr_keyword">class</strong>, job);
+<a class="jxr_linenumber" name="333" href="#333">333</a>     TableMapReduceUtil.addDependencyJars(job.getConfiguration(), AbstractHBaseTool.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="334" href="#334">334</a>     <strong class="jxr_keyword">int</strong> scannerCaching = conf.getInt(<span class="jxr_string">"verify.scannercaching"</span>, SCANNER_CACHING);
+<a class="jxr_linenumber" name="335" href="#335">335</a>     TableMapReduceUtil.setScannerCaching(job, scannerCaching);
+<a class="jxr_linenumber" name="336" href="#336">336</a>     job.setNumReduceTasks(0);
+<a class="jxr_linenumber" name="337" href="#337">337</a>     FileOutputFormat.setOutputPath(job, outputDir);
+<a class="jxr_linenumber" name="338" href="#338">338</a>     assertTrue(job.waitForCompletion(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="339" href="#339">339</a>     <strong class="jxr_keyword">return</strong> job;
+<a class="jxr_linenumber" name="340" href="#340">340</a>   }
+<a class="jxr_linenumber" name="341" href="#341">341</a> 
+<a class="jxr_linenumber" name="342" href="#342">342</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setJobScannerConf(Job job) {
+<a class="jxr_linenumber" name="343" href="#343">343</a>     job.getConfiguration().setBoolean(ScannerCallable.LOG_SCANNER_ACTIVITY, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="344" href="#344">344</a>     <strong class="jxr_keyword">long</strong> lpr = job.getConfiguration().getLong(NUM_TO_WRITE_KEY, NUM_TO_WRITE_DEFAULT) / 100;
+<a class="jxr_linenumber" name="345" href="#345">345</a>     job.getConfiguration().setInt(TableRecordReaderImpl.LOG_PER_ROW_COUNT, (<strong class="jxr_keyword">int</strong>) lpr);
+<a class="jxr_linenumber" name="346" href="#346">346</a>   }
+<a class="jxr_linenumber" name="347" href="#347">347</a> 
+<a class="jxr_linenumber" name="348" href="#348">348</a>   @Override
+<a class="jxr_linenumber" name="349" href="#349">349</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> printUsage() {
+<a class="jxr_linenumber" name="350" href="#350">350</a>     System.err.println(<strong class="jxr_keyword">this</strong>.getClass().getSimpleName() + <span class="jxr_string">" -u usera,userb [-Doptions]"</span>);
+<a class="jxr_linenumber" name="351" href="#351">351</a>     System.err.println(<span class="jxr_string">"  Loads a table with cell visibilities and verifies with Authorizations"</span>);
+<a class="jxr_linenumber" name="352" href="#352">352</a>     System.err.println(<span class="jxr_string">"Options"</span>);
+<a class="jxr_linenumber" name="353" href="#353">353</a>     System.err
+<a class="jxr_linenumber" name="354" href="#354">354</a>         .println(<span class="jxr_string">"  -Dloadmapper.table=&lt;name&gt;        Table to write/verify (default autogen)"</span>);
+<a class="jxr_linenumber" name="355" href="#355">355</a>     System.err.println(<span class="jxr_string">"  -Dloadmapper.num_to_write=&lt;n&gt;    "</span>
+<a class="jxr_linenumber" name="356" href="#356">356</a>         + <span class="jxr_string">"Number of rows per mapper (default 100,000 per mapper)"</span>);
+<a class="jxr_linenumber" name="357" href="#357">357</a>     System.err.println(<span class="jxr_string">"  -Dloadmapper.numPresplits=&lt;n&gt;    "</span>
+<a class="jxr_linenumber" name="358" href="#358">358</a>         + <span class="jxr_string">"Number of presplit regions to start with (default 40)"</span>);
+<a class="jxr_linenumber" name="359" href="#359">359</a>     System.err
+<a class="jxr_linenumber" name="360" href="#360">360</a>         .println(<span class="jxr_string">"  -Dloadmapper.map.tasks=&lt;n&gt;       Number of map tasks for load (default 200)"</span>);
+<a class="jxr_linenumber" name="361" href="#361">361</a>     System.err.println(<span class="jxr_string">"  -Dverify.scannercaching=&lt;n&gt;      "</span>
+<a class="jxr_linenumber" name="362" href="#362">362</a>         + <span class="jxr_string">"Number hbase scanner caching rows to read (default 50)"</span>);
+<a class="jxr_linenumber" name="363" href="#363">363</a>   }
+<a class="jxr_linenumber" name="364" href="#364">364</a> 
+<a class="jxr_linenumber" name="365" href="#365">365</a>   @Override
+<a class="jxr_linenumber" name="366" href="#366">366</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> runTestFromCommandLine() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="367" href="#367">367</a>     IntegrationTestingUtility.setUseDistributedCluster(getConf());
+<a class="jxr_linenumber" name="368" href="#368">368</a>     <strong class="jxr_keyword">int</strong> numPresplits = getConf().getInt(<span class="jxr_string">"loadmapper.numPresplits"</span>, 5);
+<a class="jxr_linenumber" name="369" href="#369">369</a>     <em class="jxr_comment">// create HTableDescriptor for specified table</em>
+<a class="jxr_linenumber" name="370" href="#370">370</a>     HTableDescriptor htd = <strong class="jxr_keyword">new</strong> HTableDescriptor(getTablename());
+<a class="jxr_linenumber" name="371" href="#371">371</a>     htd.addFamily(<strong class="jxr_keyword">new</strong> HColumnDescriptor(TEST_FAMILY));
+<a class="jxr_linenumber" name="372" href="#372">372</a> 
+<a class="jxr_linenumber" name="373" href="#373">373</a>     Admin admin = <strong class="jxr_keyword">new</strong> HBaseAdmin(getConf());
+<a class="jxr_linenumber" name="374" href="#374">374</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="375" href="#375">375</a>       admin.createTable(htd, Bytes.toBytes(0L), Bytes.toBytes(-1L), numPresplits);
+<a class="jxr_linenumber" name="376" href="#376">376</a>     } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="377" href="#377">377</a>       admin.close();
+<a class="jxr_linenumber" name="378" href="#378">378</a>     }
+<a class="jxr_linenumber" name="379" href="#379">379</a>     doLoad(getConf(), htd);
+<a class="jxr_linenumber" name="380" href="#380">380</a>     doVerify(getConf(), htd);
+<a class="jxr_linenumber" name="381" href="#381">381</a>     getTestingUtil(getConf()).deleteTable(htd.getName());
+<a class="jxr_linenumber" name="382" href="#382">382</a>     <strong class="jxr_keyword">return</strong> 0;
+<a class="jxr_linenumber" name="383" href="#383">383</a>   }
+<a class="jxr_linenumber" name="384" href="#384">384</a> 
+<a class="jxr_linenumber" name="385" href="#385">385</a>   @Override
+<a class="jxr_linenumber" name="386" href="#386">386</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> processOptions(CommandLine cmd) {
+<a class="jxr_linenumber" name="387" href="#387">387</a>     List args = cmd.getArgList();
+<a class="jxr_linenumber" name="388" href="#388">388</a>     <strong class="jxr_keyword">if</strong> (args.size() &gt; 0) {
+<a class="jxr_linenumber" name="389" href="#389">389</a>       printUsage();
+<a class="jxr_linenumber" name="390" href="#390">390</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"No args expected."</span>);
+<a class="jxr_linenumber" name="391" href="#391">391</a>     }
+<a class="jxr_linenumber" name="392" href="#392">392</a>     <em class="jxr_comment">// We always want loadAndVerify action</em>
+<a class="jxr_linenumber" name="393" href="#393">393</a>     args.add(<span class="jxr_string">"loadAndVerify"</span>);
+<a class="jxr_linenumber" name="394" href="#394">394</a>     <strong class="jxr_keyword">if</strong> (cmd.hasOption(USER_OPT)) {
+<a class="jxr_linenumber" name="395" href="#395">395</a>       userNames = cmd.getOptionValue(USER_OPT);
+<a class="jxr_linenumber" name="396" href="#396">396</a>     }
+<a class="jxr_linenumber" name="397" href="#397">397</a>     <strong class="jxr_keyword">super</strong>.processOptions(cmd);
+<a class="jxr_linenumber" name="398" href="#398">398</a>   }
+<a class="jxr_linenumber" name="399" href="#399">399</a> 
+<a class="jxr_linenumber" name="400" href="#400">400</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String argv[]) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="401" href="#401">401</a>     Configuration conf = HBaseConfiguration.create();
+<a class="jxr_linenumber" name="402" href="#402">402</a>     IntegrationTestingUtility.setUseDistributedCluster(conf);
+<a class="jxr_linenumber" name="403" href="#403">403</a>     <strong class="jxr_keyword">int</strong> ret = ToolRunner.run(conf, <strong class="jxr_keyword">new</strong> <a href="../../../../../org/apache/hadoop/hbase/test/IntegrationTestWithCellVisibilityLoadAndVerify.html">IntegrationTestWithCellVisibilityLoadAndVerify</a>(), argv);
+<a class="jxr_linenumber" name="404" href="#404">404</a>     System.exit(ret);
+<a class="jxr_linenumber" name="405" href="#405">405</a>   }
+<a class="jxr_linenumber" name="406" href="#406">406</a> }
+</pre>
+<hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
+</html>
+

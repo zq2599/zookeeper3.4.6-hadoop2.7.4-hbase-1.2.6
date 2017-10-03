@@ -1,0 +1,2030 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HMaster (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="HMaster (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/HMaster.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/master/GeneralBulkAssigner.html" title="class in org.apache.hadoop.hbase.master"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.RedirectServlet.html" title="class in org.apache.hadoop.hbase.master"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/master/HMaster.html" target="_top">Frames</a></li>
+<li><a href="HMaster.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.master</div>
+<h2 title="Class HMaster" class="title">Class HMaster</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html" title="class in org.apache.hadoop.hbase.util">org.apache.hadoop.hbase.util.HasThread</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">org.apache.hadoop.hbase.regionserver.HRegionServer</a></li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.master.HMaster</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>, <a href="../../../../../org/apache/hadoop/hbase/Abortable.html" title="interface in org.apache.hadoop.hbase">Abortable</a>, <a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/FavoredNodesForRegion.html" title="interface in org.apache.hadoop.hbase.regionserver">FavoredNodesForRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/LastSequenceId.html" title="interface in org.apache.hadoop.hbase.regionserver">LastSequenceId</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/OnlineRegions.html" title="interface in org.apache.hadoop.hbase.regionserver">OnlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.html" title="interface in org.apache.hadoop.hbase.regionserver">RegionServerServices</a>, <a href="../../../../../org/apache/hadoop/hbase/Server.html" title="interface in org.apache.hadoop.hbase">Server</a>, <a href="../../../../../org/apache/hadoop/hbase/Stoppable.html" title="interface in org.apache.hadoop.hbase">Stoppable</a></dd>
+</dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><a href="../../../../../org/apache/hadoop/hbase/master/HMasterCommandLine.LocalHMaster.html" title="class in org.apache.hadoop.hbase.master">HMasterCommandLine.LocalHMaster</a></dd>
+</dl>
+<hr>
+<br>
+<pre><a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.LimitedPrivate.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceAudience.LimitedPrivate</a>(<a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.LimitedPrivate.html#value()">value</a>="Tools")
+public class <span class="strong">HMaster</span>
+extends <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a>
+implements <a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a>, <a href="../../../../../org/apache/hadoop/hbase/Server.html" title="interface in org.apache.hadoop.hbase">Server</a></pre>
+<div class="block">HMaster is the "master server" for HBase. An HBase cluster has one active
+ master.  If many masters are started, all compete.  Whichever wins goes on to
+ run the cluster.  All others park themselves in their constructor until
+ master or cluster shutdown or until the active master loses its lease in
+ zookeeper.  Thereafter, all running master jostle to take over master role.
+
+ <p>The Master can be asked shutdown the cluster. See <a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#shutdown()"><code>shutdown()</code></a>.  In
+ this case it will tell all regionservers to go down and then wait on them
+ all reporting in that they are down.  This master will then shut itself down.
+
+ <p>You can also shutdown just this master.  Call <a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#stopMaster()"><code>stopMaster()</code></a>.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><code>Watcher</code></dd></dl>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Nested Class Summary table, listing nested classes, and an explanation">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.RedirectServlet.html" title="class in org.apache.hadoop.hbase.master">HMaster.RedirectServlet</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_org.apache.hadoop.hbase.regionserver.HRegionServer">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;org.apache.hadoop.hbase.regionserver.<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.MovedRegionsCleaner.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer.MovedRegionsCleaner</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_org.apache.hadoop.hbase.regionserver.RegionServerServices">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;org.apache.hadoop.hbase.regionserver.<a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.html" title="interface in org.apache.hadoop.hbase.regionserver">RegionServerServices</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.PostOpenDeployContext.html" title="class in org.apache.hadoop.hbase.regionserver">RegionServerServices.PostOpenDeployContext</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.RegionStateTransitionContext.html" title="class in org.apache.hadoop.hbase.regionserver">RegionServerServices.RegionStateTransitionContext</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#MASTER">MASTER</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_org.apache.hadoop.hbase.regionserver.HRegionServer">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;org.apache.hadoop.hbase.regionserver.<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#cacheConfig">cacheConfig</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#cacheFlusher">cacheFlusher</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#CLOSE">CLOSE</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#clusterConnection">clusterConnection</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#clusterStatusTracker">clusterStatusTracker</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#compactSplitThread">compactSplitThread</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#conf">conf</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#configurationManager">configurationManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#csm">csm</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#fs">fs</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#fsOk">fsOk</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#hMemManager">hMemManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#infoServer">infoServer</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#leases">leases</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#lock">lock</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#MASTER_HOSTNAME_KEY">MASTER_HOSTNAME_KEY</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#metaTableLocator">metaTableLocator</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#movedRegions">movedRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#msgInterval">msgInterval</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#numRegionsToReport">numRegionsToReport</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#onlineRegions">onlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#OPEN">OPEN</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#recoveringRegions">recoveringRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#regionFavoredNodesMap">regionFavoredNodesMap</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#REGIONSERVER">REGIONSERVER</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#regionsInTransitionInRS">regionsInTransitionInRS</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#replicationSinkHandler">replicationSinkHandler</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#replicationSourceHandler">replicationSourceHandler</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#rpcServices">rpcServices</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#serverName">serverName</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#service">service</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#sleeper">sleeper</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#startcode">startcode</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#tableDescriptors">tableDescriptors</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#tableLockManager">tableLockManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#threadWakeFrequency">threadWakeFrequency</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#useThisHostnameInstead">useThisHostnameInstead</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#walFactory">walFactory</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#zooKeeper">zooKeeper</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#HMaster(org.apache.hadoop.conf.Configuration,%20org.apache.hadoop.hbase.CoordinatedStateManager)">HMaster</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf,
+       <a href="../../../../../org/apache/hadoop/hbase/CoordinatedStateManager.html" title="interface in org.apache.hadoop.hbase">CoordinatedStateManager</a>&nbsp;csm)</code>
+<div class="block">Initializes the HMaster.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#abort(java.lang.String,%20java.lang.Throwable)">abort</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;msg,
+     <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Cause the server to exit without closing the regions it is serving, the log
+ it is using and without notifying the master.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#abortProcedure(long,%20boolean)">abortProcedure</a></strong>(long&nbsp;procId,
+              boolean&nbsp;mayInterruptIfRunning)</code>
+<div class="block">Abort a procedure.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#addColumn(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HColumnDescriptor,%20long,%20long)">addColumn</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+         <a href="../../../../../org/apache/hadoop/hbase/HColumnDescriptor.html" title="class in org.apache.hadoop.hbase">HColumnDescriptor</a>&nbsp;columnDescriptor,
+         long&nbsp;nonceGroup,
+         long&nbsp;nonce)</code>
+<div class="block">Add a new column to an existing table</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#assignRegion(org.apache.hadoop.hbase.HRegionInfo)">assignRegion</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;hri)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#balance()">balance</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#balanceSwitch(boolean)">balanceSwitch</a></strong>(boolean&nbsp;b)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#canCreateBaseZNode()">canCreateBaseZNode</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#canUpdateTableDescriptor()">canUpdateTableDescriptor</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#checkTableModifiable(org.apache.hadoop.hbase.TableName)">checkTableModifiable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName)</code>
+<div class="block">Check table is modifiable; i.e.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#configureInfoServer()">configureInfoServer</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html" title="class in org.apache.hadoop.hbase.master">HMaster</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#constructMaster(java.lang.Class,%20org.apache.hadoop.conf.Configuration,%20org.apache.hadoop.hbase.CoordinatedStateManager)">constructMaster</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html" title="class in org.apache.hadoop.hbase.master">HMaster</a>&gt;&nbsp;masterClass,
+               org.apache.hadoop.conf.Configuration&nbsp;conf,
+               <a href="../../../../../org/apache/hadoop/hbase/CoordinatedStateManager.html" title="interface in org.apache.hadoop.hbase">CoordinatedStateManager</a>&nbsp;cp)</code>
+<div class="block">Utility for constructing an instance of the passed HMaster class.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#createNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">createNamespace</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&nbsp;descriptor)</code>
+<div class="block">Create a new namespace</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#createRpcServices()">createRpcServices</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#createTable(org.apache.hadoop.hbase.HTableDescriptor,%20byte[][],%20long,%20long)">createTable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;hTableDescriptor,
+           byte[][]&nbsp;splitKeys,
+           long&nbsp;nonceGroup,
+           long&nbsp;nonce)</code>
+<div class="block">Create a table using the given table definition.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#deleteColumn(org.apache.hadoop.hbase.TableName,%20byte[],%20long,%20long)">deleteColumn</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+            byte[]&nbsp;columnName,
+            long&nbsp;nonceGroup,
+            long&nbsp;nonce)</code>
+<div class="block">Delete a column from an existing table</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#deleteNamespace(java.lang.String)">deleteNamespace</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<div class="block">Delete an existing namespace.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#deleteTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">deleteTable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+           long&nbsp;nonceGroup,
+           long&nbsp;nonce)</code>
+<div class="block">Delete a table</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#disableTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">disableTable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+            long&nbsp;nonceGroup,
+            long&nbsp;nonce)</code>
+<div class="block">Disable an existing table</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#dispatchMergingRegions(org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.HRegionInfo,%20boolean)">dispatchMergingRegions</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;region_a,
+                      <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;region_b,
+                      boolean&nbsp;forcible)</code>
+<div class="block">Merge two regions.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#enableTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">enableTable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+           long&nbsp;nonceGroup,
+           long&nbsp;nonce)</code>
+<div class="block">Enable an existing table</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#ensureNamespaceExists(java.lang.String)">ensureNamespaceExists</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<div class="block">Ensure that the specified namespace exists, otherwise throws a NamespaceNotFoundException</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/AssignmentManager.html" title="class in org.apache.hadoop.hbase.master">AssignmentManager</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getAssignmentManager()">getAssignmentManager</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>double</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getAverageLoad()">getAverageLoad</a></strong>()</code>
+<div class="block">Compute the average load across all region servers.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/ClusterStatus.html" title="class in org.apache.hadoop.hbase">ClusterStatus</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getClusterStatus()">getClusterStatus</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends javax.servlet.http.HttpServlet&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getDumpServlet()">getDumpServlet</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/cleaner/HFileCleaner.html" title="class in org.apache.hadoop.hbase.master.cleaner">HFileCleaner</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getHFileCleaner()">getHFileCleaner</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureScheduler.ProcedureEvent.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureScheduler.ProcedureEvent</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getInitializedEvent()">getInitializedEvent</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getLastMajorCompactionTimestamp(org.apache.hadoop.hbase.TableName)">getLastMajorCompactionTimestamp</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;table)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getLastMajorCompactionTimestampForRegion(byte[])">getLastMajorCompactionTimestampForRegion</a></strong>(byte[]&nbsp;regionName)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getLoadBalancerClassName()">getLoadBalancerClassName</a></strong>()</code>
+<div class="block">Fetch the configured <a href="../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master"><code>LoadBalancer</code></a> class name.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getLoadedCoprocessors()">getLoadedCoprocessors</a></strong>()</code>
+<div class="block">The set of loaded coprocessors is stored in a static set.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterActiveTime()">getMasterActiveTime</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterCoprocessorHost.html" title="class in org.apache.hadoop.hbase.master">MasterCoprocessorHost</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterCoprocessorHost()">getMasterCoprocessorHost</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterCoprocessors()">getMasterCoprocessors</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterFileSystem.html" title="class in org.apache.hadoop.hbase.master">MasterFileSystem</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterFileSystem()">getMasterFileSystem</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureExecutor</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterProcedureExecutor()">getMasterProcedureExecutor</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/quotas/MasterQuotaManager.html" title="class in org.apache.hadoop.hbase.quotas">MasterQuotaManager</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterQuotaManager()">getMasterQuotaManager</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html" title="class in org.apache.hadoop.hbase.master">MasterRpcServices</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterRpcServices()">getMasterRpcServices</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getMasterStartTime()">getMasterStartTime</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getNamespaceDescriptor(java.lang.String)">getNamespaceDescriptor</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<div class="block">Get a namespace descriptor by name</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getProcessName()">getProcessName</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/zookeeper/RegionNormalizerTracker.html" title="class in org.apache.hadoop.hbase.zookeeper">RegionNormalizerTracker</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getRegionNormalizerTracker()">getRegionNormalizerTracker</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/monitoring/MemoryBoundedLogMessageBuffer.html" title="class in org.apache.hadoop.hbase.monitoring">MemoryBoundedLogMessageBuffer</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getRegionServerFatalLogBuffer()">getRegionServerFatalLogBuffer</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getRegionServerInfoPort(org.apache.hadoop.hbase.ServerName)">getRegionServerInfoPort</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;sn)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getRegionServerVersion(org.apache.hadoop.hbase.ServerName)">getRegionServerVersion</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;sn)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureScheduler.ProcedureEvent.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureScheduler.ProcedureEvent</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getServerCrashProcessingEnabledEvent()">getServerCrashProcessingEnabledEvent</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/ServerManager.html" title="class in org.apache.hadoop.hbase.master">ServerManager</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getServerManager()">getServerManager</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getServerName()">getServerName</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/master/snapshot/SnapshotManager.html" title="class in org.apache.hadoop.hbase.master.snapshot">SnapshotManager</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getSnapshotManagerForTesting()">getSnapshotManagerForTesting</a></strong>()</code>
+<div class="block">Exposed for TESTING!</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/TableDescriptors.html" title="interface in org.apache.hadoop.hbase">TableDescriptors</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getTableDescriptors()">getTableDescriptors</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/zookeeper/ZooKeeperWatcher.html" title="class in org.apache.hadoop.hbase.zookeeper">ZooKeeperWatcher</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#getZooKeeper()">getZooKeeper</a></strong>()</code>
+<div class="block">Gets the ZooKeeper instance for this server.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#isActiveMaster()">isActiveMaster</a></strong>()</code>
+<div class="block">Report whether this master is currently the active master or not.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#isBalancerOn()">isBalancerOn</a></strong>()</code>
+<div class="block">Queries the state of the <a href="../../../../../org/apache/hadoop/hbase/zookeeper/LoadBalancerTracker.html" title="class in org.apache.hadoop.hbase.zookeeper"><code>LoadBalancerTracker</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#isInitializationStartsMetaRegionAssignment()">isInitializationStartsMetaRegionAssignment</a></strong>()</code>
+<div class="block">Report whether this master has started initialization and is about to do meta region assignment</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#isInitialized()">isInitialized</a></strong>()</code>
+<div class="block">Report whether this master has completed with its initialization and is
+ ready.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#isNormalizerOn()">isNormalizerOn</a></strong>()</code>
+<div class="block">Queries the state of the <a href="../../../../../org/apache/hadoop/hbase/zookeeper/RegionNormalizerTracker.html" title="class in org.apache.hadoop.hbase.zookeeper"><code>RegionNormalizerTracker</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#isServerCrashProcessingEnabled()">isServerCrashProcessingEnabled</a></strong>()</code>
+<div class="block">ServerCrashProcessingEnabled is set false before completing assignMeta to prevent processing
+ of crashed servers.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#listNamespaceDescriptors()">listNamespaceDescriptors</a></strong>()</code>
+<div class="block">List available namespace descriptors</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#listProcedures()">listProcedures</a></strong>()</code>
+<div class="block">List procedures</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#listTableDescriptors(java.lang.String,%20java.lang.String,%20java.util.List,%20boolean)">listTableDescriptors</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespace,
+                    <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
+                    <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&gt;&nbsp;tableNameList,
+                    boolean&nbsp;includeSysTables)</code>
+<div class="block">Returns the list of table descriptors that match the specified request</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#listTableDescriptorsByNamespace(java.lang.String)">listTableDescriptorsByNamespace</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<div class="block">Get list of table descriptors by namespace</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#listTableNames(java.lang.String,%20java.lang.String,%20boolean)">listTableNames</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespace,
+              <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
+              boolean&nbsp;includeSysTables)</code>
+<div class="block">Returns the list of table names that match the specified request</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#listTableNamesByNamespace(java.lang.String)">listTableNamesByNamespace</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
+<div class="block">Get list of table names by namespace</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#login(org.apache.hadoop.hbase.security.UserProvider,%20java.lang.String)">login</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/security/UserProvider.html" title="class in org.apache.hadoop.hbase.security">UserProvider</a>&nbsp;user,
+     <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;host)</code>
+<div class="block">For compatibility, if failed with regionserver credentials, try the master one</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#main(java.lang.String[])">main</a></strong>(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#modifyColumn(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HColumnDescriptor,%20long,%20long)">modifyColumn</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+            <a href="../../../../../org/apache/hadoop/hbase/HColumnDescriptor.html" title="class in org.apache.hadoop.hbase">HColumnDescriptor</a>&nbsp;descriptor,
+            long&nbsp;nonceGroup,
+            long&nbsp;nonce)</code>
+<div class="block">Modify the column descriptor of an existing column in an existing table</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#modifyNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">modifyNamespace</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&nbsp;descriptor)</code>
+<div class="block">Modify an existing namespace</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#modifyTable(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HTableDescriptor,%20long,%20long)">modifyTable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+           <a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;descriptor,
+           long&nbsp;nonceGroup,
+           long&nbsp;nonce)</code>
+<div class="block">Modify the descriptor of an existing table</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#normalizeRegions()">normalizeRegions</a></strong>()</code>
+<div class="block">Perform normalization of cluster (invoked by <a href="../../../../../org/apache/hadoop/hbase/master/normalizer/RegionNormalizerChore.html" title="class in org.apache.hadoop.hbase.master.normalizer"><code>RegionNormalizerChore</code></a>).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#registerService(com.google.protobuf.Service)">registerService</a></strong>(com.google.protobuf.Service&nbsp;instance)</code>
+<div class="block">Registers a new protocol buffer <code>Service</code> subclass as a coprocessor endpoint to be
+ available for handling</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#sendShutdownInterrupt()">sendShutdownInterrupt</a></strong>()</code>
+<div class="block">Called on stop/abort before closing the cluster connection and meta locator.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#setCatalogJanitorEnabled(boolean)">setCatalogJanitorEnabled</a></strong>(boolean&nbsp;b)</code>
+<div class="block">Switch for the background CatalogJanitor thread.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#setInitialized(boolean)">setInitialized</a></strong>(boolean&nbsp;isInitialized)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#setServerCrashProcessingEnabled(boolean)">setServerCrashProcessingEnabled</a></strong>(boolean&nbsp;b)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#shutdown()">shutdown</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#stopMaster()">stopMaster</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#stopServiceThreads()">stopServiceThreads</a></strong>()</code>
+<div class="block">Wait on all threads to finish.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#truncateTable(org.apache.hadoop.hbase.TableName,%20boolean,%20long,%20long)">truncateTable</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+             boolean&nbsp;preserveSplits,
+             long&nbsp;nonceGroup,
+             long&nbsp;nonce)</code>
+<div class="block">Truncate a table</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html#waitForMasterActive()">waitForMasterActive</a></strong>()</code>
+<div class="block">If configured to put regions on active master,
+ wait till a backup master becomes active.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.regionserver.HRegionServer">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.regionserver.<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#abort(java.lang.String)">abort</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#addToMovedRegions(java.lang.String,%20org.apache.hadoop.hbase.ServerName,%20long)">addToMovedRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#addToOnlineRegions(org.apache.hadoop.hbase.regionserver.Region)">addToOnlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#checkFileSystem()">checkFileSystem</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#cleanMovedRegions()">cleanMovedRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#closeAllRegions(boolean)">closeAllRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#closeRegion(java.lang.String,%20boolean,%20org.apache.hadoop.hbase.coordination.CloseRegionCoordination.CloseRegionDetails,%20org.apache.hadoop.hbase.ServerName)">closeRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#constructRegionServer(java.lang.Class,%20org.apache.hadoop.conf.Configuration,%20org.apache.hadoop.hbase.CoordinatedStateManager)">constructRegionServer</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#convertThrowableToIOE(java.lang.Throwable,%20java.lang.String)">convertThrowableToIOE</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#createClusterConnection()">createClusterConnection</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#createRegionLoad(java.lang.String)">createRegionLoad</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#createRegionServerStatusStub()">createRegionServerStatusStub</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#createRegionServerStatusStub(boolean)">createRegionServerStatusStub</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#ensureMetaWALRoller()">ensureMetaWALRoller</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#execRegionServerService(com.google.protobuf.RpcController,%20org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest)">execRegionServerService</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getCacheConfig()">getCacheConfig</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getChoreService()">getChoreService</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getClusterId()">getClusterId</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getCompactionPressure()">getCompactionPressure</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getCompactionRequester()">getCompactionRequester</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getCompactSplitThread()">getCompactSplitThread</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getConfiguration()">getConfiguration</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getConfigurationManager()">getConfigurationManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getConnection()">getConnection</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getCoordinatedStateManager()">getCoordinatedStateManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getExecutorService()">getExecutorService</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getFavoredNodesForRegion(java.lang.String)">getFavoredNodesForRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getFileSystem()">getFileSystem</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getFlushRequester()">getFlushRequester</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getFromOnlineRegions(java.lang.String)">getFromOnlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getHeapMemoryManager()">getHeapMemoryManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getInfoServer()">getInfoServer</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getLastSequenceId(byte[])">getLastSequenceId</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getLeases()">getLeases</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getMasterAddressTracker()">getMasterAddressTracker</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getMetaTableLocator()">getMetaTableLocator</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getMostLoadedRegions()">getMostLoadedRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getNonceManager()">getNonceManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getNumberOfOnlineRegions()">getNumberOfOnlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getOnlineRegion(byte[])">getOnlineRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getOnlineRegions(org.apache.hadoop.hbase.TableName)">getOnlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getOnlineRegionsLocalContext()">getOnlineRegionsLocalContext</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getOnlineTables()">getOnlineTables</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRecoveringRegions()">getRecoveringRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegion(byte[])">getRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionBlockLocations(java.lang.String)">getRegionBlockLocations</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionByEncodedName(byte[],%20java.lang.String)">getRegionByEncodedName</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionByEncodedName(java.lang.String)">getRegionByEncodedName</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionServerAccounting()">getRegionServerAccounting</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionServerCoprocessorHost()">getRegionServerCoprocessorHost</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionServerCoprocessors()">getRegionServerCoprocessors</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionServerMetrics()">getRegionServerMetrics</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionServerQuotaManager()">getRegionServerQuotaManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRegionsInTransitionInRS()">getRegionsInTransitionInRS</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRootDir()">getRootDir</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRpcServer()">getRpcServer</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getRSRpcServices()">getRSRpcServices</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getStartcode()">getStartcode</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getTableLockManager()">getTableLockManager</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getThreadWakeFrequency()">getThreadWakeFrequency</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getWAL(org.apache.hadoop.hbase.HRegionInfo)">getWAL</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#handleReportForDutyResponse(org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionServerStartupResponse)">handleReportForDutyResponse</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#isAborted()">isAborted</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#isOnline()">isOnline</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#isStopped()">isStopped</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#isStopping()">isStopping</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#kill()">kill</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#movedRegionCleanerPeriod()">movedRegionCleanerPeriod</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#postOpenDeployTasks(org.apache.hadoop.hbase.regionserver.Region)">postOpenDeployTasks</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#postOpenDeployTasks(org.apache.hadoop.hbase.regionserver.RegionServerServices.PostOpenDeployContext)">postOpenDeployTasks</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#removeFromOnlineRegions(org.apache.hadoop.hbase.regionserver.Region,%20org.apache.hadoop.hbase.ServerName)">removeFromOnlineRegions</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#reportRegionStateTransition(org.apache.hadoop.hbase.regionserver.RegionServerServices.RegionStateTransitionContext)">reportRegionStateTransition</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#reportRegionStateTransition(org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionStateTransition.TransitionCode,%20org.apache.hadoop.hbase.HRegionInfo...)">reportRegionStateTransition</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#reportRegionStateTransition(org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionStateTransition.TransitionCode,%20long,%20org.apache.hadoop.hbase.HRegionInfo...)">reportRegionStateTransition</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#run()">run</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#setupClusterConnection()">setupClusterConnection</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#shouldUseThisHostnameInstead()">shouldUseThisHostnameInstead</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#stop(java.lang.String)">stop</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#toString()">toString</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#tryRegionServerReport(long,%20long)">tryRegionServerReport</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#updateConfiguration()">updateConfiguration</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#updateRegionFavoredNodesMapping(java.lang.String,%20java.util.List)">updateRegionFavoredNodesMapping</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#waitForServerOnline()">waitForServerOnline</a>, <a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#walRollRequestFinished()">walRollRequestFinished</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.util.HasThread">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.util.<a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html" title="class in org.apache.hadoop.hbase.util">HasThread</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#getName()">getName</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#getThread()">getThread</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#interrupt()">interrupt</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#isAlive()">isAlive</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#isInterrupted()">isInterrupted</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#join()">join</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#join(long)">join</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#join(long,%20int)">join</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#setDaemon(boolean)">setDaemon</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#setName(java.lang.String)">setName</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#setPriority(int)">setPriority</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#setUncaughtExceptionHandler(java.lang.Thread.UncaughtExceptionHandler)">setUncaughtExceptionHandler</a>, <a href="../../../../../org/apache/hadoop/hbase/util/HasThread.html#start()">start</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.master.MasterServices">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.apache.hadoop.hbase.master.<a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getExecutorService()">getExecutorService</a>, <a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getTableLockManager()">getTableLockManager</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.Server">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.apache.hadoop.hbase.<a href="../../../../../org/apache/hadoop/hbase/Server.html" title="interface in org.apache.hadoop.hbase">Server</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/Server.html#getChoreService()">getChoreService</a>, <a href="../../../../../org/apache/hadoop/hbase/Server.html#getConfiguration()">getConfiguration</a>, <a href="../../../../../org/apache/hadoop/hbase/Server.html#getConnection()">getConnection</a>, <a href="../../../../../org/apache/hadoop/hbase/Server.html#getCoordinatedStateManager()">getCoordinatedStateManager</a>, <a href="../../../../../org/apache/hadoop/hbase/Server.html#getMetaTableLocator()">getMetaTableLocator</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.Abortable">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.apache.hadoop.hbase.<a href="../../../../../org/apache/hadoop/hbase/Abortable.html" title="interface in org.apache.hadoop.hbase">Abortable</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/Abortable.html#isAborted()">isAborted</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.Stoppable">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.apache.hadoop.hbase.<a href="../../../../../org/apache/hadoop/hbase/Stoppable.html" title="interface in org.apache.hadoop.hbase">Stoppable</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/Stoppable.html#isStopped()">isStopped</a>, <a href="../../../../../org/apache/hadoop/hbase/Stoppable.html#stop(java.lang.String)">stop</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="MASTER">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>MASTER</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> MASTER</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../constant-values.html#org.apache.hadoop.hbase.master.HMaster.MASTER">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="HMaster(org.apache.hadoop.conf.Configuration, org.apache.hadoop.hbase.CoordinatedStateManager)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>HMaster</h4>
+<pre>public&nbsp;HMaster(org.apache.hadoop.conf.Configuration&nbsp;conf,
+       <a href="../../../../../org/apache/hadoop/hbase/CoordinatedStateManager.html" title="interface in org.apache.hadoop.hbase">CoordinatedStateManager</a>&nbsp;csm)
+        throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
+               org.apache.zookeeper.KeeperException,
+               <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></pre>
+<div class="block">Initializes the HMaster. The steps are as follows:
+ <p>
+ <ol>
+ <li>Initialize the local HRegionServer
+ <li>Start the ActiveMasterManager.
+ </ol>
+ <p>
+ Remaining steps of initialization occur in
+ #finishActiveMasterInitialization(MonitoredTask) after
+ the master becomes the active one.</div>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></code></dd>
+<dd><code>org.apache.zookeeper.KeeperException</code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="login(org.apache.hadoop.hbase.security.UserProvider, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>login</h4>
+<pre>protected&nbsp;void&nbsp;login(<a href="../../../../../org/apache/hadoop/hbase/security/UserProvider.html" title="class in org.apache.hadoop.hbase.security">UserProvider</a>&nbsp;user,
+         <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;host)
+              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">For compatibility, if failed with regionserver credentials, try the master one</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#login(org.apache.hadoop.hbase.security.UserProvider,%20java.lang.String)">login</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="waitForMasterActive()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>waitForMasterActive</h4>
+<pre>protected&nbsp;void&nbsp;waitForMasterActive()</pre>
+<div class="block">If configured to put regions on active master,
+ wait till a backup master becomes active.
+ Otherwise, loop till the server is stopped or aborted.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#waitForMasterActive()">waitForMasterActive</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getMasterRpcServices()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterRpcServices</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/MasterRpcServices.html" title="class in org.apache.hadoop.hbase.master">MasterRpcServices</a>&nbsp;getMasterRpcServices()</pre>
+</li>
+</ul>
+<a name="balanceSwitch(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>balanceSwitch</h4>
+<pre>public&nbsp;boolean&nbsp;balanceSwitch(boolean&nbsp;b)
+                      throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getProcessName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProcessName</h4>
+<pre>protected&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getProcessName()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getProcessName()">getProcessName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="canCreateBaseZNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canCreateBaseZNode</h4>
+<pre>protected&nbsp;boolean&nbsp;canCreateBaseZNode()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#canCreateBaseZNode()">canCreateBaseZNode</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="canUpdateTableDescriptor()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canUpdateTableDescriptor</h4>
+<pre>protected&nbsp;boolean&nbsp;canUpdateTableDescriptor()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#canUpdateTableDescriptor()">canUpdateTableDescriptor</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="createRpcServices()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createRpcServices</h4>
+<pre>protected&nbsp;<a href="../../../../../org/apache/hadoop/hbase/regionserver/RSRpcServices.html" title="class in org.apache.hadoop.hbase.regionserver">RSRpcServices</a>&nbsp;createRpcServices()
+                                   throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#createRpcServices()">createRpcServices</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="configureInfoServer()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>configureInfoServer</h4>
+<pre>protected&nbsp;void&nbsp;configureInfoServer()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#configureInfoServer()">configureInfoServer</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getDumpServlet()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDumpServlet</h4>
+<pre>protected&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends javax.servlet.http.HttpServlet&gt;&nbsp;getDumpServlet()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getDumpServlet()">getDumpServlet</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getTableDescriptors()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTableDescriptors</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/TableDescriptors.html" title="interface in org.apache.hadoop.hbase">TableDescriptors</a>&nbsp;getTableDescriptors()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getTableDescriptors()">getTableDescriptors</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getTableDescriptors()">getTableDescriptors</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Return table descriptors implementation.</dd></dl>
+</li>
+</ul>
+<a name="getServerManager()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServerManager</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/ServerManager.html" title="class in org.apache.hadoop.hbase.master">ServerManager</a>&nbsp;getServerManager()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getServerManager()">getServerManager</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Master's <a href="../../../../../org/apache/hadoop/hbase/master/ServerManager.html" title="class in org.apache.hadoop.hbase.master"><code>ServerManager</code></a> instance.</dd></dl>
+</li>
+</ul>
+<a name="getMasterFileSystem()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterFileSystem</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/MasterFileSystem.html" title="class in org.apache.hadoop.hbase.master">MasterFileSystem</a>&nbsp;getMasterFileSystem()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getMasterFileSystem()">getMasterFileSystem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Master's filesystem <a href="../../../../../org/apache/hadoop/hbase/master/MasterFileSystem.html" title="class in org.apache.hadoop.hbase.master"><code>MasterFileSystem</code></a> utility class.</dd></dl>
+</li>
+</ul>
+<a name="sendShutdownInterrupt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sendShutdownInterrupt</h4>
+<pre>protected&nbsp;void&nbsp;sendShutdownInterrupt()</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#sendShutdownInterrupt()">HRegionServer</a></code></strong></div>
+<div class="block">Called on stop/abort before closing the cluster connection and meta locator.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#sendShutdownInterrupt()">sendShutdownInterrupt</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="stopServiceThreads()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>stopServiceThreads</h4>
+<pre>protected&nbsp;void&nbsp;stopServiceThreads()</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#stopServiceThreads()">HRegionServer</a></code></strong></div>
+<div class="block">Wait on all threads to finish. Presumption is that all closes and stops
+ have already been called.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#stopServiceThreads()">stopServiceThreads</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="balance()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>balance</h4>
+<pre>public&nbsp;boolean&nbsp;balance()
+                throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="normalizeRegions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>normalizeRegions</h4>
+<pre>public&nbsp;boolean&nbsp;normalizeRegions()
+                         throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
+                                <a href="../../../../../org/apache/hadoop/hbase/CoordinatedStateException.html" title="class in org.apache.hadoop.hbase">CoordinatedStateException</a></pre>
+<div class="block">Perform normalization of cluster (invoked by <a href="../../../../../org/apache/hadoop/hbase/master/normalizer/RegionNormalizerChore.html" title="class in org.apache.hadoop.hbase.master.normalizer"><code>RegionNormalizerChore</code></a>).</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if normalization step was performed successfully, false otherwise
+   (specifically, if HMaster hasn't been initialized properly or normalization
+   is globally disabled)</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/CoordinatedStateException.html" title="class in org.apache.hadoop.hbase">CoordinatedStateException</a></code></dd></dl>
+</li>
+</ul>
+<a name="setCatalogJanitorEnabled(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCatalogJanitorEnabled</h4>
+<pre>public&nbsp;void&nbsp;setCatalogJanitorEnabled(boolean&nbsp;b)</pre>
+<div class="block">Switch for the background CatalogJanitor thread.
+ Used for testing.  The thread will continue to run.  It will just be a noop
+ if disabled.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>b</code> - If false, the catalog janitor won't do anything.</dd></dl>
+</li>
+</ul>
+<a name="dispatchMergingRegions(org.apache.hadoop.hbase.HRegionInfo, org.apache.hadoop.hbase.HRegionInfo, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dispatchMergingRegions</h4>
+<pre>public&nbsp;void&nbsp;dispatchMergingRegions(<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;region_a,
+                          <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;region_b,
+                          boolean&nbsp;forcible)
+                            throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#dispatchMergingRegions(org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.HRegionInfo,%20boolean)">MasterServices</a></code></strong></div>
+<div class="block">Merge two regions. The real implementation is on the regionserver, master
+ just move the regions together and send MERGE RPC to regionserver</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#dispatchMergingRegions(org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.HRegionInfo,%20boolean)">dispatchMergingRegions</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>region_a</code> - region to merge</dd><dd><code>region_b</code> - region to merge</dd><dd><code>forcible</code> - true if do a compulsory merge, otherwise we will only merge
+          two adjacent regions</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="createTable(org.apache.hadoop.hbase.HTableDescriptor, byte[][], long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createTable</h4>
+<pre>public&nbsp;long&nbsp;createTable(<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;hTableDescriptor,
+               byte[][]&nbsp;splitKeys,
+               long&nbsp;nonceGroup,
+               long&nbsp;nonce)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#createTable(org.apache.hadoop.hbase.HTableDescriptor,%20byte[][],%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Create a table using the given table definition.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#createTable(org.apache.hadoop.hbase.HTableDescriptor,%20byte[][],%20long,%20long)">createTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>hTableDescriptor</code> - The table definition</dd><dd><code>splitKeys</code> - Starting row keys for the initial table regions.  If null</dd><dd><code>nonce</code> - a single region is created.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="deleteTable(org.apache.hadoop.hbase.TableName, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteTable</h4>
+<pre>public&nbsp;long&nbsp;deleteTable(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+               long&nbsp;nonceGroup,
+               long&nbsp;nonce)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#deleteTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Delete a table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#deleteTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">deleteTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="truncateTable(org.apache.hadoop.hbase.TableName, boolean, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>truncateTable</h4>
+<pre>public&nbsp;void&nbsp;truncateTable(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+                 boolean&nbsp;preserveSplits,
+                 long&nbsp;nonceGroup,
+                 long&nbsp;nonce)
+                   throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#truncateTable(org.apache.hadoop.hbase.TableName,%20boolean,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Truncate a table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#truncateTable(org.apache.hadoop.hbase.TableName,%20boolean,%20long,%20long)">truncateTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd><dd><code>preserveSplits</code> - True if the splits should be preserved</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="addColumn(org.apache.hadoop.hbase.TableName, org.apache.hadoop.hbase.HColumnDescriptor, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addColumn</h4>
+<pre>public&nbsp;void&nbsp;addColumn(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+             <a href="../../../../../org/apache/hadoop/hbase/HColumnDescriptor.html" title="class in org.apache.hadoop.hbase">HColumnDescriptor</a>&nbsp;columnDescriptor,
+             long&nbsp;nonceGroup,
+             long&nbsp;nonce)
+               throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#addColumn(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HColumnDescriptor,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Add a new column to an existing table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#addColumn(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HColumnDescriptor,%20long,%20long)">addColumn</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd><dd><code>columnDescriptor</code> - The column definition</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="modifyColumn(org.apache.hadoop.hbase.TableName, org.apache.hadoop.hbase.HColumnDescriptor, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>modifyColumn</h4>
+<pre>public&nbsp;void&nbsp;modifyColumn(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+                <a href="../../../../../org/apache/hadoop/hbase/HColumnDescriptor.html" title="class in org.apache.hadoop.hbase">HColumnDescriptor</a>&nbsp;descriptor,
+                long&nbsp;nonceGroup,
+                long&nbsp;nonce)
+                  throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#modifyColumn(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HColumnDescriptor,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Modify the column descriptor of an existing column in an existing table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#modifyColumn(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HColumnDescriptor,%20long,%20long)">modifyColumn</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd><dd><code>descriptor</code> - The updated column definition</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="deleteColumn(org.apache.hadoop.hbase.TableName, byte[], long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteColumn</h4>
+<pre>public&nbsp;void&nbsp;deleteColumn(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+                byte[]&nbsp;columnName,
+                long&nbsp;nonceGroup,
+                long&nbsp;nonce)
+                  throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#deleteColumn(org.apache.hadoop.hbase.TableName,%20byte[],%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Delete a column from an existing table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#deleteColumn(org.apache.hadoop.hbase.TableName,%20byte[],%20long,%20long)">deleteColumn</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd><dd><code>columnName</code> - The column name</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="enableTable(org.apache.hadoop.hbase.TableName, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>enableTable</h4>
+<pre>public&nbsp;long&nbsp;enableTable(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+               long&nbsp;nonceGroup,
+               long&nbsp;nonce)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#enableTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Enable an existing table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#enableTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">enableTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="disableTable(org.apache.hadoop.hbase.TableName, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>disableTable</h4>
+<pre>public&nbsp;long&nbsp;disableTable(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+                long&nbsp;nonceGroup,
+                long&nbsp;nonce)
+                  throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#disableTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Disable an existing table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#disableTable(org.apache.hadoop.hbase.TableName,%20long,%20long)">disableTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="modifyTable(org.apache.hadoop.hbase.TableName, org.apache.hadoop.hbase.HTableDescriptor, long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>modifyTable</h4>
+<pre>public&nbsp;void&nbsp;modifyTable(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName,
+               <a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&nbsp;descriptor,
+               long&nbsp;nonceGroup,
+               long&nbsp;nonce)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#modifyTable(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HTableDescriptor,%20long,%20long)">MasterServices</a></code></strong></div>
+<div class="block">Modify the descriptor of an existing table</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#modifyTable(org.apache.hadoop.hbase.TableName,%20org.apache.hadoop.hbase.HTableDescriptor,%20long,%20long)">modifyTable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - The table name</dd><dd><code>descriptor</code> - The updated table descriptor</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="checkTableModifiable(org.apache.hadoop.hbase.TableName)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkTableModifiable</h4>
+<pre>public&nbsp;void&nbsp;checkTableModifiable(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;tableName)
+                          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
+                                 <a href="../../../../../org/apache/hadoop/hbase/TableNotFoundException.html" title="class in org.apache.hadoop.hbase">TableNotFoundException</a>,
+                                 <a href="../../../../../org/apache/hadoop/hbase/TableNotDisabledException.html" title="class in org.apache.hadoop.hbase">TableNotDisabledException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#checkTableModifiable(org.apache.hadoop.hbase.TableName)">MasterServices</a></code></strong></div>
+<div class="block">Check table is modifiable; i.e. exists and is offline.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#checkTableModifiable(org.apache.hadoop.hbase.TableName)">checkTableModifiable</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>tableName</code> - Name of table to check.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/TableNotDisabledException.html" title="class in org.apache.hadoop.hbase">TableNotDisabledException</a></code></dd>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/TableNotFoundException.html" title="class in org.apache.hadoop.hbase">TableNotFoundException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getClusterStatus()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getClusterStatus</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/ClusterStatus.html" title="class in org.apache.hadoop.hbase">ClusterStatus</a>&nbsp;getClusterStatus()
+                               throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/InterruptedIOException.html?is-external=true" title="class or interface in java.io">InterruptedIOException</a></pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>cluster status</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/InterruptedIOException.html?is-external=true" title="class or interface in java.io">InterruptedIOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getLoadedCoprocessors()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLoadedCoprocessors</h4>
+<pre>public static&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getLoadedCoprocessors()</pre>
+<div class="block">The set of loaded coprocessors is stored in a static set. Since it's
+ statically allocated, it does not require that HMaster's cpHost be
+ initialized prior to accessing it.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>a String representation of the set of names of the loaded
+ coprocessors.</dd></dl>
+</li>
+</ul>
+<a name="getMasterStartTime()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterStartTime</h4>
+<pre>public&nbsp;long&nbsp;getMasterStartTime()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>timestamp in millis when HMaster was started.</dd></dl>
+</li>
+</ul>
+<a name="getMasterActiveTime()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterActiveTime</h4>
+<pre>public&nbsp;long&nbsp;getMasterActiveTime()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>timestamp in millis when HMaster became the active master.</dd></dl>
+</li>
+</ul>
+<a name="getRegionServerInfoPort(org.apache.hadoop.hbase.ServerName)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRegionServerInfoPort</h4>
+<pre>public&nbsp;int&nbsp;getRegionServerInfoPort(<a href="../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;sn)</pre>
+</li>
+</ul>
+<a name="getRegionServerVersion(org.apache.hadoop.hbase.ServerName)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRegionServerVersion</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getRegionServerVersion(<a href="../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;sn)</pre>
+</li>
+</ul>
+<a name="getMasterCoprocessors()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterCoprocessors</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;getMasterCoprocessors()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>array of coprocessor SimpleNames.</dd></dl>
+</li>
+</ul>
+<a name="abort(java.lang.String, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abort</h4>
+<pre>public&nbsp;void&nbsp;abort(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;msg,
+         <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#abort(java.lang.String,%20java.lang.Throwable)">HRegionServer</a></code></strong></div>
+<div class="block">Cause the server to exit without closing the regions it is serving, the log
+ it is using and without notifying the master. Used unit testing and on
+ catastrophic events such as HDFS is yanked out from under hbase or we OOME.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/Abortable.html#abort(java.lang.String,%20java.lang.Throwable)">abort</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/Abortable.html" title="interface in org.apache.hadoop.hbase">Abortable</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#abort(java.lang.String,%20java.lang.Throwable)">abort</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>msg</code> - the reason we are aborting</dd><dd><code>t</code> - the exception that caused the abort, or null</dd></dl>
+</li>
+</ul>
+<a name="getZooKeeper()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getZooKeeper</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/zookeeper/ZooKeeperWatcher.html" title="class in org.apache.hadoop.hbase.zookeeper">ZooKeeperWatcher</a>&nbsp;getZooKeeper()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/Server.html#getZooKeeper()">Server</a></code></strong></div>
+<div class="block">Gets the ZooKeeper instance for this server.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/Server.html#getZooKeeper()">getZooKeeper</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/Server.html" title="interface in org.apache.hadoop.hbase">Server</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getZooKeeper()">getZooKeeper</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getMasterCoprocessorHost()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterCoprocessorHost</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/MasterCoprocessorHost.html" title="class in org.apache.hadoop.hbase.master">MasterCoprocessorHost</a>&nbsp;getMasterCoprocessorHost()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getMasterCoprocessorHost()">getMasterCoprocessorHost</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Master's instance of <a href="../../../../../org/apache/hadoop/hbase/master/MasterCoprocessorHost.html" title="class in org.apache.hadoop.hbase.master"><code>MasterCoprocessorHost</code></a></dd></dl>
+</li>
+</ul>
+<a name="getMasterQuotaManager()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterQuotaManager</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/quotas/MasterQuotaManager.html" title="class in org.apache.hadoop.hbase.quotas">MasterQuotaManager</a>&nbsp;getMasterQuotaManager()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getMasterQuotaManager()">getMasterQuotaManager</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Master's instance of <a href="../../../../../org/apache/hadoop/hbase/quotas/MasterQuotaManager.html" title="class in org.apache.hadoop.hbase.quotas"><code>MasterQuotaManager</code></a></dd></dl>
+</li>
+</ul>
+<a name="getMasterProcedureExecutor()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMasterProcedureExecutor</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureExecutor</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureEnv.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureEnv</a>&gt;&nbsp;getMasterProcedureExecutor()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getMasterProcedureExecutor()">getMasterProcedureExecutor</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Master's instance of <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="class in org.apache.hadoop.hbase.procedure2"><code>ProcedureExecutor</code></a></dd></dl>
+</li>
+</ul>
+<a name="getServerName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServerName</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/ServerName.html" title="class in org.apache.hadoop.hbase">ServerName</a>&nbsp;getServerName()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/Server.html#getServerName()">getServerName</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/Server.html" title="interface in org.apache.hadoop.hbase">Server</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#getServerName()">getServerName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>The unique server name for this server.</dd></dl>
+</li>
+</ul>
+<a name="getAssignmentManager()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAssignmentManager</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/AssignmentManager.html" title="class in org.apache.hadoop.hbase.master">AssignmentManager</a>&nbsp;getAssignmentManager()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getAssignmentManager()">getAssignmentManager</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Master's instance of the <a href="../../../../../org/apache/hadoop/hbase/master/AssignmentManager.html" title="class in org.apache.hadoop.hbase.master"><code>AssignmentManager</code></a></dd></dl>
+</li>
+</ul>
+<a name="getRegionServerFatalLogBuffer()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRegionServerFatalLogBuffer</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/monitoring/MemoryBoundedLogMessageBuffer.html" title="class in org.apache.hadoop.hbase.monitoring">MemoryBoundedLogMessageBuffer</a>&nbsp;getRegionServerFatalLogBuffer()</pre>
+</li>
+</ul>
+<a name="shutdown()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>shutdown</h4>
+<pre>public&nbsp;void&nbsp;shutdown()
+              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="stopMaster()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>stopMaster</h4>
+<pre>public&nbsp;void&nbsp;stopMaster()
+                throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="isActiveMaster()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isActiveMaster</h4>
+<pre>public&nbsp;boolean&nbsp;isActiveMaster()</pre>
+<div class="block">Report whether this master is currently the active master or not.
+ If not active master, we are parked on ZK waiting to become active.
+
+ This method is used for testing.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if active master, false if not.</dd></dl>
+</li>
+</ul>
+<a name="isInitialized()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isInitialized</h4>
+<pre>public&nbsp;boolean&nbsp;isInitialized()</pre>
+<div class="block">Report whether this master has completed with its initialization and is
+ ready.  If ready, the master is also the active master.  A standby master
+ is never ready.
+
+ This method is used for testing.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#isInitialized()">isInitialized</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if master is ready to go, false if not.</dd></dl>
+</li>
+</ul>
+<a name="setInitialized(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setInitialized</h4>
+<pre>public&nbsp;void&nbsp;setInitialized(boolean&nbsp;isInitialized)</pre>
+</li>
+</ul>
+<a name="getInitializedEvent()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getInitializedEvent</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureScheduler.ProcedureEvent.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureScheduler.ProcedureEvent</a>&nbsp;getInitializedEvent()</pre>
+</li>
+</ul>
+<a name="isServerCrashProcessingEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isServerCrashProcessingEnabled</h4>
+<pre>public&nbsp;boolean&nbsp;isServerCrashProcessingEnabled()</pre>
+<div class="block">ServerCrashProcessingEnabled is set false before completing assignMeta to prevent processing
+ of crashed servers.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#isServerCrashProcessingEnabled()">isServerCrashProcessingEnabled</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if assignMeta has completed;</dd></dl>
+</li>
+</ul>
+<a name="setServerCrashProcessingEnabled(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setServerCrashProcessingEnabled</h4>
+<pre>public&nbsp;void&nbsp;setServerCrashProcessingEnabled(boolean&nbsp;b)</pre>
+</li>
+</ul>
+<a name="getServerCrashProcessingEnabledEvent()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServerCrashProcessingEnabledEvent</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/procedure/MasterProcedureScheduler.ProcedureEvent.html" title="class in org.apache.hadoop.hbase.master.procedure">MasterProcedureScheduler.ProcedureEvent</a>&nbsp;getServerCrashProcessingEnabledEvent()</pre>
+</li>
+</ul>
+<a name="isInitializationStartsMetaRegionAssignment()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isInitializationStartsMetaRegionAssignment</h4>
+<pre>public&nbsp;boolean&nbsp;isInitializationStartsMetaRegionAssignment()</pre>
+<div class="block">Report whether this master has started initialization and is about to do meta region assignment</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if master is in initialization &amp; about to assign hbase:meta regions</dd></dl>
+</li>
+</ul>
+<a name="assignRegion(org.apache.hadoop.hbase.HRegionInfo)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>assignRegion</h4>
+<pre>public&nbsp;void&nbsp;assignRegion(<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;hri)</pre>
+</li>
+</ul>
+<a name="getAverageLoad()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAverageLoad</h4>
+<pre>public&nbsp;double&nbsp;getAverageLoad()</pre>
+<div class="block">Compute the average load across all region servers.
+ Currently, this uses a very naive computation - just uses the number of
+ regions being served, ignoring stats about number of requests.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the average load</dd></dl>
+</li>
+</ul>
+<a name="registerService(com.google.protobuf.Service)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>registerService</h4>
+<pre>public&nbsp;boolean&nbsp;registerService(com.google.protobuf.Service&nbsp;instance)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.html#registerService(com.google.protobuf.Service)">RegionServerServices</a></code></strong></div>
+<div class="block">Registers a new protocol buffer <code>Service</code> subclass as a coprocessor endpoint to be
+ available for handling</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#registerService(com.google.protobuf.Service)">registerService</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.html#registerService(com.google.protobuf.Service)">registerService</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/RegionServerServices.html" title="interface in org.apache.hadoop.hbase.regionserver">RegionServerServices</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html#registerService(com.google.protobuf.Service)">registerService</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegionServer.html" title="class in org.apache.hadoop.hbase.regionserver">HRegionServer</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>instance</code> - the <code>Service</code> subclass instance to expose as a coprocessor endpoint</dd>
+<dt><span class="strong">Returns:</span></dt><dd><code>true</code> if the registration was successful, <code>false</code></dd></dl>
+</li>
+</ul>
+<a name="constructMaster(java.lang.Class, org.apache.hadoop.conf.Configuration, org.apache.hadoop.hbase.CoordinatedStateManager)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>constructMaster</h4>
+<pre>public static&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html" title="class in org.apache.hadoop.hbase.master">HMaster</a>&nbsp;constructMaster(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../../org/apache/hadoop/hbase/master/HMaster.html" title="class in org.apache.hadoop.hbase.master">HMaster</a>&gt;&nbsp;masterClass,
+                      org.apache.hadoop.conf.Configuration&nbsp;conf,
+                      <a href="../../../../../org/apache/hadoop/hbase/CoordinatedStateManager.html" title="interface in org.apache.hadoop.hbase">CoordinatedStateManager</a>&nbsp;cp)</pre>
+<div class="block">Utility for constructing an instance of the passed HMaster class.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>masterClass</code> - </dd><dd><code>conf</code> - </dd>
+<dt><span class="strong">Returns:</span></dt><dd>HMaster instance.</dd></dl>
+</li>
+</ul>
+<a name="main(java.lang.String[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>main</h4>
+<pre>public static&nbsp;void&nbsp;main(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../org/apache/hadoop/hbase/master/HMasterCommandLine.html" title="class in org.apache.hadoop.hbase.master"><code>HMasterCommandLine</code></a></dd></dl>
+</li>
+</ul>
+<a name="getHFileCleaner()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHFileCleaner</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/cleaner/HFileCleaner.html" title="class in org.apache.hadoop.hbase.master.cleaner">HFileCleaner</a>&nbsp;getHFileCleaner()</pre>
+</li>
+</ul>
+<a name="getSnapshotManagerForTesting()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnapshotManagerForTesting</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/master/snapshot/SnapshotManager.html" title="class in org.apache.hadoop.hbase.master.snapshot">SnapshotManager</a>&nbsp;getSnapshotManagerForTesting()</pre>
+<div class="block">Exposed for TESTING!</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the underlying snapshot manager</dd></dl>
+</li>
+</ul>
+<a name="createNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createNamespace</h4>
+<pre>public&nbsp;void&nbsp;createNamespace(<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&nbsp;descriptor)
+                     throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#createNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">MasterServices</a></code></strong></div>
+<div class="block">Create a new namespace</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#createNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">createNamespace</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>descriptor</code> - descriptor which describes the new namespace</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="modifyNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>modifyNamespace</h4>
+<pre>public&nbsp;void&nbsp;modifyNamespace(<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&nbsp;descriptor)
+                     throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#modifyNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">MasterServices</a></code></strong></div>
+<div class="block">Modify an existing namespace</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#modifyNamespace(org.apache.hadoop.hbase.NamespaceDescriptor)">modifyNamespace</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>descriptor</code> - descriptor which updates the existing namespace</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="deleteNamespace(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteNamespace</h4>
+<pre>public&nbsp;void&nbsp;deleteNamespace(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
+                     throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#deleteNamespace(java.lang.String)">MasterServices</a></code></strong></div>
+<div class="block">Delete an existing namespace. Only empty namespaces (no tables) can be removed.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#deleteNamespace(java.lang.String)">deleteNamespace</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>name</code> - namespace name</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="ensureNamespaceExists(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ensureNamespaceExists</h4>
+<pre>protected&nbsp;void&nbsp;ensureNamespaceExists(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
+                              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
+                                     <a href="../../../../../org/apache/hadoop/hbase/NamespaceNotFoundException.html" title="class in org.apache.hadoop.hbase">NamespaceNotFoundException</a></pre>
+<div class="block">Ensure that the specified namespace exists, otherwise throws a NamespaceNotFoundException</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>name</code> - the namespace to check</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if the namespace manager is not ready yet.</dd>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/NamespaceNotFoundException.html" title="class in org.apache.hadoop.hbase">NamespaceNotFoundException</a></code> - if the namespace does not exists</dd></dl>
+</li>
+</ul>
+<a name="getNamespaceDescriptor(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNamespaceDescriptor</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&nbsp;getNamespaceDescriptor(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
+                                           throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getNamespaceDescriptor(java.lang.String)">MasterServices</a></code></strong></div>
+<div class="block">Get a namespace descriptor by name</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getNamespaceDescriptor(java.lang.String)">getNamespaceDescriptor</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>name</code> - name of namespace descriptor</dd>
+<dt><span class="strong">Returns:</span></dt><dd>A descriptor</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="listNamespaceDescriptors()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listNamespaceDescriptors</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/NamespaceDescriptor.html" title="class in org.apache.hadoop.hbase">NamespaceDescriptor</a>&gt;&nbsp;listNamespaceDescriptors()
+                                                   throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listNamespaceDescriptors()">MasterServices</a></code></strong></div>
+<div class="block">List available namespace descriptors</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listNamespaceDescriptors()">listNamespaceDescriptors</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>A descriptor</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="abortProcedure(long, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abortProcedure</h4>
+<pre>public&nbsp;boolean&nbsp;abortProcedure(long&nbsp;procId,
+                     boolean&nbsp;mayInterruptIfRunning)
+                       throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#abortProcedure(long,%20boolean)">MasterServices</a></code></strong></div>
+<div class="block">Abort a procedure.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#abortProcedure(long,%20boolean)">abortProcedure</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - ID of the procedure</dd><dd><code>mayInterruptIfRunning</code> - if the proc completed at least one step, should it be aborted?</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if aborted, false if procedure already completed or does not exist</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="listProcedures()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listProcedures</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&gt;&nbsp;listProcedures()
+                                   throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listProcedures()">MasterServices</a></code></strong></div>
+<div class="block">List procedures</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listProcedures()">listProcedures</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>procedure list</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="listTableDescriptorsByNamespace(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listTableDescriptorsByNamespace</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&gt;&nbsp;listTableDescriptorsByNamespace(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
+                                                       throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listTableDescriptorsByNamespace(java.lang.String)">MasterServices</a></code></strong></div>
+<div class="block">Get list of table descriptors by namespace</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listTableDescriptorsByNamespace(java.lang.String)">listTableDescriptorsByNamespace</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>name</code> - namespace name</dd>
+<dt><span class="strong">Returns:</span></dt><dd>descriptors</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="listTableNamesByNamespace(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listTableNamesByNamespace</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&gt;&nbsp;listTableNamesByNamespace(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
+                                          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listTableNamesByNamespace(java.lang.String)">MasterServices</a></code></strong></div>
+<div class="block">Get list of table names by namespace</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#listTableNamesByNamespace(java.lang.String)">listTableNamesByNamespace</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>name</code> - namespace name</dd>
+<dt><span class="strong">Returns:</span></dt><dd>table names</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="listTableDescriptors(java.lang.String, java.lang.String, java.util.List, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listTableDescriptors</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/HTableDescriptor.html" title="class in org.apache.hadoop.hbase">HTableDescriptor</a>&gt;&nbsp;listTableDescriptors(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespace,
+                                          <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
+                                          <a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&gt;&nbsp;tableNameList,
+                                          boolean&nbsp;includeSysTables)
+                                            throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Returns the list of table descriptors that match the specified request</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>namespace</code> - the namespace to query, or null if querying for all</dd><dd><code>regex</code> - The regular expression to match against, or null if querying for all</dd><dd><code>tableNameList</code> - the list of table names, or null if querying for all</dd><dd><code>includeSysTables</code> - False to match only against userspace tables</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the list of table descriptors</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="listTableNames(java.lang.String, java.lang.String, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listTableNames</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&gt;&nbsp;listTableNames(<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespace,
+                             <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
+                             boolean&nbsp;includeSysTables)
+                               throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Returns the list of table names that match the specified request</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>regex</code> - The regular expression to match against, or null if querying for all</dd><dd><code>namespace</code> - the namespace to query, or null if querying for all</dd><dd><code>includeSysTables</code> - False to match only against userspace tables</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the list of table names</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getLastMajorCompactionTimestamp(org.apache.hadoop.hbase.TableName)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastMajorCompactionTimestamp</h4>
+<pre>public&nbsp;long&nbsp;getLastMajorCompactionTimestamp(<a href="../../../../../org/apache/hadoop/hbase/TableName.html" title="class in org.apache.hadoop.hbase">TableName</a>&nbsp;table)
+                                     throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getLastMajorCompactionTimestamp(org.apache.hadoop.hbase.TableName)">getLastMajorCompactionTimestamp</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>the timestamp of the last successful major compaction for the passed table,
+ or 0 if no HFile resulting from a major compaction exists</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getLastMajorCompactionTimestampForRegion(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastMajorCompactionTimestampForRegion</h4>
+<pre>public&nbsp;long&nbsp;getLastMajorCompactionTimestampForRegion(byte[]&nbsp;regionName)
+                                              throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html#getLastMajorCompactionTimestampForRegion(byte[])">getLastMajorCompactionTimestampForRegion</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/apache/hadoop/hbase/master/MasterServices.html" title="interface in org.apache.hadoop.hbase.master">MasterServices</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>the timestamp of the last successful major compaction for the passed region
+ or 0 if no HFile resulting from a major compaction exists</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="isBalancerOn()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isBalancerOn</h4>
+<pre>public&nbsp;boolean&nbsp;isBalancerOn()</pre>
+<div class="block">Queries the state of the <a href="../../../../../org/apache/hadoop/hbase/zookeeper/LoadBalancerTracker.html" title="class in org.apache.hadoop.hbase.zookeeper"><code>LoadBalancerTracker</code></a>. If the balancer is not initialized,
+ false is returned.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The state of the load balancer, or false if the load balancer isn't defined.</dd></dl>
+</li>
+</ul>
+<a name="isNormalizerOn()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isNormalizerOn</h4>
+<pre>public&nbsp;boolean&nbsp;isNormalizerOn()</pre>
+<div class="block">Queries the state of the <a href="../../../../../org/apache/hadoop/hbase/zookeeper/RegionNormalizerTracker.html" title="class in org.apache.hadoop.hbase.zookeeper"><code>RegionNormalizerTracker</code></a>. If it's not initialized,
+ false is returned.</div>
+</li>
+</ul>
+<a name="getLoadBalancerClassName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLoadBalancerClassName</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getLoadBalancerClassName()</pre>
+<div class="block">Fetch the configured <a href="../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master"><code>LoadBalancer</code></a> class name. If none is set, a default is returned.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The name of the <a href="../../../../../org/apache/hadoop/hbase/master/LoadBalancer.html" title="interface in org.apache.hadoop.hbase.master"><code>LoadBalancer</code></a> in use.</dd></dl>
+</li>
+</ul>
+<a name="getRegionNormalizerTracker()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getRegionNormalizerTracker</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/zookeeper/RegionNormalizerTracker.html" title="class in org.apache.hadoop.hbase.zookeeper">RegionNormalizerTracker</a>&nbsp;getRegionNormalizerTracker()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>RegionNormalizerTracker instance</dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/HMaster.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/master/GeneralBulkAssigner.html" title="class in org.apache.hadoop.hbase.master"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/master/HMaster.RedirectServlet.html" title="class in org.apache.hadoop.hbase.master"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/master/HMaster.html" target="_top">Frames</a></li>
+<li><a href="HMaster.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

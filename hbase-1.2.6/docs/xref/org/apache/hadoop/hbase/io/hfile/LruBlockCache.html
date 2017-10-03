@@ -1,0 +1,1159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>LruBlockCache xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../../apidocs/org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">View Javadoc</a></div><pre>
+
+<a class="jxr_linenumber" name="1" href="#1">1</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="2" href="#2">2</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="3" href="#3">3</a>   <em class="jxr_javadoccomment"> * Licensed to the Apache Software Foundation (ASF) under one</em>
+<a class="jxr_linenumber" name="4" href="#4">4</a>   <em class="jxr_javadoccomment"> * or more contributor license agreements.  See the NOTICE file</em>
+<a class="jxr_linenumber" name="5" href="#5">5</a>   <em class="jxr_javadoccomment"> * distributed with this work for additional information</em>
+<a class="jxr_linenumber" name="6" href="#6">6</a>   <em class="jxr_javadoccomment"> * regarding copyright ownership.  The ASF licenses this file</em>
+<a class="jxr_linenumber" name="7" href="#7">7</a>   <em class="jxr_javadoccomment"> * to you under the Apache License, Version 2.0 (the</em>
+<a class="jxr_linenumber" name="8" href="#8">8</a>   <em class="jxr_javadoccomment"> * "License"); you may not use this file except in compliance</em>
+<a class="jxr_linenumber" name="9" href="#9">9</a>   <em class="jxr_javadoccomment"> * with the License.  You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="10" href="#10">10</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="11" href="#11">11</a>  <em class="jxr_javadoccomment"> *     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
+<a class="jxr_linenumber" name="12" href="#12">12</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="13" href="#13">13</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="14" href="#14">14</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="16" href="#16">16</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="17" href="#17">17</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="18" href="#18">18</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="19" href="#19">19</a>  <strong class="jxr_keyword">package</strong> org.apache.hadoop.hbase.io.hfile;
+<a class="jxr_linenumber" name="20" href="#20">20</a>  
+<a class="jxr_linenumber" name="21" href="#21">21</a>  <strong class="jxr_keyword">import</strong> java.lang.ref.WeakReference;
+<a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> java.nio.ByteBuffer;
+<a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> java.util.EnumMap;
+<a class="jxr_linenumber" name="24" href="#24">24</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="26" href="#26">26</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">import</strong> java.util.PriorityQueue;
+<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">import</strong> java.util.SortedSet;
+<a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.util.TreeSet;
+<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.ConcurrentHashMap;
+<a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.Executors;
+<a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.ScheduledExecutorService;
+<a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.TimeUnit;
+<a class="jxr_linenumber" name="34" href="#34">34</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.atomic.AtomicLong;
+<a class="jxr_linenumber" name="35" href="#35">35</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.locks.ReentrantLock;
+<a class="jxr_linenumber" name="36" href="#36">36</a>  
+<a class="jxr_linenumber" name="37" href="#37">37</a>  <strong class="jxr_keyword">import</strong> com.google.common.base.Objects;
+<a class="jxr_linenumber" name="38" href="#38">38</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
+<a class="jxr_linenumber" name="39" href="#39">39</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
+<a class="jxr_linenumber" name="40" href="#40">40</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.classification.InterfaceAudience;
+<a class="jxr_linenumber" name="41" href="#41">41</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.conf.Configuration;
+<a class="jxr_linenumber" name="42" href="#42">42</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.io.HeapSize;
+<a class="jxr_linenumber" name="43" href="#43">43</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.io.encoding.DataBlockEncoding;
+<a class="jxr_linenumber" name="44" href="#44">44</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.io.hfile.bucket.BucketCache;
+<a class="jxr_linenumber" name="45" href="#45">45</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.util.Bytes;
+<a class="jxr_linenumber" name="46" href="#46">46</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.util.ClassSize;
+<a class="jxr_linenumber" name="47" href="#47">47</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.hbase.util.HasThread;
+<a class="jxr_linenumber" name="48" href="#48">48</a>  <strong class="jxr_keyword">import</strong> org.apache.hadoop.util.StringUtils;
+<a class="jxr_linenumber" name="49" href="#49">49</a>  <strong class="jxr_keyword">import</strong> org.codehaus.jackson.annotate.JsonIgnoreProperties;
+<a class="jxr_linenumber" name="50" href="#50">50</a>  
+<a class="jxr_linenumber" name="51" href="#51">51</a>  <strong class="jxr_keyword">import</strong> com.google.common.annotations.VisibleForTesting;
+<a class="jxr_linenumber" name="52" href="#52">52</a>  <strong class="jxr_keyword">import</strong> com.google.common.util.concurrent.ThreadFactoryBuilder;
+<a class="jxr_linenumber" name="53" href="#53">53</a>  
+<a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="55" href="#55">55</a>  <em class="jxr_javadoccomment"> * A block cache implementation that is memory-aware using {@link HeapSize},</em>
+<a class="jxr_linenumber" name="56" href="#56">56</a>  <em class="jxr_javadoccomment"> * memory-bound using an LRU eviction algorithm, and concurrent: backed by a</em>
+<a class="jxr_linenumber" name="57" href="#57">57</a>  <em class="jxr_javadoccomment"> * {@link ConcurrentHashMap} and with a non-blocking eviction thread giving</em>
+<a class="jxr_linenumber" name="58" href="#58">58</a>  <em class="jxr_javadoccomment"> * constant-time {@link #cacheBlock} and {@link #getBlock} operations.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="59" href="#59">59</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="60" href="#60">60</a>  <em class="jxr_javadoccomment"> * Contains three levels of block priority to allow for</em>
+<a class="jxr_linenumber" name="61" href="#61">61</a>  <em class="jxr_javadoccomment"> * scan-resistance and in-memory families </em>
+<a class="jxr_linenumber" name="62" href="#62">62</a>  <em class="jxr_javadoccomment"> * {@link org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)} (An</em>
+<a class="jxr_linenumber" name="63" href="#63">63</a>  <em class="jxr_javadoccomment"> * in-memory column family is a column family that should be served from memory if possible):</em>
+<a class="jxr_linenumber" name="64" href="#64">64</a>  <em class="jxr_javadoccomment"> * single-access, multiple-accesses, and in-memory priority.</em>
+<a class="jxr_linenumber" name="65" href="#65">65</a>  <em class="jxr_javadoccomment"> * A block is added with an in-memory priority flag if</em>
+<a class="jxr_linenumber" name="66" href="#66">66</a>  <em class="jxr_javadoccomment"> * {@link org.apache.hadoop.hbase.HColumnDescriptor#isInMemory()}, </em>
+<a class="jxr_linenumber" name="67" href="#67">67</a>  <em class="jxr_javadoccomment"> * otherwise a block becomes a single access</em>
+<a class="jxr_linenumber" name="68" href="#68">68</a>  <em class="jxr_javadoccomment"> * priority the first time it is read into this block cache.  If a block is accessed again while</em>
+<a class="jxr_linenumber" name="69" href="#69">69</a>  <em class="jxr_javadoccomment"> * in cache, it is marked as a multiple access priority block.  This delineation of blocks is used</em>
+<a class="jxr_linenumber" name="70" href="#70">70</a>  <em class="jxr_javadoccomment"> * to prevent scans from thrashing the cache adding a least-frequently-used</em>
+<a class="jxr_linenumber" name="71" href="#71">71</a>  <em class="jxr_javadoccomment"> * element to the eviction algorithm.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="72" href="#72">72</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="73" href="#73">73</a>  <em class="jxr_javadoccomment"> * Each priority is given its own chunk of the total cache to ensure</em>
+<a class="jxr_linenumber" name="74" href="#74">74</a>  <em class="jxr_javadoccomment"> * fairness during eviction.  Each priority will retain close to its maximum</em>
+<a class="jxr_linenumber" name="75" href="#75">75</a>  <em class="jxr_javadoccomment"> * size, however, if any priority is not using its entire chunk the others</em>
+<a class="jxr_linenumber" name="76" href="#76">76</a>  <em class="jxr_javadoccomment"> * are able to grow beyond their chunk size.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="77" href="#77">77</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="78" href="#78">78</a>  <em class="jxr_javadoccomment"> * Instantiated at a minimum with the total size and average block size.</em>
+<a class="jxr_linenumber" name="79" href="#79">79</a>  <em class="jxr_javadoccomment"> * All sizes are in bytes.  The block size is not especially important as this</em>
+<a class="jxr_linenumber" name="80" href="#80">80</a>  <em class="jxr_javadoccomment"> * cache is fully dynamic in its sizing of blocks.  It is only used for</em>
+<a class="jxr_linenumber" name="81" href="#81">81</a>  <em class="jxr_javadoccomment"> * pre-allocating data structures and in initial heap estimation of the map.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="82" href="#82">82</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="83" href="#83">83</a>  <em class="jxr_javadoccomment"> * The detailed constructor defines the sizes for the three priorities (they</em>
+<a class="jxr_linenumber" name="84" href="#84">84</a>  <em class="jxr_javadoccomment"> * should total to the &lt;code&gt;maximum size&lt;/code&gt; defined).  It also sets the levels that</em>
+<a class="jxr_linenumber" name="85" href="#85">85</a>  <em class="jxr_javadoccomment"> * trigger and control the eviction thread.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="86" href="#86">86</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="87" href="#87">87</a>  <em class="jxr_javadoccomment"> * The &lt;code&gt;acceptable size&lt;/code&gt; is the cache size level which triggers the eviction</em>
+<a class="jxr_linenumber" name="88" href="#88">88</a>  <em class="jxr_javadoccomment"> * process to start.  It evicts enough blocks to get the size below the</em>
+<a class="jxr_linenumber" name="89" href="#89">89</a>  <em class="jxr_javadoccomment"> * minimum size specified.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="90" href="#90">90</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="91" href="#91">91</a>  <em class="jxr_javadoccomment"> * Eviction happens in a separate thread and involves a single full-scan</em>
+<a class="jxr_linenumber" name="92" href="#92">92</a>  <em class="jxr_javadoccomment"> * of the map.  It determines how many bytes must be freed to reach the minimum</em>
+<a class="jxr_linenumber" name="93" href="#93">93</a>  <em class="jxr_javadoccomment"> * size, and then while scanning determines the fewest least-recently-used</em>
+<a class="jxr_linenumber" name="94" href="#94">94</a>  <em class="jxr_javadoccomment"> * blocks necessary from each of the three priorities (would be 3 times bytes</em>
+<a class="jxr_linenumber" name="95" href="#95">95</a>  <em class="jxr_javadoccomment"> * to free).  It then uses the priority chunk sizes to evict fairly according</em>
+<a class="jxr_linenumber" name="96" href="#96">96</a>  <em class="jxr_javadoccomment"> * to the relative sizes and usage.</em>
+<a class="jxr_linenumber" name="97" href="#97">97</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="98" href="#98">98</a>  @InterfaceAudience.Private
+<a class="jxr_linenumber" name="99" href="#99">99</a>  @JsonIgnoreProperties({<span class="jxr_string">"encodingCountsForTest"</span>})
+<a class="jxr_linenumber" name="100" href="#100">100</a> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a> <strong class="jxr_keyword">implements</strong> ResizableBlockCache, <a href="../../../../../../org/apache/hadoop/hbase/io/HeapSize.html">HeapSize</a> {
+<a class="jxr_linenumber" name="101" href="#101">101</a> 
+<a class="jxr_linenumber" name="102" href="#102">102</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(LruBlockCache.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="103" href="#103">103</a> 
+<a class="jxr_linenumber" name="104" href="#104">104</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="105" href="#105">105</a> <em class="jxr_javadoccomment">   * Percentage of total size that eviction will evict until; e.g. if set to .8, then we will keep</em>
+<a class="jxr_linenumber" name="106" href="#106">106</a> <em class="jxr_javadoccomment">   * evicting during an eviction run till the cache size is down to 80% of the total.</em>
+<a class="jxr_linenumber" name="107" href="#107">107</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="108" href="#108">108</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_MIN_FACTOR_CONFIG_NAME = <span class="jxr_string">"hbase.lru.blockcache.min.factor"</span>;
+<a class="jxr_linenumber" name="109" href="#109">109</a> 
+<a class="jxr_linenumber" name="110" href="#110">110</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="111" href="#111">111</a> <em class="jxr_javadoccomment">   * Acceptable size of cache (no evictions if size &lt; acceptable)</em>
+<a class="jxr_linenumber" name="112" href="#112">112</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="113" href="#113">113</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_ACCEPTABLE_FACTOR_CONFIG_NAME = <span class="jxr_string">"hbase.lru.blockcache.acceptable.factor"</span>;
+<a class="jxr_linenumber" name="114" href="#114">114</a> 
+<a class="jxr_linenumber" name="115" href="#115">115</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="116" href="#116">116</a> <em class="jxr_javadoccomment">   * Hard capacity limit of cache, will reject any put if size &gt; this * acceptable</em>
+<a class="jxr_linenumber" name="117" href="#117">117</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="118" href="#118">118</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_HARD_CAPACITY_LIMIT_FACTOR_CONFIG_NAME = <span class="jxr_string">"hbase.lru.blockcache.hard.capacity.limit.factor"</span>;
+<a class="jxr_linenumber" name="119" href="#119">119</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_SINGLE_PERCENTAGE_CONFIG_NAME = <span class="jxr_string">"hbase.lru.blockcache.single.percentage"</span>;
+<a class="jxr_linenumber" name="120" href="#120">120</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_MULTI_PERCENTAGE_CONFIG_NAME = <span class="jxr_string">"hbase.lru.blockcache.multi.percentage"</span>;
+<a class="jxr_linenumber" name="121" href="#121">121</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_MEMORY_PERCENTAGE_CONFIG_NAME = <span class="jxr_string">"hbase.lru.blockcache.memory.percentage"</span>;
+<a class="jxr_linenumber" name="122" href="#122">122</a> 
+<a class="jxr_linenumber" name="123" href="#123">123</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="124" href="#124">124</a> <em class="jxr_javadoccomment">   * Configuration key to force data-block always (except in-memory are too much)</em>
+<a class="jxr_linenumber" name="125" href="#125">125</a> <em class="jxr_javadoccomment">   * cached in memory for in-memory hfile, unlike inMemory, which is a column-family</em>
+<a class="jxr_linenumber" name="126" href="#126">126</a> <em class="jxr_javadoccomment">   * configuration, inMemoryForceMode is a cluster-wide configuration</em>
+<a class="jxr_linenumber" name="127" href="#127">127</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="128" href="#128">128</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_IN_MEMORY_FORCE_MODE_CONFIG_NAME = <span class="jxr_string">"hbase.lru.rs.inmemoryforcemode"</span>;
+<a class="jxr_linenumber" name="129" href="#129">129</a> 
+<a class="jxr_linenumber" name="130" href="#130">130</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Default Configuration Parameters*/</em>
+<a class="jxr_linenumber" name="131" href="#131">131</a> 
+<a class="jxr_linenumber" name="132" href="#132">132</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Backing Concurrent Map Configuration */</em>
+<a class="jxr_linenumber" name="133" href="#133">133</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_LOAD_FACTOR = 0.75f;
+<a class="jxr_linenumber" name="134" href="#134">134</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> DEFAULT_CONCURRENCY_LEVEL = 16;
+<a class="jxr_linenumber" name="135" href="#135">135</a> 
+<a class="jxr_linenumber" name="136" href="#136">136</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Eviction thresholds */</em>
+<a class="jxr_linenumber" name="137" href="#137">137</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_MIN_FACTOR = 0.95f;
+<a class="jxr_linenumber" name="138" href="#138">138</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_ACCEPTABLE_FACTOR = 0.99f;
+<a class="jxr_linenumber" name="139" href="#139">139</a> 
+<a class="jxr_linenumber" name="140" href="#140">140</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Priority buckets */</em>
+<a class="jxr_linenumber" name="141" href="#141">141</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_SINGLE_FACTOR = 0.25f;
+<a class="jxr_linenumber" name="142" href="#142">142</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_MULTI_FACTOR = 0.50f;
+<a class="jxr_linenumber" name="143" href="#143">143</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_MEMORY_FACTOR = 0.25f;
+<a class="jxr_linenumber" name="144" href="#144">144</a> 
+<a class="jxr_linenumber" name="145" href="#145">145</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> default hard capacity limit */</em>
+<a class="jxr_linenumber" name="146" href="#146">146</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">float</strong> DEFAULT_HARD_CAPACITY_LIMIT_FACTOR = 1.2f;
+<a class="jxr_linenumber" name="147" href="#147">147</a> 
+<a class="jxr_linenumber" name="148" href="#148">148</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> DEFAULT_IN_MEMORY_FORCE_MODE = false;
+<a class="jxr_linenumber" name="149" href="#149">149</a> 
+<a class="jxr_linenumber" name="150" href="#150">150</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Statistics thread */</em>
+<a class="jxr_linenumber" name="151" href="#151">151</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> statThreadPeriod = 60 * 5;
+<a class="jxr_linenumber" name="152" href="#152">152</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LRU_MAX_BLOCK_SIZE = <span class="jxr_string">"hbase.lru.max.block.size"</span>;
+<a class="jxr_linenumber" name="153" href="#153">153</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> DEFAULT_MAX_BLOCK_SIZE = 16L * 1024L * 1024L;
+<a class="jxr_linenumber" name="154" href="#154">154</a> 
+<a class="jxr_linenumber" name="155" href="#155">155</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Concurrent map (the cache) */</em>
+<a class="jxr_linenumber" name="156" href="#156">156</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;BlockCacheKey,LruCachedBlock&gt; map;
+<a class="jxr_linenumber" name="157" href="#157">157</a> 
+<a class="jxr_linenumber" name="158" href="#158">158</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Eviction lock (locked when eviction in process) */</em>
+<a class="jxr_linenumber" name="159" href="#159">159</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ReentrantLock evictionLock = <strong class="jxr_keyword">new</strong> ReentrantLock(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="160" href="#160">160</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> maxBlockSize;
+<a class="jxr_linenumber" name="161" href="#161">161</a> 
+<a class="jxr_linenumber" name="162" href="#162">162</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Volatile boolean to track if we are in an eviction process or not */</em>
+<a class="jxr_linenumber" name="163" href="#163">163</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> <strong class="jxr_keyword">boolean</strong> evictionInProgress = false;
+<a class="jxr_linenumber" name="164" href="#164">164</a> 
+<a class="jxr_linenumber" name="165" href="#165">165</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Eviction thread */</em>
+<a class="jxr_linenumber" name="166" href="#166">166</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">EvictionThread</a> evictionThread;
+<a class="jxr_linenumber" name="167" href="#167">167</a> 
+<a class="jxr_linenumber" name="168" href="#168">168</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Statistics thread schedule pool (for heavy debugging, could remove) */</em>
+<a class="jxr_linenumber" name="169" href="#169">169</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ScheduledExecutorService scheduleThreadPool = Executors.newScheduledThreadPool(1,
+<a class="jxr_linenumber" name="170" href="#170">170</a>     <strong class="jxr_keyword">new</strong> ThreadFactoryBuilder().setNameFormat(<span class="jxr_string">"LruBlockCacheStatsExecutor"</span>).setDaemon(<strong class="jxr_keyword">true</strong>).build());
+<a class="jxr_linenumber" name="171" href="#171">171</a> 
+<a class="jxr_linenumber" name="172" href="#172">172</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Current size of cache */</em>
+<a class="jxr_linenumber" name="173" href="#173">173</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicLong size;
+<a class="jxr_linenumber" name="174" href="#174">174</a> 
+<a class="jxr_linenumber" name="175" href="#175">175</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Current number of cached elements */</em>
+<a class="jxr_linenumber" name="176" href="#176">176</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicLong elements;
+<a class="jxr_linenumber" name="177" href="#177">177</a> 
+<a class="jxr_linenumber" name="178" href="#178">178</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Cache access count (sequential ID) */</em>
+<a class="jxr_linenumber" name="179" href="#179">179</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicLong count;
+<a class="jxr_linenumber" name="180" href="#180">180</a> 
+<a class="jxr_linenumber" name="181" href="#181">181</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> hard capacity limit */</em>
+<a class="jxr_linenumber" name="182" href="#182">182</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> hardCapacityLimitFactor;
+<a class="jxr_linenumber" name="183" href="#183">183</a> 
+<a class="jxr_linenumber" name="184" href="#184">184</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Cache statistics */</em>
+<a class="jxr_linenumber" name="185" href="#185">185</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CacheStats.html">CacheStats</a> stats;
+<a class="jxr_linenumber" name="186" href="#186">186</a> 
+<a class="jxr_linenumber" name="187" href="#187">187</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Maximum allowable size of cache (block put if size &gt; max, evict) */</em>
+<a class="jxr_linenumber" name="188" href="#188">188</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> maxSize;
+<a class="jxr_linenumber" name="189" href="#189">189</a> 
+<a class="jxr_linenumber" name="190" href="#190">190</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Approximate block size */</em>
+<a class="jxr_linenumber" name="191" href="#191">191</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> blockSize;
+<a class="jxr_linenumber" name="192" href="#192">192</a> 
+<a class="jxr_linenumber" name="193" href="#193">193</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Acceptable size of cache (no evictions if size &lt; acceptable) */</em>
+<a class="jxr_linenumber" name="194" href="#194">194</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> acceptableFactor;
+<a class="jxr_linenumber" name="195" href="#195">195</a> 
+<a class="jxr_linenumber" name="196" href="#196">196</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Minimum threshold of cache (when evicting, evict until size &lt; min) */</em>
+<a class="jxr_linenumber" name="197" href="#197">197</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> minFactor;
+<a class="jxr_linenumber" name="198" href="#198">198</a> 
+<a class="jxr_linenumber" name="199" href="#199">199</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Single access bucket size */</em>
+<a class="jxr_linenumber" name="200" href="#200">200</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> singleFactor;
+<a class="jxr_linenumber" name="201" href="#201">201</a> 
+<a class="jxr_linenumber" name="202" href="#202">202</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Multiple access bucket size */</em>
+<a class="jxr_linenumber" name="203" href="#203">203</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> multiFactor;
+<a class="jxr_linenumber" name="204" href="#204">204</a> 
+<a class="jxr_linenumber" name="205" href="#205">205</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> In-memory bucket size */</em>
+<a class="jxr_linenumber" name="206" href="#206">206</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> memoryFactor;
+<a class="jxr_linenumber" name="207" href="#207">207</a> 
+<a class="jxr_linenumber" name="208" href="#208">208</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Overhead of the structure itself */</em>
+<a class="jxr_linenumber" name="209" href="#209">209</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> overhead;
+<a class="jxr_linenumber" name="210" href="#210">210</a> 
+<a class="jxr_linenumber" name="211" href="#211">211</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Whether in-memory hfile's data block has higher priority when evicting */</em>
+<a class="jxr_linenumber" name="212" href="#212">212</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> forceInMemory;
+<a class="jxr_linenumber" name="213" href="#213">213</a> 
+<a class="jxr_linenumber" name="214" href="#214">214</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Where to send victims (blocks evicted/missing from the cache) */</em>
+<a class="jxr_linenumber" name="215" href="#215">215</a>   <strong class="jxr_keyword">private</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCache.html">BlockCache</a> victimHandler = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="216" href="#216">216</a> 
+<a class="jxr_linenumber" name="217" href="#217">217</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="218" href="#218">218</a> <em class="jxr_javadoccomment">   * Default constructor.  Specify maximum size and expected average block</em>
+<a class="jxr_linenumber" name="219" href="#219">219</a> <em class="jxr_javadoccomment">   * size (approximation is fine).</em>
+<a class="jxr_linenumber" name="220" href="#220">220</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="221" href="#221">221</a> <em class="jxr_javadoccomment">   * &lt;p&gt;All other factors will be calculated based on defaults specified in</em>
+<a class="jxr_linenumber" name="222" href="#222">222</a> <em class="jxr_javadoccomment">   * this class.</em>
+<a class="jxr_linenumber" name="223" href="#223">223</a> <em class="jxr_javadoccomment">   * @param maxSize maximum size of cache, in bytes</em>
+<a class="jxr_linenumber" name="224" href="#224">224</a> <em class="jxr_javadoccomment">   * @param blockSize approximate size of each block, in bytes</em>
+<a class="jxr_linenumber" name="225" href="#225">225</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="226" href="#226">226</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a>(<strong class="jxr_keyword">long</strong> maxSize, <strong class="jxr_keyword">long</strong> blockSize) {
+<a class="jxr_linenumber" name="227" href="#227">227</a>     <strong class="jxr_keyword">this</strong>(maxSize, blockSize, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="228" href="#228">228</a>   }
+<a class="jxr_linenumber" name="229" href="#229">229</a> 
+<a class="jxr_linenumber" name="230" href="#230">230</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="231" href="#231">231</a> <em class="jxr_javadoccomment">   * Constructor used for testing.  Allows disabling of the eviction thread.</em>
+<a class="jxr_linenumber" name="232" href="#232">232</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="233" href="#233">233</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a>(<strong class="jxr_keyword">long</strong> maxSize, <strong class="jxr_keyword">long</strong> blockSize, <strong class="jxr_keyword">boolean</strong> evictionThread) {
+<a class="jxr_linenumber" name="234" href="#234">234</a>     <strong class="jxr_keyword">this</strong>(maxSize, blockSize, evictionThread,
+<a class="jxr_linenumber" name="235" href="#235">235</a>         (<strong class="jxr_keyword">int</strong>)Math.ceil(1.2*maxSize/blockSize),
+<a class="jxr_linenumber" name="236" href="#236">236</a>         DEFAULT_LOAD_FACTOR, DEFAULT_CONCURRENCY_LEVEL,
+<a class="jxr_linenumber" name="237" href="#237">237</a>         DEFAULT_MIN_FACTOR, DEFAULT_ACCEPTABLE_FACTOR,
+<a class="jxr_linenumber" name="238" href="#238">238</a>         DEFAULT_SINGLE_FACTOR,
+<a class="jxr_linenumber" name="239" href="#239">239</a>         DEFAULT_MULTI_FACTOR,
+<a class="jxr_linenumber" name="240" href="#240">240</a>         DEFAULT_MEMORY_FACTOR,
+<a class="jxr_linenumber" name="241" href="#241">241</a>         DEFAULT_HARD_CAPACITY_LIMIT_FACTOR,
+<a class="jxr_linenumber" name="242" href="#242">242</a>         false,
+<a class="jxr_linenumber" name="243" href="#243">243</a>         DEFAULT_MAX_BLOCK_SIZE
+<a class="jxr_linenumber" name="244" href="#244">244</a>         );
+<a class="jxr_linenumber" name="245" href="#245">245</a>   }
+<a class="jxr_linenumber" name="246" href="#246">246</a> 
+<a class="jxr_linenumber" name="247" href="#247">247</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a>(<strong class="jxr_keyword">long</strong> maxSize, <strong class="jxr_keyword">long</strong> blockSize, <strong class="jxr_keyword">boolean</strong> evictionThread, Configuration conf) {
+<a class="jxr_linenumber" name="248" href="#248">248</a>     <strong class="jxr_keyword">this</strong>(maxSize, blockSize, evictionThread,
+<a class="jxr_linenumber" name="249" href="#249">249</a>         (<strong class="jxr_keyword">int</strong>)Math.ceil(1.2*maxSize/blockSize),
+<a class="jxr_linenumber" name="250" href="#250">250</a>         DEFAULT_LOAD_FACTOR,
+<a class="jxr_linenumber" name="251" href="#251">251</a>         DEFAULT_CONCURRENCY_LEVEL,
+<a class="jxr_linenumber" name="252" href="#252">252</a>         conf.getFloat(LRU_MIN_FACTOR_CONFIG_NAME, DEFAULT_MIN_FACTOR),
+<a class="jxr_linenumber" name="253" href="#253">253</a>         conf.getFloat(LRU_ACCEPTABLE_FACTOR_CONFIG_NAME, DEFAULT_ACCEPTABLE_FACTOR),
+<a class="jxr_linenumber" name="254" href="#254">254</a>         conf.getFloat(LRU_SINGLE_PERCENTAGE_CONFIG_NAME, DEFAULT_SINGLE_FACTOR),
+<a class="jxr_linenumber" name="255" href="#255">255</a>         conf.getFloat(LRU_MULTI_PERCENTAGE_CONFIG_NAME, DEFAULT_MULTI_FACTOR),
+<a class="jxr_linenumber" name="256" href="#256">256</a>         conf.getFloat(LRU_MEMORY_PERCENTAGE_CONFIG_NAME, DEFAULT_MEMORY_FACTOR),
+<a class="jxr_linenumber" name="257" href="#257">257</a>         conf.getFloat(LRU_HARD_CAPACITY_LIMIT_FACTOR_CONFIG_NAME, DEFAULT_HARD_CAPACITY_LIMIT_FACTOR),
+<a class="jxr_linenumber" name="258" href="#258">258</a>         conf.getBoolean(LRU_IN_MEMORY_FORCE_MODE_CONFIG_NAME, DEFAULT_IN_MEMORY_FORCE_MODE),
+<a class="jxr_linenumber" name="259" href="#259">259</a>         conf.getLong(LRU_MAX_BLOCK_SIZE, DEFAULT_MAX_BLOCK_SIZE)
+<a class="jxr_linenumber" name="260" href="#260">260</a>         );
+<a class="jxr_linenumber" name="261" href="#261">261</a>   }
+<a class="jxr_linenumber" name="262" href="#262">262</a> 
+<a class="jxr_linenumber" name="263" href="#263">263</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a>(<strong class="jxr_keyword">long</strong> maxSize, <strong class="jxr_keyword">long</strong> blockSize, Configuration conf) {
+<a class="jxr_linenumber" name="264" href="#264">264</a>     <strong class="jxr_keyword">this</strong>(maxSize, blockSize, <strong class="jxr_keyword">true</strong>, conf);
+<a class="jxr_linenumber" name="265" href="#265">265</a>   }
+<a class="jxr_linenumber" name="266" href="#266">266</a> 
+<a class="jxr_linenumber" name="267" href="#267">267</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="268" href="#268">268</a> <em class="jxr_javadoccomment">   * Configurable constructor.  Use this constructor if not using defaults.</em>
+<a class="jxr_linenumber" name="269" href="#269">269</a> <em class="jxr_javadoccomment">   * @param maxSize maximum size of this cache, in bytes</em>
+<a class="jxr_linenumber" name="270" href="#270">270</a> <em class="jxr_javadoccomment">   * @param blockSize expected average size of blocks, in bytes</em>
+<a class="jxr_linenumber" name="271" href="#271">271</a> <em class="jxr_javadoccomment">   * @param evictionThread whether to run evictions in a bg thread or not</em>
+<a class="jxr_linenumber" name="272" href="#272">272</a> <em class="jxr_javadoccomment">   * @param mapInitialSize initial size of backing ConcurrentHashMap</em>
+<a class="jxr_linenumber" name="273" href="#273">273</a> <em class="jxr_javadoccomment">   * @param mapLoadFactor initial load factor of backing ConcurrentHashMap</em>
+<a class="jxr_linenumber" name="274" href="#274">274</a> <em class="jxr_javadoccomment">   * @param mapConcurrencyLevel initial concurrency factor for backing CHM</em>
+<a class="jxr_linenumber" name="275" href="#275">275</a> <em class="jxr_javadoccomment">   * @param minFactor percentage of total size that eviction will evict until</em>
+<a class="jxr_linenumber" name="276" href="#276">276</a> <em class="jxr_javadoccomment">   * @param acceptableFactor percentage of total size that triggers eviction</em>
+<a class="jxr_linenumber" name="277" href="#277">277</a> <em class="jxr_javadoccomment">   * @param singleFactor percentage of total size for single-access blocks</em>
+<a class="jxr_linenumber" name="278" href="#278">278</a> <em class="jxr_javadoccomment">   * @param multiFactor percentage of total size for multiple-access blocks</em>
+<a class="jxr_linenumber" name="279" href="#279">279</a> <em class="jxr_javadoccomment">   * @param memoryFactor percentage of total size for in-memory blocks</em>
+<a class="jxr_linenumber" name="280" href="#280">280</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="281" href="#281">281</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a>(<strong class="jxr_keyword">long</strong> maxSize, <strong class="jxr_keyword">long</strong> blockSize, <strong class="jxr_keyword">boolean</strong> evictionThread,
+<a class="jxr_linenumber" name="282" href="#282">282</a>       <strong class="jxr_keyword">int</strong> mapInitialSize, <strong class="jxr_keyword">float</strong> mapLoadFactor, <strong class="jxr_keyword">int</strong> mapConcurrencyLevel,
+<a class="jxr_linenumber" name="283" href="#283">283</a>       <strong class="jxr_keyword">float</strong> minFactor, <strong class="jxr_keyword">float</strong> acceptableFactor, <strong class="jxr_keyword">float</strong> singleFactor,
+<a class="jxr_linenumber" name="284" href="#284">284</a>       <strong class="jxr_keyword">float</strong> multiFactor, <strong class="jxr_keyword">float</strong> memoryFactor, <strong class="jxr_keyword">float</strong> hardLimitFactor,
+<a class="jxr_linenumber" name="285" href="#285">285</a>       <strong class="jxr_keyword">boolean</strong> forceInMemory, <strong class="jxr_keyword">long</strong> maxBlockSize) {
+<a class="jxr_linenumber" name="286" href="#286">286</a>     <strong class="jxr_keyword">this</strong>.maxBlockSize = maxBlockSize;
+<a class="jxr_linenumber" name="287" href="#287">287</a>     <strong class="jxr_keyword">if</strong>(singleFactor + multiFactor + memoryFactor != 1 ||
+<a class="jxr_linenumber" name="288" href="#288">288</a>         singleFactor &lt; 0 || multiFactor &lt; 0 || memoryFactor &lt; 0) {
+<a class="jxr_linenumber" name="289" href="#289">289</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Single, multi, and memory factors "</span> +
+<a class="jxr_linenumber" name="290" href="#290">290</a>           <span class="jxr_string">" should be non-negative and total 1.0"</span>);
+<a class="jxr_linenumber" name="291" href="#291">291</a>     }
+<a class="jxr_linenumber" name="292" href="#292">292</a>     <strong class="jxr_keyword">if</strong>(minFactor &gt;= acceptableFactor) {
+<a class="jxr_linenumber" name="293" href="#293">293</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"minFactor must be smaller than acceptableFactor"</span>);
+<a class="jxr_linenumber" name="294" href="#294">294</a>     }
+<a class="jxr_linenumber" name="295" href="#295">295</a>     <strong class="jxr_keyword">if</strong>(minFactor &gt;= 1.0f || acceptableFactor &gt;= 1.0f) {
+<a class="jxr_linenumber" name="296" href="#296">296</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"all factors must be &lt; 1"</span>);
+<a class="jxr_linenumber" name="297" href="#297">297</a>     }
+<a class="jxr_linenumber" name="298" href="#298">298</a>     <strong class="jxr_keyword">this</strong>.maxSize = maxSize;
+<a class="jxr_linenumber" name="299" href="#299">299</a>     <strong class="jxr_keyword">this</strong>.blockSize = blockSize;
+<a class="jxr_linenumber" name="300" href="#300">300</a>     <strong class="jxr_keyword">this</strong>.forceInMemory = forceInMemory;
+<a class="jxr_linenumber" name="301" href="#301">301</a>     map = <strong class="jxr_keyword">new</strong> ConcurrentHashMap&lt;BlockCacheKey,LruCachedBlock&gt;(mapInitialSize,
+<a class="jxr_linenumber" name="302" href="#302">302</a>         mapLoadFactor, mapConcurrencyLevel);
+<a class="jxr_linenumber" name="303" href="#303">303</a>     <strong class="jxr_keyword">this</strong>.minFactor = minFactor;
+<a class="jxr_linenumber" name="304" href="#304">304</a>     <strong class="jxr_keyword">this</strong>.acceptableFactor = acceptableFactor;
+<a class="jxr_linenumber" name="305" href="#305">305</a>     <strong class="jxr_keyword">this</strong>.singleFactor = singleFactor;
+<a class="jxr_linenumber" name="306" href="#306">306</a>     <strong class="jxr_keyword">this</strong>.multiFactor = multiFactor;
+<a class="jxr_linenumber" name="307" href="#307">307</a>     <strong class="jxr_keyword">this</strong>.memoryFactor = memoryFactor;
+<a class="jxr_linenumber" name="308" href="#308">308</a>     <strong class="jxr_keyword">this</strong>.stats = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CacheStats.html">CacheStats</a>(<strong class="jxr_keyword">this</strong>.getClass().getSimpleName());
+<a class="jxr_linenumber" name="309" href="#309">309</a>     <strong class="jxr_keyword">this</strong>.count = <strong class="jxr_keyword">new</strong> AtomicLong(0);
+<a class="jxr_linenumber" name="310" href="#310">310</a>     <strong class="jxr_keyword">this</strong>.elements = <strong class="jxr_keyword">new</strong> AtomicLong(0);
+<a class="jxr_linenumber" name="311" href="#311">311</a>     <strong class="jxr_keyword">this</strong>.overhead = calculateOverhead(maxSize, blockSize, mapConcurrencyLevel);
+<a class="jxr_linenumber" name="312" href="#312">312</a>     <strong class="jxr_keyword">this</strong>.size = <strong class="jxr_keyword">new</strong> AtomicLong(<strong class="jxr_keyword">this</strong>.overhead);
+<a class="jxr_linenumber" name="313" href="#313">313</a>     <strong class="jxr_keyword">this</strong>.hardCapacityLimitFactor = hardLimitFactor;
+<a class="jxr_linenumber" name="314" href="#314">314</a>     <strong class="jxr_keyword">if</strong>(evictionThread) {
+<a class="jxr_linenumber" name="315" href="#315">315</a>       <strong class="jxr_keyword">this</strong>.evictionThread = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">EvictionThread</a>(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="316" href="#316">316</a>       <strong class="jxr_keyword">this</strong>.evictionThread.start(); <em class="jxr_comment">// FindBugs SC_START_IN_CTOR</em>
+<a class="jxr_linenumber" name="317" href="#317">317</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="318" href="#318">318</a>       <strong class="jxr_keyword">this</strong>.evictionThread = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="319" href="#319">319</a>     }
+<a class="jxr_linenumber" name="320" href="#320">320</a>     <em class="jxr_comment">// TODO: Add means of turning this off.  Bit obnoxious running thread just to make a log</em>
+<a class="jxr_linenumber" name="321" href="#321">321</a>     <em class="jxr_comment">// every five minutes.</em>
+<a class="jxr_linenumber" name="322" href="#322">322</a>     <strong class="jxr_keyword">this</strong>.scheduleThreadPool.scheduleAtFixedRate(<strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/bucket/BucketCache.html">StatisticsThread</a>(<strong class="jxr_keyword">this</strong>),
+<a class="jxr_linenumber" name="323" href="#323">323</a>         statThreadPeriod, statThreadPeriod, TimeUnit.SECONDS);
+<a class="jxr_linenumber" name="324" href="#324">324</a>   }
+<a class="jxr_linenumber" name="325" href="#325">325</a> 
+<a class="jxr_linenumber" name="326" href="#326">326</a>   @Override
+<a class="jxr_linenumber" name="327" href="#327">327</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setMaxSize(<strong class="jxr_keyword">long</strong> maxSize) {
+<a class="jxr_linenumber" name="328" href="#328">328</a>     <strong class="jxr_keyword">this</strong>.maxSize = maxSize;
+<a class="jxr_linenumber" name="329" href="#329">329</a>     <strong class="jxr_keyword">if</strong>(<strong class="jxr_keyword">this</strong>.size.get() &gt; acceptableSize() &amp;&amp; !evictionInProgress) {
+<a class="jxr_linenumber" name="330" href="#330">330</a>       runEviction();
+<a class="jxr_linenumber" name="331" href="#331">331</a>     }
+<a class="jxr_linenumber" name="332" href="#332">332</a>   }
+<a class="jxr_linenumber" name="333" href="#333">333</a> 
+<a class="jxr_linenumber" name="334" href="#334">334</a>   <em class="jxr_comment">// BlockCache implementation</em>
+<a class="jxr_linenumber" name="335" href="#335">335</a> 
+<a class="jxr_linenumber" name="336" href="#336">336</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="337" href="#337">337</a> <em class="jxr_javadoccomment">   * Cache the block with the specified name and buffer.</em>
+<a class="jxr_linenumber" name="338" href="#338">338</a> <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="339" href="#339">339</a> <em class="jxr_javadoccomment">   * It is assumed this will NOT be called on an already cached block. In rare cases (HBASE-8547)</em>
+<a class="jxr_linenumber" name="340" href="#340">340</a> <em class="jxr_javadoccomment">   * this can happen, for which we compare the buffer contents.</em>
+<a class="jxr_linenumber" name="341" href="#341">341</a> <em class="jxr_javadoccomment">   * @param cacheKey block's cache key</em>
+<a class="jxr_linenumber" name="342" href="#342">342</a> <em class="jxr_javadoccomment">   * @param buf block buffer</em>
+<a class="jxr_linenumber" name="343" href="#343">343</a> <em class="jxr_javadoccomment">   * @param inMemory if block is in-memory</em>
+<a class="jxr_linenumber" name="344" href="#344">344</a> <em class="jxr_javadoccomment">   * @param cacheDataInL1</em>
+<a class="jxr_linenumber" name="345" href="#345">345</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="346" href="#346">346</a>   @Override
+<a class="jxr_linenumber" name="347" href="#347">347</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cacheBlock(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCacheKey.html">BlockCacheKey</a> cacheKey, <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/Cacheable.html">Cacheable</a> buf, <strong class="jxr_keyword">boolean</strong> inMemory,
+<a class="jxr_linenumber" name="348" href="#348">348</a>       <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> cacheDataInL1) {
+<a class="jxr_linenumber" name="349" href="#349">349</a> 
+<a class="jxr_linenumber" name="350" href="#350">350</a>     <strong class="jxr_keyword">if</strong> (buf.heapSize() &gt; maxBlockSize) {
+<a class="jxr_linenumber" name="351" href="#351">351</a>       <em class="jxr_comment">// If there are a lot of blocks that are too</em>
+<a class="jxr_linenumber" name="352" href="#352">352</a>       <em class="jxr_comment">// big this can make the logs way too noisy.</em>
+<a class="jxr_linenumber" name="353" href="#353">353</a>       <em class="jxr_comment">// So we log 2%</em>
+<a class="jxr_linenumber" name="354" href="#354">354</a>       <strong class="jxr_keyword">if</strong> (stats.failInsert() % 50 == 0) {
+<a class="jxr_linenumber" name="355" href="#355">355</a>         LOG.warn(<span class="jxr_string">"Trying to cache too large a block "</span>
+<a class="jxr_linenumber" name="356" href="#356">356</a>             + cacheKey.getHfileName() + <span class="jxr_string">" @ "</span>
+<a class="jxr_linenumber" name="357" href="#357">357</a>             + cacheKey.getOffset()
+<a class="jxr_linenumber" name="358" href="#358">358</a>             + <span class="jxr_string">" is "</span> + buf.heapSize()
+<a class="jxr_linenumber" name="359" href="#359">359</a>             + <span class="jxr_string">" which is larger than "</span> + maxBlockSize);
+<a class="jxr_linenumber" name="360" href="#360">360</a>       }
+<a class="jxr_linenumber" name="361" href="#361">361</a>       <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="362" href="#362">362</a>     }
+<a class="jxr_linenumber" name="363" href="#363">363</a> 
+<a class="jxr_linenumber" name="364" href="#364">364</a>     <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> cb = map.get(cacheKey);
+<a class="jxr_linenumber" name="365" href="#365">365</a>     <strong class="jxr_keyword">if</strong> (cb != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="366" href="#366">366</a>       <em class="jxr_comment">// compare the contents, if they are not equal, we are in big trouble</em>
+<a class="jxr_linenumber" name="367" href="#367">367</a>       <strong class="jxr_keyword">if</strong> (compare(buf, cb.getBuffer()) != 0) {
+<a class="jxr_linenumber" name="368" href="#368">368</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Cached block contents differ, which should not have happened."</span>
+<a class="jxr_linenumber" name="369" href="#369">369</a>           + <span class="jxr_string">"cacheKey:"</span> + cacheKey);
+<a class="jxr_linenumber" name="370" href="#370">370</a>       }
+<a class="jxr_linenumber" name="371" href="#371">371</a>       String msg = <span class="jxr_string">"Cached an already cached block: "</span> + cacheKey + <span class="jxr_string">" cb:"</span> + cb.getCacheKey();
+<a class="jxr_linenumber" name="372" href="#372">372</a>       msg += <span class="jxr_string">". This is harmless and can happen in rare cases (see HBASE-8547)"</span>;
+<a class="jxr_linenumber" name="373" href="#373">373</a>       LOG.warn(msg);
+<a class="jxr_linenumber" name="374" href="#374">374</a>       <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="375" href="#375">375</a>     }
+<a class="jxr_linenumber" name="376" href="#376">376</a>     <strong class="jxr_keyword">long</strong> currentSize = size.get();
+<a class="jxr_linenumber" name="377" href="#377">377</a>     <strong class="jxr_keyword">long</strong> currentAcceptableSize = acceptableSize();
+<a class="jxr_linenumber" name="378" href="#378">378</a>     <strong class="jxr_keyword">long</strong> hardLimitSize = (<strong class="jxr_keyword">long</strong>) (hardCapacityLimitFactor * currentAcceptableSize);
+<a class="jxr_linenumber" name="379" href="#379">379</a>     <strong class="jxr_keyword">if</strong> (currentSize &gt;= hardLimitSize) {
+<a class="jxr_linenumber" name="380" href="#380">380</a>       stats.failInsert();
+<a class="jxr_linenumber" name="381" href="#381">381</a>       <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="382" href="#382">382</a>         LOG.trace(<span class="jxr_string">"LruBlockCache current size "</span> + StringUtils.byteDesc(currentSize)
+<a class="jxr_linenumber" name="383" href="#383">383</a>           + <span class="jxr_string">" has exceeded acceptable size "</span> + StringUtils.byteDesc(currentAcceptableSize) + <span class="jxr_string">"  too many."</span>
+<a class="jxr_linenumber" name="384" href="#384">384</a>           + <span class="jxr_string">" the hard limit size is "</span> + StringUtils.byteDesc(hardLimitSize) + <span class="jxr_string">", failed to put cacheKey:"</span>
+<a class="jxr_linenumber" name="385" href="#385">385</a>           + cacheKey + <span class="jxr_string">" into LruBlockCache."</span>);
+<a class="jxr_linenumber" name="386" href="#386">386</a>       }
+<a class="jxr_linenumber" name="387" href="#387">387</a>       <strong class="jxr_keyword">if</strong> (!evictionInProgress) {
+<a class="jxr_linenumber" name="388" href="#388">388</a>         runEviction();
+<a class="jxr_linenumber" name="389" href="#389">389</a>       }
+<a class="jxr_linenumber" name="390" href="#390">390</a>       <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="391" href="#391">391</a>     }
+<a class="jxr_linenumber" name="392" href="#392">392</a>     cb = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a>(cacheKey, buf, count.incrementAndGet(), inMemory);
+<a class="jxr_linenumber" name="393" href="#393">393</a>     <strong class="jxr_keyword">long</strong> newSize = updateSizeMetrics(cb, false);
+<a class="jxr_linenumber" name="394" href="#394">394</a>     map.put(cacheKey, cb);
+<a class="jxr_linenumber" name="395" href="#395">395</a>     <strong class="jxr_keyword">long</strong> val = elements.incrementAndGet();
+<a class="jxr_linenumber" name="396" href="#396">396</a>     <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="397" href="#397">397</a>       <strong class="jxr_keyword">long</strong> size = map.size();
+<a class="jxr_linenumber" name="398" href="#398">398</a>       assertCounterSanity(size, val);
+<a class="jxr_linenumber" name="399" href="#399">399</a>     }
+<a class="jxr_linenumber" name="400" href="#400">400</a>     <strong class="jxr_keyword">if</strong> (newSize &gt; currentAcceptableSize &amp;&amp; !evictionInProgress) {
+<a class="jxr_linenumber" name="401" href="#401">401</a>       runEviction();
+<a class="jxr_linenumber" name="402" href="#402">402</a>     }
+<a class="jxr_linenumber" name="403" href="#403">403</a>   }
+<a class="jxr_linenumber" name="404" href="#404">404</a> 
+<a class="jxr_linenumber" name="405" href="#405">405</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="406" href="#406">406</a> <em class="jxr_javadoccomment">   * Sanity-checking for parity between actual block cache content and metrics.</em>
+<a class="jxr_linenumber" name="407" href="#407">407</a> <em class="jxr_javadoccomment">   * Intended only for use with TRACE level logging and -ea JVM.</em>
+<a class="jxr_linenumber" name="408" href="#408">408</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="409" href="#409">409</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> assertCounterSanity(<strong class="jxr_keyword">long</strong> mapSize, <strong class="jxr_keyword">long</strong> counterVal) {
+<a class="jxr_linenumber" name="410" href="#410">410</a>     <strong class="jxr_keyword">if</strong> (counterVal &lt; 0) {
+<a class="jxr_linenumber" name="411" href="#411">411</a>       LOG.trace(<span class="jxr_string">"counterVal overflow. Assertions unreliable. counterVal="</span> + counterVal +
+<a class="jxr_linenumber" name="412" href="#412">412</a>         <span class="jxr_string">", mapSize="</span> + mapSize);
+<a class="jxr_linenumber" name="413" href="#413">413</a>       <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="414" href="#414">414</a>     }
+<a class="jxr_linenumber" name="415" href="#415">415</a>     <strong class="jxr_keyword">if</strong> (mapSize &lt; Integer.MAX_VALUE) {
+<a class="jxr_linenumber" name="416" href="#416">416</a>       <strong class="jxr_keyword">double</strong> pct_diff = Math.abs((((<strong class="jxr_keyword">double</strong>) counterVal) / ((<strong class="jxr_keyword">double</strong>) mapSize)) - 1.);
+<a class="jxr_linenumber" name="417" href="#417">417</a>       <strong class="jxr_keyword">if</strong> (pct_diff &gt; 0.05) {
+<a class="jxr_linenumber" name="418" href="#418">418</a>         LOG.trace(<span class="jxr_string">"delta between reported and actual size &gt; 5%. counterVal="</span> + counterVal +
+<a class="jxr_linenumber" name="419" href="#419">419</a>           <span class="jxr_string">", mapSize="</span> + mapSize);
+<a class="jxr_linenumber" name="420" href="#420">420</a>       }
+<a class="jxr_linenumber" name="421" href="#421">421</a>     }
+<a class="jxr_linenumber" name="422" href="#422">422</a>   }
+<a class="jxr_linenumber" name="423" href="#423">423</a> 
+<a class="jxr_linenumber" name="424" href="#424">424</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> compare(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/Cacheable.html">Cacheable</a> left, <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/Cacheable.html">Cacheable</a> right) {
+<a class="jxr_linenumber" name="425" href="#425">425</a>     ByteBuffer l = ByteBuffer.allocate(left.getSerializedLength());
+<a class="jxr_linenumber" name="426" href="#426">426</a>     left.serialize(l);
+<a class="jxr_linenumber" name="427" href="#427">427</a>     ByteBuffer r = ByteBuffer.allocate(right.getSerializedLength());
+<a class="jxr_linenumber" name="428" href="#428">428</a>     right.serialize(r);
+<a class="jxr_linenumber" name="429" href="#429">429</a>     <strong class="jxr_keyword">return</strong> Bytes.compareTo(l.array(), l.arrayOffset(), l.limit(),
+<a class="jxr_linenumber" name="430" href="#430">430</a>       r.array(), r.arrayOffset(), r.limit());
+<a class="jxr_linenumber" name="431" href="#431">431</a>   }
+<a class="jxr_linenumber" name="432" href="#432">432</a> 
+<a class="jxr_linenumber" name="433" href="#433">433</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="434" href="#434">434</a> <em class="jxr_javadoccomment">   * Cache the block with the specified name and buffer.</em>
+<a class="jxr_linenumber" name="435" href="#435">435</a> <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="436" href="#436">436</a> <em class="jxr_javadoccomment">   * @param cacheKey block's cache key</em>
+<a class="jxr_linenumber" name="437" href="#437">437</a> <em class="jxr_javadoccomment">   * @param buf block buffer</em>
+<a class="jxr_linenumber" name="438" href="#438">438</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="439" href="#439">439</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cacheBlock(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCacheKey.html">BlockCacheKey</a> cacheKey, <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/Cacheable.html">Cacheable</a> buf) {
+<a class="jxr_linenumber" name="440" href="#440">440</a>     cacheBlock(cacheKey, buf, false, false);
+<a class="jxr_linenumber" name="441" href="#441">441</a>   }
+<a class="jxr_linenumber" name="442" href="#442">442</a> 
+<a class="jxr_linenumber" name="443" href="#443">443</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="444" href="#444">444</a> <em class="jxr_javadoccomment">   * Helper function that updates the local size counter and also updates any</em>
+<a class="jxr_linenumber" name="445" href="#445">445</a> <em class="jxr_javadoccomment">   * per-cf or per-blocktype metrics it can discern from given</em>
+<a class="jxr_linenumber" name="446" href="#446">446</a> <em class="jxr_javadoccomment">   * {@link LruCachedBlock}</em>
+<a class="jxr_linenumber" name="447" href="#447">447</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="448" href="#448">448</a> <em class="jxr_javadoccomment">   * @param cb</em>
+<a class="jxr_linenumber" name="449" href="#449">449</a> <em class="jxr_javadoccomment">   * @param evict</em>
+<a class="jxr_linenumber" name="450" href="#450">450</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="451" href="#451">451</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">long</strong> updateSizeMetrics(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> cb, <strong class="jxr_keyword">boolean</strong> evict) {
+<a class="jxr_linenumber" name="452" href="#452">452</a>     <strong class="jxr_keyword">long</strong> heapsize = cb.heapSize();
+<a class="jxr_linenumber" name="453" href="#453">453</a>     <strong class="jxr_keyword">if</strong> (evict) {
+<a class="jxr_linenumber" name="454" href="#454">454</a>       heapsize *= -1;
+<a class="jxr_linenumber" name="455" href="#455">455</a>     }
+<a class="jxr_linenumber" name="456" href="#456">456</a>     <strong class="jxr_keyword">return</strong> size.addAndGet(heapsize);
+<a class="jxr_linenumber" name="457" href="#457">457</a>   }
+<a class="jxr_linenumber" name="458" href="#458">458</a> 
+<a class="jxr_linenumber" name="459" href="#459">459</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="460" href="#460">460</a> <em class="jxr_javadoccomment">   * Get the buffer of the block with the specified name.</em>
+<a class="jxr_linenumber" name="461" href="#461">461</a> <em class="jxr_javadoccomment">   * @param cacheKey block's cache key</em>
+<a class="jxr_linenumber" name="462" href="#462">462</a> <em class="jxr_javadoccomment">   * @param caching true if the caller caches blocks on cache misses</em>
+<a class="jxr_linenumber" name="463" href="#463">463</a> <em class="jxr_javadoccomment">   * @param repeat Whether this is a repeat lookup for the same block</em>
+<a class="jxr_linenumber" name="464" href="#464">464</a> <em class="jxr_javadoccomment">   *        (used to avoid double counting cache misses when doing double-check locking)</em>
+<a class="jxr_linenumber" name="465" href="#465">465</a> <em class="jxr_javadoccomment">   * @param updateCacheMetrics Whether to update cache metrics or not</em>
+<a class="jxr_linenumber" name="466" href="#466">466</a> <em class="jxr_javadoccomment">   * @return buffer of specified cache key, or null if not in cache</em>
+<a class="jxr_linenumber" name="467" href="#467">467</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="468" href="#468">468</a>   @Override
+<a class="jxr_linenumber" name="469" href="#469">469</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/Cacheable.html">Cacheable</a> getBlock(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCacheKey.html">BlockCacheKey</a> cacheKey, <strong class="jxr_keyword">boolean</strong> caching, <strong class="jxr_keyword">boolean</strong> repeat,
+<a class="jxr_linenumber" name="470" href="#470">470</a>       <strong class="jxr_keyword">boolean</strong> updateCacheMetrics) {
+<a class="jxr_linenumber" name="471" href="#471">471</a>     <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> cb = map.get(cacheKey);
+<a class="jxr_linenumber" name="472" href="#472">472</a>     <strong class="jxr_keyword">if</strong> (cb == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="473" href="#473">473</a>       <strong class="jxr_keyword">if</strong> (!repeat &amp;&amp; updateCacheMetrics) stats.miss(caching, cacheKey.isPrimary());
+<a class="jxr_linenumber" name="474" href="#474">474</a>       <em class="jxr_comment">// If there is another block cache then try and read there.</em>
+<a class="jxr_linenumber" name="475" href="#475">475</a>       <em class="jxr_comment">// However if this is a retry ( second time in double checked locking )</em>
+<a class="jxr_linenumber" name="476" href="#476">476</a>       <em class="jxr_comment">// And it's already a miss then the l2 will also be a miss.</em>
+<a class="jxr_linenumber" name="477" href="#477">477</a>       <strong class="jxr_keyword">if</strong> (victimHandler != <strong class="jxr_keyword">null</strong> &amp;&amp; !repeat) {
+<a class="jxr_linenumber" name="478" href="#478">478</a>         <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/Cacheable.html">Cacheable</a> result = victimHandler.getBlock(cacheKey, caching, repeat, updateCacheMetrics);
+<a class="jxr_linenumber" name="479" href="#479">479</a> 
+<a class="jxr_linenumber" name="480" href="#480">480</a>         <em class="jxr_comment">// Promote this to L1.</em>
+<a class="jxr_linenumber" name="481" href="#481">481</a>         <strong class="jxr_keyword">if</strong> (result != <strong class="jxr_keyword">null</strong> &amp;&amp; caching) {
+<a class="jxr_linenumber" name="482" href="#482">482</a>           cacheBlock(cacheKey, result, <em class="jxr_comment">/*<em class="jxr_comment"> inMemory = */</em> false, /* cacheData = */ <strong class="jxr_keyword">true</strong>);</em>
+<a class="jxr_linenumber" name="483" href="#483">483</a>         }
+<a class="jxr_linenumber" name="484" href="#484">484</a>         <strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="485" href="#485">485</a>       }
+<a class="jxr_linenumber" name="486" href="#486">486</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="487" href="#487">487</a>     }
+<a class="jxr_linenumber" name="488" href="#488">488</a>     <strong class="jxr_keyword">if</strong> (updateCacheMetrics) stats.hit(caching, cacheKey.isPrimary());
+<a class="jxr_linenumber" name="489" href="#489">489</a>     cb.access(count.incrementAndGet());
+<a class="jxr_linenumber" name="490" href="#490">490</a>     <strong class="jxr_keyword">return</strong> cb.getBuffer();
+<a class="jxr_linenumber" name="491" href="#491">491</a>   }
+<a class="jxr_linenumber" name="492" href="#492">492</a> 
+<a class="jxr_linenumber" name="493" href="#493">493</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="494" href="#494">494</a> <em class="jxr_javadoccomment">   * Whether the cache contains block with specified cacheKey</em>
+<a class="jxr_linenumber" name="495" href="#495">495</a> <em class="jxr_javadoccomment">   * @param cacheKey</em>
+<a class="jxr_linenumber" name="496" href="#496">496</a> <em class="jxr_javadoccomment">   * @return true if contains the block</em>
+<a class="jxr_linenumber" name="497" href="#497">497</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="498" href="#498">498</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> containsBlock(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCacheKey.html">BlockCacheKey</a> cacheKey) {
+<a class="jxr_linenumber" name="499" href="#499">499</a>     <strong class="jxr_keyword">return</strong> map.containsKey(cacheKey);
+<a class="jxr_linenumber" name="500" href="#500">500</a>   }
+<a class="jxr_linenumber" name="501" href="#501">501</a> 
+<a class="jxr_linenumber" name="502" href="#502">502</a>   @Override
+<a class="jxr_linenumber" name="503" href="#503">503</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> evictBlock(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCacheKey.html">BlockCacheKey</a> cacheKey) {
+<a class="jxr_linenumber" name="504" href="#504">504</a>     <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> cb = map.get(cacheKey);
+<a class="jxr_linenumber" name="505" href="#505">505</a>     <strong class="jxr_keyword">if</strong> (cb == <strong class="jxr_keyword">null</strong>) <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="506" href="#506">506</a>     evictBlock(cb, false);
+<a class="jxr_linenumber" name="507" href="#507">507</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="508" href="#508">508</a>   }
+<a class="jxr_linenumber" name="509" href="#509">509</a> 
+<a class="jxr_linenumber" name="510" href="#510">510</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="511" href="#511">511</a> <em class="jxr_javadoccomment">   * Evicts all blocks for a specific HFile. This is an</em>
+<a class="jxr_linenumber" name="512" href="#512">512</a> <em class="jxr_javadoccomment">   * expensive operation implemented as a linear-time search through all blocks</em>
+<a class="jxr_linenumber" name="513" href="#513">513</a> <em class="jxr_javadoccomment">   * in the cache. Ideally this should be a search in a log-access-time map.</em>
+<a class="jxr_linenumber" name="514" href="#514">514</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="515" href="#515">515</a> <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="516" href="#516">516</a> <em class="jxr_javadoccomment">   * This is used for evict-on-close to remove all blocks of a specific HFile.</em>
+<a class="jxr_linenumber" name="517" href="#517">517</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="518" href="#518">518</a> <em class="jxr_javadoccomment">   * @return the number of blocks evicted</em>
+<a class="jxr_linenumber" name="519" href="#519">519</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="520" href="#520">520</a>   @Override
+<a class="jxr_linenumber" name="521" href="#521">521</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> evictBlocksByHfileName(String hfileName) {
+<a class="jxr_linenumber" name="522" href="#522">522</a>     <strong class="jxr_keyword">int</strong> numEvicted = 0;
+<a class="jxr_linenumber" name="523" href="#523">523</a>     <strong class="jxr_keyword">for</strong> (BlockCacheKey key : map.keySet()) {
+<a class="jxr_linenumber" name="524" href="#524">524</a>       <strong class="jxr_keyword">if</strong> (key.getHfileName().equals(hfileName)) {
+<a class="jxr_linenumber" name="525" href="#525">525</a>         <strong class="jxr_keyword">if</strong> (evictBlock(key))
+<a class="jxr_linenumber" name="526" href="#526">526</a>           ++numEvicted;
+<a class="jxr_linenumber" name="527" href="#527">527</a>       }
+<a class="jxr_linenumber" name="528" href="#528">528</a>     }
+<a class="jxr_linenumber" name="529" href="#529">529</a>     <strong class="jxr_keyword">if</strong> (victimHandler != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="530" href="#530">530</a>       numEvicted += victimHandler.evictBlocksByHfileName(hfileName);
+<a class="jxr_linenumber" name="531" href="#531">531</a>     }
+<a class="jxr_linenumber" name="532" href="#532">532</a>     <strong class="jxr_keyword">return</strong> numEvicted;
+<a class="jxr_linenumber" name="533" href="#533">533</a>   }
+<a class="jxr_linenumber" name="534" href="#534">534</a> 
+<a class="jxr_linenumber" name="535" href="#535">535</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="536" href="#536">536</a> <em class="jxr_javadoccomment">   * Evict the block, and it will be cached by the victim handler if exists &amp;amp;&amp;amp;</em>
+<a class="jxr_linenumber" name="537" href="#537">537</a> <em class="jxr_javadoccomment">   * block may be read again later</em>
+<a class="jxr_linenumber" name="538" href="#538">538</a> <em class="jxr_javadoccomment">   * @param block</em>
+<a class="jxr_linenumber" name="539" href="#539">539</a> <em class="jxr_javadoccomment">   * @param evictedByEvictionProcess true if the given block is evicted by</em>
+<a class="jxr_linenumber" name="540" href="#540">540</a> <em class="jxr_javadoccomment">   *          EvictionThread</em>
+<a class="jxr_linenumber" name="541" href="#541">541</a> <em class="jxr_javadoccomment">   * @return the heap size of evicted block</em>
+<a class="jxr_linenumber" name="542" href="#542">542</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="543" href="#543">543</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">long</strong> evictBlock(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> block, <strong class="jxr_keyword">boolean</strong> evictedByEvictionProcess) {
+<a class="jxr_linenumber" name="544" href="#544">544</a>     map.remove(block.getCacheKey());
+<a class="jxr_linenumber" name="545" href="#545">545</a>     updateSizeMetrics(block, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="546" href="#546">546</a>     <strong class="jxr_keyword">long</strong> val = elements.decrementAndGet();
+<a class="jxr_linenumber" name="547" href="#547">547</a>     <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="548" href="#548">548</a>       <strong class="jxr_keyword">long</strong> size = map.size();
+<a class="jxr_linenumber" name="549" href="#549">549</a>       assertCounterSanity(size, val);
+<a class="jxr_linenumber" name="550" href="#550">550</a>     }
+<a class="jxr_linenumber" name="551" href="#551">551</a>     stats.evicted(block.getCachedTime(), block.getCacheKey().isPrimary());
+<a class="jxr_linenumber" name="552" href="#552">552</a>     <strong class="jxr_keyword">if</strong> (evictedByEvictionProcess &amp;&amp; victimHandler != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="553" href="#553">553</a>       <strong class="jxr_keyword">if</strong> (victimHandler instanceof BucketCache) {
+<a class="jxr_linenumber" name="554" href="#554">554</a>         <strong class="jxr_keyword">boolean</strong> wait = getCurrentSize() &lt; acceptableSize();
+<a class="jxr_linenumber" name="555" href="#555">555</a>         <strong class="jxr_keyword">boolean</strong> inMemory = block.getPriority() == BlockPriority.MEMORY;
+<a class="jxr_linenumber" name="556" href="#556">556</a>         ((<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/bucket/BucketCache.html">BucketCache</a>)victimHandler).cacheBlockWithWait(block.getCacheKey(), block.getBuffer(),
+<a class="jxr_linenumber" name="557" href="#557">557</a>             inMemory, wait);
+<a class="jxr_linenumber" name="558" href="#558">558</a>       } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="559" href="#559">559</a>         victimHandler.cacheBlock(block.getCacheKey(), block.getBuffer());
+<a class="jxr_linenumber" name="560" href="#560">560</a>       }
+<a class="jxr_linenumber" name="561" href="#561">561</a>     }
+<a class="jxr_linenumber" name="562" href="#562">562</a>     <strong class="jxr_keyword">return</strong> block.heapSize();
+<a class="jxr_linenumber" name="563" href="#563">563</a>   }
+<a class="jxr_linenumber" name="564" href="#564">564</a> 
+<a class="jxr_linenumber" name="565" href="#565">565</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="566" href="#566">566</a> <em class="jxr_javadoccomment">   * Multi-threaded call to run the eviction process.</em>
+<a class="jxr_linenumber" name="567" href="#567">567</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="568" href="#568">568</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> runEviction() {
+<a class="jxr_linenumber" name="569" href="#569">569</a>     <strong class="jxr_keyword">if</strong>(evictionThread == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="570" href="#570">570</a>       evict();
+<a class="jxr_linenumber" name="571" href="#571">571</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="572" href="#572">572</a>       evictionThread.evict();
+<a class="jxr_linenumber" name="573" href="#573">573</a>     }
+<a class="jxr_linenumber" name="574" href="#574">574</a>   }
+<a class="jxr_linenumber" name="575" href="#575">575</a> 
+<a class="jxr_linenumber" name="576" href="#576">576</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="577" href="#577">577</a> <em class="jxr_javadoccomment">   * Eviction method.</em>
+<a class="jxr_linenumber" name="578" href="#578">578</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="579" href="#579">579</a>   <strong class="jxr_keyword">void</strong> evict() {
+<a class="jxr_linenumber" name="580" href="#580">580</a> 
+<a class="jxr_linenumber" name="581" href="#581">581</a>     <em class="jxr_comment">// Ensure only one eviction at a time</em>
+<a class="jxr_linenumber" name="582" href="#582">582</a>     <strong class="jxr_keyword">if</strong>(!evictionLock.tryLock()) <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="583" href="#583">583</a> 
+<a class="jxr_linenumber" name="584" href="#584">584</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="585" href="#585">585</a>       evictionInProgress = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="586" href="#586">586</a>       <strong class="jxr_keyword">long</strong> currentSize = <strong class="jxr_keyword">this</strong>.size.get();
+<a class="jxr_linenumber" name="587" href="#587">587</a>       <strong class="jxr_keyword">long</strong> bytesToFree = currentSize - minSize();
+<a class="jxr_linenumber" name="588" href="#588">588</a> 
+<a class="jxr_linenumber" name="589" href="#589">589</a>       <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="590" href="#590">590</a>         LOG.trace(<span class="jxr_string">"Block cache LRU eviction started; Attempting to free "</span> +
+<a class="jxr_linenumber" name="591" href="#591">591</a>           StringUtils.byteDesc(bytesToFree) + <span class="jxr_string">" of total="</span> +
+<a class="jxr_linenumber" name="592" href="#592">592</a>           StringUtils.byteDesc(currentSize));
+<a class="jxr_linenumber" name="593" href="#593">593</a>       }
+<a class="jxr_linenumber" name="594" href="#594">594</a> 
+<a class="jxr_linenumber" name="595" href="#595">595</a>       <strong class="jxr_keyword">if</strong>(bytesToFree &lt;= 0) <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="596" href="#596">596</a> 
+<a class="jxr_linenumber" name="597" href="#597">597</a>       <em class="jxr_comment">// Instantiate priority buckets</em>
+<a class="jxr_linenumber" name="598" href="#598">598</a>       <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a> bucketSingle = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a>(<span class="jxr_string">"single"</span>, bytesToFree, blockSize,
+<a class="jxr_linenumber" name="599" href="#599">599</a>           singleSize());
+<a class="jxr_linenumber" name="600" href="#600">600</a>       <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a> bucketMulti = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a>(<span class="jxr_string">"multi"</span>, bytesToFree, blockSize,
+<a class="jxr_linenumber" name="601" href="#601">601</a>           multiSize());
+<a class="jxr_linenumber" name="602" href="#602">602</a>       <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a> bucketMemory = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a>(<span class="jxr_string">"memory"</span>, bytesToFree, blockSize,
+<a class="jxr_linenumber" name="603" href="#603">603</a>           memorySize());
+<a class="jxr_linenumber" name="604" href="#604">604</a> 
+<a class="jxr_linenumber" name="605" href="#605">605</a>       <em class="jxr_comment">// Scan entire map putting into appropriate buckets</em>
+<a class="jxr_linenumber" name="606" href="#606">606</a>       <strong class="jxr_keyword">for</strong>(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> cachedBlock : map.values()) {
+<a class="jxr_linenumber" name="607" href="#607">607</a>         <strong class="jxr_keyword">switch</strong>(cachedBlock.getPriority()) {
+<a class="jxr_linenumber" name="608" href="#608">608</a>           <strong class="jxr_keyword">case</strong> SINGLE: {
+<a class="jxr_linenumber" name="609" href="#609">609</a>             bucketSingle.add(cachedBlock);
+<a class="jxr_linenumber" name="610" href="#610">610</a>             <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="611" href="#611">611</a>           }
+<a class="jxr_linenumber" name="612" href="#612">612</a>           <strong class="jxr_keyword">case</strong> MULTI: {
+<a class="jxr_linenumber" name="613" href="#613">613</a>             bucketMulti.add(cachedBlock);
+<a class="jxr_linenumber" name="614" href="#614">614</a>             <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="615" href="#615">615</a>           }
+<a class="jxr_linenumber" name="616" href="#616">616</a>           <strong class="jxr_keyword">case</strong> MEMORY: {
+<a class="jxr_linenumber" name="617" href="#617">617</a>             bucketMemory.add(cachedBlock);
+<a class="jxr_linenumber" name="618" href="#618">618</a>             <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="619" href="#619">619</a>           }
+<a class="jxr_linenumber" name="620" href="#620">620</a>         }
+<a class="jxr_linenumber" name="621" href="#621">621</a>       }
+<a class="jxr_linenumber" name="622" href="#622">622</a> 
+<a class="jxr_linenumber" name="623" href="#623">623</a>       <strong class="jxr_keyword">long</strong> bytesFreed = 0;
+<a class="jxr_linenumber" name="624" href="#624">624</a>       <strong class="jxr_keyword">if</strong> (forceInMemory || memoryFactor &gt; 0.999f) {
+<a class="jxr_linenumber" name="625" href="#625">625</a>         <strong class="jxr_keyword">long</strong> s = bucketSingle.totalSize();
+<a class="jxr_linenumber" name="626" href="#626">626</a>         <strong class="jxr_keyword">long</strong> m = bucketMulti.totalSize();
+<a class="jxr_linenumber" name="627" href="#627">627</a>         <strong class="jxr_keyword">if</strong> (bytesToFree &gt; (s + m)) {
+<a class="jxr_linenumber" name="628" href="#628">628</a>           <em class="jxr_comment">// this means we need to evict blocks in memory bucket to make room,</em>
+<a class="jxr_linenumber" name="629" href="#629">629</a>           <em class="jxr_comment">// so the single and multi buckets will be emptied</em>
+<a class="jxr_linenumber" name="630" href="#630">630</a>           bytesFreed = bucketSingle.free(s);
+<a class="jxr_linenumber" name="631" href="#631">631</a>           bytesFreed += bucketMulti.free(m);
+<a class="jxr_linenumber" name="632" href="#632">632</a>           <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="633" href="#633">633</a>             LOG.trace(<span class="jxr_string">"freed "</span> + StringUtils.byteDesc(bytesFreed) +
+<a class="jxr_linenumber" name="634" href="#634">634</a>               <span class="jxr_string">" from single and multi buckets"</span>);
+<a class="jxr_linenumber" name="635" href="#635">635</a>           }
+<a class="jxr_linenumber" name="636" href="#636">636</a>           bytesFreed += bucketMemory.free(bytesToFree - bytesFreed);
+<a class="jxr_linenumber" name="637" href="#637">637</a>           <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="638" href="#638">638</a>             LOG.trace(<span class="jxr_string">"freed "</span> + StringUtils.byteDesc(bytesFreed) +
+<a class="jxr_linenumber" name="639" href="#639">639</a>               <span class="jxr_string">" total from all three buckets "</span>);
+<a class="jxr_linenumber" name="640" href="#640">640</a>           }
+<a class="jxr_linenumber" name="641" href="#641">641</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="642" href="#642">642</a>           <em class="jxr_comment">// this means no need to evict block in memory bucket,</em>
+<a class="jxr_linenumber" name="643" href="#643">643</a>           <em class="jxr_comment">// and we try best to make the ratio between single-bucket and</em>
+<a class="jxr_linenumber" name="644" href="#644">644</a>           <em class="jxr_comment">// multi-bucket is 1:2</em>
+<a class="jxr_linenumber" name="645" href="#645">645</a>           <strong class="jxr_keyword">long</strong> bytesRemain = s + m - bytesToFree;
+<a class="jxr_linenumber" name="646" href="#646">646</a>           <strong class="jxr_keyword">if</strong> (3 * s &lt;= bytesRemain) {
+<a class="jxr_linenumber" name="647" href="#647">647</a>             <em class="jxr_comment">// single-bucket is small enough that no eviction happens for it</em>
+<a class="jxr_linenumber" name="648" href="#648">648</a>             <em class="jxr_comment">// hence all eviction goes from multi-bucket</em>
+<a class="jxr_linenumber" name="649" href="#649">649</a>             bytesFreed = bucketMulti.free(bytesToFree);
+<a class="jxr_linenumber" name="650" href="#650">650</a>           } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (3 * m &lt;= 2 * bytesRemain) {
+<a class="jxr_linenumber" name="651" href="#651">651</a>             <em class="jxr_comment">// multi-bucket is small enough that no eviction happens for it</em>
+<a class="jxr_linenumber" name="652" href="#652">652</a>             <em class="jxr_comment">// hence all eviction goes from single-bucket</em>
+<a class="jxr_linenumber" name="653" href="#653">653</a>             bytesFreed = bucketSingle.free(bytesToFree);
+<a class="jxr_linenumber" name="654" href="#654">654</a>           } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="655" href="#655">655</a>             <em class="jxr_comment">// both buckets need to evict some blocks</em>
+<a class="jxr_linenumber" name="656" href="#656">656</a>             bytesFreed = bucketSingle.free(s - bytesRemain / 3);
+<a class="jxr_linenumber" name="657" href="#657">657</a>             <strong class="jxr_keyword">if</strong> (bytesFreed &lt; bytesToFree) {
+<a class="jxr_linenumber" name="658" href="#658">658</a>               bytesFreed += bucketMulti.free(bytesToFree - bytesFreed);
+<a class="jxr_linenumber" name="659" href="#659">659</a>             }
+<a class="jxr_linenumber" name="660" href="#660">660</a>           }
+<a class="jxr_linenumber" name="661" href="#661">661</a>         }
+<a class="jxr_linenumber" name="662" href="#662">662</a>       } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="663" href="#663">663</a>         PriorityQueue&lt;BlockBucket&gt; bucketQueue =
+<a class="jxr_linenumber" name="664" href="#664">664</a>           <strong class="jxr_keyword">new</strong> PriorityQueue&lt;BlockBucket&gt;(3);
+<a class="jxr_linenumber" name="665" href="#665">665</a> 
+<a class="jxr_linenumber" name="666" href="#666">666</a>         bucketQueue.add(bucketSingle);
+<a class="jxr_linenumber" name="667" href="#667">667</a>         bucketQueue.add(bucketMulti);
+<a class="jxr_linenumber" name="668" href="#668">668</a>         bucketQueue.add(bucketMemory);
+<a class="jxr_linenumber" name="669" href="#669">669</a> 
+<a class="jxr_linenumber" name="670" href="#670">670</a>         <strong class="jxr_keyword">int</strong> remainingBuckets = 3;
+<a class="jxr_linenumber" name="671" href="#671">671</a> 
+<a class="jxr_linenumber" name="672" href="#672">672</a>         <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a> bucket;
+<a class="jxr_linenumber" name="673" href="#673">673</a>         <strong class="jxr_keyword">while</strong>((bucket = bucketQueue.poll()) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="674" href="#674">674</a>           <strong class="jxr_keyword">long</strong> overflow = bucket.overflow();
+<a class="jxr_linenumber" name="675" href="#675">675</a>           <strong class="jxr_keyword">if</strong>(overflow &gt; 0) {
+<a class="jxr_linenumber" name="676" href="#676">676</a>             <strong class="jxr_keyword">long</strong> bucketBytesToFree = Math.min(overflow,
+<a class="jxr_linenumber" name="677" href="#677">677</a>                 (bytesToFree - bytesFreed) / remainingBuckets);
+<a class="jxr_linenumber" name="678" href="#678">678</a>             bytesFreed += bucket.free(bucketBytesToFree);
+<a class="jxr_linenumber" name="679" href="#679">679</a>           }
+<a class="jxr_linenumber" name="680" href="#680">680</a>           remainingBuckets--;
+<a class="jxr_linenumber" name="681" href="#681">681</a>         }
+<a class="jxr_linenumber" name="682" href="#682">682</a>       }
+<a class="jxr_linenumber" name="683" href="#683">683</a> 
+<a class="jxr_linenumber" name="684" href="#684">684</a>       <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="685" href="#685">685</a>         <strong class="jxr_keyword">long</strong> single = bucketSingle.totalSize();
+<a class="jxr_linenumber" name="686" href="#686">686</a>         <strong class="jxr_keyword">long</strong> multi = bucketMulti.totalSize();
+<a class="jxr_linenumber" name="687" href="#687">687</a>         <strong class="jxr_keyword">long</strong> memory = bucketMemory.totalSize();
+<a class="jxr_linenumber" name="688" href="#688">688</a>         LOG.trace(<span class="jxr_string">"Block cache LRU eviction completed; "</span> +
+<a class="jxr_linenumber" name="689" href="#689">689</a>           <span class="jxr_string">"freed="</span> + StringUtils.byteDesc(bytesFreed) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="690" href="#690">690</a>           <span class="jxr_string">"total="</span> + StringUtils.byteDesc(<strong class="jxr_keyword">this</strong>.size.get()) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="691" href="#691">691</a>           <span class="jxr_string">"single="</span> + StringUtils.byteDesc(single) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="692" href="#692">692</a>           <span class="jxr_string">"multi="</span> + StringUtils.byteDesc(multi) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="693" href="#693">693</a>           <span class="jxr_string">"memory="</span> + StringUtils.byteDesc(memory));
+<a class="jxr_linenumber" name="694" href="#694">694</a>       }
+<a class="jxr_linenumber" name="695" href="#695">695</a>     } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="696" href="#696">696</a>       stats.evict();
+<a class="jxr_linenumber" name="697" href="#697">697</a>       evictionInProgress = false;
+<a class="jxr_linenumber" name="698" href="#698">698</a>       evictionLock.unlock();
+<a class="jxr_linenumber" name="699" href="#699">699</a>     }
+<a class="jxr_linenumber" name="700" href="#700">700</a>   }
+<a class="jxr_linenumber" name="701" href="#701">701</a> 
+<a class="jxr_linenumber" name="702" href="#702">702</a>   @Override
+<a class="jxr_linenumber" name="703" href="#703">703</a>   <strong class="jxr_keyword">public</strong> String toString() {
+<a class="jxr_linenumber" name="704" href="#704">704</a>     <strong class="jxr_keyword">return</strong> Objects.toStringHelper(<strong class="jxr_keyword">this</strong>)
+<a class="jxr_linenumber" name="705" href="#705">705</a>       .add(<span class="jxr_string">"blockCount"</span>, getBlockCount())
+<a class="jxr_linenumber" name="706" href="#706">706</a>       .add(<span class="jxr_string">"currentSize"</span>, getCurrentSize())
+<a class="jxr_linenumber" name="707" href="#707">707</a>       .add(<span class="jxr_string">"freeSize"</span>, getFreeSize())
+<a class="jxr_linenumber" name="708" href="#708">708</a>       .add(<span class="jxr_string">"maxSize"</span>, getMaxSize())
+<a class="jxr_linenumber" name="709" href="#709">709</a>       .add(<span class="jxr_string">"heapSize"</span>, heapSize())
+<a class="jxr_linenumber" name="710" href="#710">710</a>       .add(<span class="jxr_string">"minSize"</span>, minSize())
+<a class="jxr_linenumber" name="711" href="#711">711</a>       .add(<span class="jxr_string">"minFactor"</span>, minFactor)
+<a class="jxr_linenumber" name="712" href="#712">712</a>       .add(<span class="jxr_string">"multiSize"</span>, multiSize())
+<a class="jxr_linenumber" name="713" href="#713">713</a>       .add(<span class="jxr_string">"multiFactor"</span>, multiFactor)
+<a class="jxr_linenumber" name="714" href="#714">714</a>       .add(<span class="jxr_string">"singleSize"</span>, singleSize())
+<a class="jxr_linenumber" name="715" href="#715">715</a>       .add(<span class="jxr_string">"singleFactor"</span>, singleFactor)
+<a class="jxr_linenumber" name="716" href="#716">716</a>       .toString();
+<a class="jxr_linenumber" name="717" href="#717">717</a>   }
+<a class="jxr_linenumber" name="718" href="#718">718</a> 
+<a class="jxr_linenumber" name="719" href="#719">719</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="720" href="#720">720</a> <em class="jxr_javadoccomment">   * Used to group blocks into priority buckets.  There will be a BlockBucket</em>
+<a class="jxr_linenumber" name="721" href="#721">721</a> <em class="jxr_javadoccomment">   * for each priority (single, multi, memory).  Once bucketed, the eviction</em>
+<a class="jxr_linenumber" name="722" href="#722">722</a> <em class="jxr_javadoccomment">   * algorithm takes the appropriate number of elements out of each according</em>
+<a class="jxr_linenumber" name="723" href="#723">723</a> <em class="jxr_javadoccomment">   * to configuration parameters and their relatives sizes.</em>
+<a class="jxr_linenumber" name="724" href="#724">724</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="725" href="#725">725</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a> <strong class="jxr_keyword">implements</strong> Comparable&lt;BlockBucket&gt; {
+<a class="jxr_linenumber" name="726" href="#726">726</a> 
+<a class="jxr_linenumber" name="727" href="#727">727</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String name;
+<a class="jxr_linenumber" name="728" href="#728">728</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlockQueue.html">LruCachedBlockQueue</a> queue;
+<a class="jxr_linenumber" name="729" href="#729">729</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> totalSize = 0;
+<a class="jxr_linenumber" name="730" href="#730">730</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> bucketSize;
+<a class="jxr_linenumber" name="731" href="#731">731</a> 
+<a class="jxr_linenumber" name="732" href="#732">732</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a>(String name, <strong class="jxr_keyword">long</strong> bytesToFree, <strong class="jxr_keyword">long</strong> blockSize, <strong class="jxr_keyword">long</strong> bucketSize) {
+<a class="jxr_linenumber" name="733" href="#733">733</a>       <strong class="jxr_keyword">this</strong>.name = name;
+<a class="jxr_linenumber" name="734" href="#734">734</a>       <strong class="jxr_keyword">this</strong>.bucketSize = bucketSize;
+<a class="jxr_linenumber" name="735" href="#735">735</a>       queue = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlockQueue.html">LruCachedBlockQueue</a>(bytesToFree, blockSize);
+<a class="jxr_linenumber" name="736" href="#736">736</a>       totalSize = 0;
+<a class="jxr_linenumber" name="737" href="#737">737</a>     }
+<a class="jxr_linenumber" name="738" href="#738">738</a> 
+<a class="jxr_linenumber" name="739" href="#739">739</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> add(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> block) {
+<a class="jxr_linenumber" name="740" href="#740">740</a>       totalSize += block.heapSize();
+<a class="jxr_linenumber" name="741" href="#741">741</a>       queue.add(block);
+<a class="jxr_linenumber" name="742" href="#742">742</a>     }
+<a class="jxr_linenumber" name="743" href="#743">743</a> 
+<a class="jxr_linenumber" name="744" href="#744">744</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> free(<strong class="jxr_keyword">long</strong> toFree) {
+<a class="jxr_linenumber" name="745" href="#745">745</a>       <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="746" href="#746">746</a>         LOG.trace(<span class="jxr_string">"freeing "</span> + StringUtils.byteDesc(toFree) + <span class="jxr_string">" from "</span> + <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="747" href="#747">747</a>       }
+<a class="jxr_linenumber" name="748" href="#748">748</a>       <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> cb;
+<a class="jxr_linenumber" name="749" href="#749">749</a>       <strong class="jxr_keyword">long</strong> freedBytes = 0;
+<a class="jxr_linenumber" name="750" href="#750">750</a>       <strong class="jxr_keyword">while</strong> ((cb = queue.pollLast()) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="751" href="#751">751</a>         freedBytes += evictBlock(cb, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="752" href="#752">752</a>         <strong class="jxr_keyword">if</strong> (freedBytes &gt;= toFree) {
+<a class="jxr_linenumber" name="753" href="#753">753</a>           <strong class="jxr_keyword">return</strong> freedBytes;
+<a class="jxr_linenumber" name="754" href="#754">754</a>         }
+<a class="jxr_linenumber" name="755" href="#755">755</a>       }
+<a class="jxr_linenumber" name="756" href="#756">756</a>       <strong class="jxr_keyword">if</strong> (LOG.isTraceEnabled()) {
+<a class="jxr_linenumber" name="757" href="#757">757</a>         LOG.trace(<span class="jxr_string">"freed "</span> + StringUtils.byteDesc(freedBytes) + <span class="jxr_string">" from "</span> + <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="758" href="#758">758</a>       }
+<a class="jxr_linenumber" name="759" href="#759">759</a>       <strong class="jxr_keyword">return</strong> freedBytes;
+<a class="jxr_linenumber" name="760" href="#760">760</a>     }
+<a class="jxr_linenumber" name="761" href="#761">761</a> 
+<a class="jxr_linenumber" name="762" href="#762">762</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> overflow() {
+<a class="jxr_linenumber" name="763" href="#763">763</a>       <strong class="jxr_keyword">return</strong> totalSize - bucketSize;
+<a class="jxr_linenumber" name="764" href="#764">764</a>     }
+<a class="jxr_linenumber" name="765" href="#765">765</a> 
+<a class="jxr_linenumber" name="766" href="#766">766</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> totalSize() {
+<a class="jxr_linenumber" name="767" href="#767">767</a>       <strong class="jxr_keyword">return</strong> totalSize;
+<a class="jxr_linenumber" name="768" href="#768">768</a>     }
+<a class="jxr_linenumber" name="769" href="#769">769</a> 
+<a class="jxr_linenumber" name="770" href="#770">770</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compareTo(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">BlockBucket</a> that) {
+<a class="jxr_linenumber" name="771" href="#771">771</a>       <strong class="jxr_keyword">return</strong> Long.compare(<strong class="jxr_keyword">this</strong>.overflow(), that.overflow());
+<a class="jxr_linenumber" name="772" href="#772">772</a>     }
+<a class="jxr_linenumber" name="773" href="#773">773</a> 
+<a class="jxr_linenumber" name="774" href="#774">774</a>     @Override
+<a class="jxr_linenumber" name="775" href="#775">775</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object that) {
+<a class="jxr_linenumber" name="776" href="#776">776</a>       <strong class="jxr_keyword">if</strong> (that == <strong class="jxr_keyword">null</strong> || !(that instanceof BlockBucket)){
+<a class="jxr_linenumber" name="777" href="#777">777</a>         <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="778" href="#778">778</a>       }
+<a class="jxr_linenumber" name="779" href="#779">779</a>       <strong class="jxr_keyword">return</strong> compareTo((BlockBucket)that) == 0;
+<a class="jxr_linenumber" name="780" href="#780">780</a>     }
+<a class="jxr_linenumber" name="781" href="#781">781</a> 
+<a class="jxr_linenumber" name="782" href="#782">782</a>     @Override
+<a class="jxr_linenumber" name="783" href="#783">783</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
+<a class="jxr_linenumber" name="784" href="#784">784</a>       <strong class="jxr_keyword">return</strong> Objects.hashCode(name, bucketSize, queue, totalSize);
+<a class="jxr_linenumber" name="785" href="#785">785</a>     }
+<a class="jxr_linenumber" name="786" href="#786">786</a> 
+<a class="jxr_linenumber" name="787" href="#787">787</a>     @Override
+<a class="jxr_linenumber" name="788" href="#788">788</a>     <strong class="jxr_keyword">public</strong> String toString() {
+<a class="jxr_linenumber" name="789" href="#789">789</a>       <strong class="jxr_keyword">return</strong> Objects.toStringHelper(<strong class="jxr_keyword">this</strong>)
+<a class="jxr_linenumber" name="790" href="#790">790</a>         .add(<span class="jxr_string">"name"</span>, name)
+<a class="jxr_linenumber" name="791" href="#791">791</a>         .add(<span class="jxr_string">"totalSize"</span>, StringUtils.byteDesc(totalSize))
+<a class="jxr_linenumber" name="792" href="#792">792</a>         .add(<span class="jxr_string">"bucketSize"</span>, StringUtils.byteDesc(bucketSize))
+<a class="jxr_linenumber" name="793" href="#793">793</a>         .toString();
+<a class="jxr_linenumber" name="794" href="#794">794</a>     }
+<a class="jxr_linenumber" name="795" href="#795">795</a>   }
+<a class="jxr_linenumber" name="796" href="#796">796</a> 
+<a class="jxr_linenumber" name="797" href="#797">797</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="798" href="#798">798</a> <em class="jxr_javadoccomment">   * Get the maximum size of this cache.</em>
+<a class="jxr_linenumber" name="799" href="#799">799</a> <em class="jxr_javadoccomment">   * @return max size in bytes</em>
+<a class="jxr_linenumber" name="800" href="#800">800</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="801" href="#801">801</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getMaxSize() {
+<a class="jxr_linenumber" name="802" href="#802">802</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.maxSize;
+<a class="jxr_linenumber" name="803" href="#803">803</a>   }
+<a class="jxr_linenumber" name="804" href="#804">804</a> 
+<a class="jxr_linenumber" name="805" href="#805">805</a>   @Override
+<a class="jxr_linenumber" name="806" href="#806">806</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCurrentSize() {
+<a class="jxr_linenumber" name="807" href="#807">807</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.size.get();
+<a class="jxr_linenumber" name="808" href="#808">808</a>   }
+<a class="jxr_linenumber" name="809" href="#809">809</a> 
+<a class="jxr_linenumber" name="810" href="#810">810</a>   @Override
+<a class="jxr_linenumber" name="811" href="#811">811</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getFreeSize() {
+<a class="jxr_linenumber" name="812" href="#812">812</a>     <strong class="jxr_keyword">return</strong> getMaxSize() - getCurrentSize();
+<a class="jxr_linenumber" name="813" href="#813">813</a>   }
+<a class="jxr_linenumber" name="814" href="#814">814</a> 
+<a class="jxr_linenumber" name="815" href="#815">815</a>   @Override
+<a class="jxr_linenumber" name="816" href="#816">816</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> size() {
+<a class="jxr_linenumber" name="817" href="#817">817</a>     <strong class="jxr_keyword">return</strong> getMaxSize();
+<a class="jxr_linenumber" name="818" href="#818">818</a>   }
+<a class="jxr_linenumber" name="819" href="#819">819</a> 
+<a class="jxr_linenumber" name="820" href="#820">820</a>   @Override
+<a class="jxr_linenumber" name="821" href="#821">821</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getBlockCount() {
+<a class="jxr_linenumber" name="822" href="#822">822</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.elements.get();
+<a class="jxr_linenumber" name="823" href="#823">823</a>   }
+<a class="jxr_linenumber" name="824" href="#824">824</a> 
+<a class="jxr_linenumber" name="825" href="#825">825</a>   <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">EvictionThread</a> getEvictionThread() {
+<a class="jxr_linenumber" name="826" href="#826">826</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.evictionThread;
+<a class="jxr_linenumber" name="827" href="#827">827</a>   }
+<a class="jxr_linenumber" name="828" href="#828">828</a> 
+<a class="jxr_linenumber" name="829" href="#829">829</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="830" href="#830">830</a> <em class="jxr_comment">   * Eviction thread.  Sits in waiting state until an eviction is triggered</em>
+<a class="jxr_linenumber" name="831" href="#831">831</a> <em class="jxr_comment">   * when the cache size grows above the acceptable level.&lt;p&gt;</em>
+<a class="jxr_linenumber" name="832" href="#832">832</a> <em class="jxr_comment">   *</em>
+<a class="jxr_linenumber" name="833" href="#833">833</a> <em class="jxr_comment">   * Thread is triggered into action by {@link LruBlockCache#runEviction()}</em>
+<a class="jxr_linenumber" name="834" href="#834">834</a> <em class="jxr_comment">   */</em>
+<a class="jxr_linenumber" name="835" href="#835">835</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">EvictionThread</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../org/apache/hadoop/hbase/util/HasThread.html">HasThread</a> {
+<a class="jxr_linenumber" name="836" href="#836">836</a>     <strong class="jxr_keyword">private</strong> WeakReference&lt;LruBlockCache&gt; cache;
+<a class="jxr_linenumber" name="837" href="#837">837</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> <strong class="jxr_keyword">boolean</strong> go = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="838" href="#838">838</a>     <em class="jxr_comment">// flag set after enter the run method, used for test</em>
+<a class="jxr_linenumber" name="839" href="#839">839</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> enteringRun = false;
+<a class="jxr_linenumber" name="840" href="#840">840</a> 
+<a class="jxr_linenumber" name="841" href="#841">841</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">EvictionThread</a>(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a> cache) {
+<a class="jxr_linenumber" name="842" href="#842">842</a>       <strong class="jxr_keyword">super</strong>(Thread.currentThread().getName() + <span class="jxr_string">".LruBlockCache.EvictionThread"</span>);
+<a class="jxr_linenumber" name="843" href="#843">843</a>       setDaemon(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="844" href="#844">844</a>       <strong class="jxr_keyword">this</strong>.cache = <strong class="jxr_keyword">new</strong> WeakReference&lt;LruBlockCache&gt;(cache);
+<a class="jxr_linenumber" name="845" href="#845">845</a>     }
+<a class="jxr_linenumber" name="846" href="#846">846</a> 
+<a class="jxr_linenumber" name="847" href="#847">847</a>     @Override
+<a class="jxr_linenumber" name="848" href="#848">848</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="849" href="#849">849</a>       enteringRun = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="850" href="#850">850</a>       <strong class="jxr_keyword">while</strong> (<strong class="jxr_keyword">this</strong>.go) {
+<a class="jxr_linenumber" name="851" href="#851">851</a>         <strong class="jxr_keyword">synchronized</strong>(<strong class="jxr_keyword">this</strong>) {
+<a class="jxr_linenumber" name="852" href="#852">852</a>           <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="853" href="#853">853</a>             <strong class="jxr_keyword">this</strong>.wait(1000 * 10<em class="jxr_comment">/*<em class="jxr_comment">Don't wait for ever*/</em>);</em>
+<a class="jxr_linenumber" name="854" href="#854">854</a>           } <strong class="jxr_keyword">catch</strong>(InterruptedException e) {
+<a class="jxr_linenumber" name="855" href="#855">855</a>             LOG.warn(<span class="jxr_string">"Interrupted eviction thread "</span>, e);
+<a class="jxr_linenumber" name="856" href="#856">856</a>             Thread.currentThread().interrupt();
+<a class="jxr_linenumber" name="857" href="#857">857</a>           }
+<a class="jxr_linenumber" name="858" href="#858">858</a>         }
+<a class="jxr_linenumber" name="859" href="#859">859</a>         <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a> cache = <strong class="jxr_keyword">this</strong>.cache.get();
+<a class="jxr_linenumber" name="860" href="#860">860</a>         <strong class="jxr_keyword">if</strong> (cache == <strong class="jxr_keyword">null</strong>) <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="861" href="#861">861</a>         cache.evict();
+<a class="jxr_linenumber" name="862" href="#862">862</a>       }
+<a class="jxr_linenumber" name="863" href="#863">863</a>     }
+<a class="jxr_linenumber" name="864" href="#864">864</a> 
+<a class="jxr_linenumber" name="865" href="#865">865</a>     @edu.umd.cs.findbugs.annotations.SuppressWarnings(value=<span class="jxr_string">"NN_NAKED_NOTIFY"</span>,
+<a class="jxr_linenumber" name="866" href="#866">866</a>         justification=<span class="jxr_string">"This is what we want"</span>)
+<a class="jxr_linenumber" name="867" href="#867">867</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> evict() {
+<a class="jxr_linenumber" name="868" href="#868">868</a>       <strong class="jxr_keyword">synchronized</strong>(<strong class="jxr_keyword">this</strong>) {
+<a class="jxr_linenumber" name="869" href="#869">869</a>         <strong class="jxr_keyword">this</strong>.notifyAll();
+<a class="jxr_linenumber" name="870" href="#870">870</a>       }
+<a class="jxr_linenumber" name="871" href="#871">871</a>     }
+<a class="jxr_linenumber" name="872" href="#872">872</a> 
+<a class="jxr_linenumber" name="873" href="#873">873</a>     <strong class="jxr_keyword">synchronized</strong> <strong class="jxr_keyword">void</strong> shutdown() {
+<a class="jxr_linenumber" name="874" href="#874">874</a>       <strong class="jxr_keyword">this</strong>.go = false;
+<a class="jxr_linenumber" name="875" href="#875">875</a>       <strong class="jxr_keyword">this</strong>.notifyAll();
+<a class="jxr_linenumber" name="876" href="#876">876</a>     }
+<a class="jxr_linenumber" name="877" href="#877">877</a> 
+<a class="jxr_linenumber" name="878" href="#878">878</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="879" href="#879">879</a> <em class="jxr_javadoccomment">     * Used for the test.</em>
+<a class="jxr_linenumber" name="880" href="#880">880</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="881" href="#881">881</a>     <strong class="jxr_keyword">boolean</strong> isEnteringRun() {
+<a class="jxr_linenumber" name="882" href="#882">882</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.enteringRun;
+<a class="jxr_linenumber" name="883" href="#883">883</a>     }
+<a class="jxr_linenumber" name="884" href="#884">884</a>   }
+<a class="jxr_linenumber" name="885" href="#885">885</a> 
+<a class="jxr_linenumber" name="886" href="#886">886</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="887" href="#887">887</a> <em class="jxr_comment">   * Statistics thread.  Periodically prints the cache statistics to the log.</em>
+<a class="jxr_linenumber" name="888" href="#888">888</a> <em class="jxr_comment">   */</em>
+<a class="jxr_linenumber" name="889" href="#889">889</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/bucket/BucketCache.html">StatisticsThread</a> <strong class="jxr_keyword">extends</strong> Thread {
+<a class="jxr_linenumber" name="890" href="#890">890</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a> lru;
+<a class="jxr_linenumber" name="891" href="#891">891</a> 
+<a class="jxr_linenumber" name="892" href="#892">892</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/bucket/BucketCache.html">StatisticsThread</a>(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruBlockCache.html">LruBlockCache</a> lru) {
+<a class="jxr_linenumber" name="893" href="#893">893</a>       <strong class="jxr_keyword">super</strong>(<span class="jxr_string">"LruBlockCacheStats"</span>);
+<a class="jxr_linenumber" name="894" href="#894">894</a>       setDaemon(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="895" href="#895">895</a>       <strong class="jxr_keyword">this</strong>.lru = lru;
+<a class="jxr_linenumber" name="896" href="#896">896</a>     }
+<a class="jxr_linenumber" name="897" href="#897">897</a> 
+<a class="jxr_linenumber" name="898" href="#898">898</a>     @Override
+<a class="jxr_linenumber" name="899" href="#899">899</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="900" href="#900">900</a>       lru.logStats();
+<a class="jxr_linenumber" name="901" href="#901">901</a>     }
+<a class="jxr_linenumber" name="902" href="#902">902</a>   }
+<a class="jxr_linenumber" name="903" href="#903">903</a> 
+<a class="jxr_linenumber" name="904" href="#904">904</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> logStats() {
+<a class="jxr_linenumber" name="905" href="#905">905</a>     <em class="jxr_comment">// Log size</em>
+<a class="jxr_linenumber" name="906" href="#906">906</a>     <strong class="jxr_keyword">long</strong> totalSize = heapSize();
+<a class="jxr_linenumber" name="907" href="#907">907</a>     <strong class="jxr_keyword">long</strong> freeSize = maxSize - totalSize;
+<a class="jxr_linenumber" name="908" href="#908">908</a>     LruBlockCache.LOG.info(<span class="jxr_string">"totalSize="</span> + StringUtils.byteDesc(totalSize) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="909" href="#909">909</a>         <span class="jxr_string">"freeSize="</span> + StringUtils.byteDesc(freeSize) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="910" href="#910">910</a>         <span class="jxr_string">"max="</span> + StringUtils.byteDesc(<strong class="jxr_keyword">this</strong>.maxSize) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="911" href="#911">911</a>         <span class="jxr_string">"blockCount="</span> + getBlockCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="912" href="#912">912</a>         <span class="jxr_string">"accesses="</span> + stats.getRequestCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="913" href="#913">913</a>         <span class="jxr_string">"hits="</span> + stats.getHitCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="914" href="#914">914</a>         <span class="jxr_string">"hitRatio="</span> + (stats.getHitCount() == 0 ?
+<a class="jxr_linenumber" name="915" href="#915">915</a>           <span class="jxr_string">"0"</span> : (StringUtils.formatPercent(stats.getHitRatio(), 2)+ <span class="jxr_string">", "</span>)) + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="916" href="#916">916</a>         <span class="jxr_string">"cachingAccesses="</span> + stats.getRequestCachingCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="917" href="#917">917</a>         <span class="jxr_string">"cachingHits="</span> + stats.getHitCachingCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="918" href="#918">918</a>         <span class="jxr_string">"cachingHitsRatio="</span> + (stats.getHitCachingCount() == 0 ?
+<a class="jxr_linenumber" name="919" href="#919">919</a>           <span class="jxr_string">"0,"</span>: (StringUtils.formatPercent(stats.getHitCachingRatio(), 2) + <span class="jxr_string">", "</span>)) +
+<a class="jxr_linenumber" name="920" href="#920">920</a>         <span class="jxr_string">"evictions="</span> + stats.getEvictionCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="921" href="#921">921</a>         <span class="jxr_string">"evicted="</span> + stats.getEvictedCount() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="922" href="#922">922</a>         <span class="jxr_string">"evictedPerRun="</span> + stats.evictedPerEviction());
+<a class="jxr_linenumber" name="923" href="#923">923</a>   }
+<a class="jxr_linenumber" name="924" href="#924">924</a> 
+<a class="jxr_linenumber" name="925" href="#925">925</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="926" href="#926">926</a> <em class="jxr_javadoccomment">   * Get counter statistics for this cache.</em>
+<a class="jxr_linenumber" name="927" href="#927">927</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="928" href="#928">928</a> <em class="jxr_javadoccomment">   * &lt;p&gt;Includes: total accesses, hits, misses, evicted blocks, and runs</em>
+<a class="jxr_linenumber" name="929" href="#929">929</a> <em class="jxr_javadoccomment">   * of the eviction processes.</em>
+<a class="jxr_linenumber" name="930" href="#930">930</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="931" href="#931">931</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CacheStats.html">CacheStats</a> getStats() {
+<a class="jxr_linenumber" name="932" href="#932">932</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.stats;
+<a class="jxr_linenumber" name="933" href="#933">933</a>   }
+<a class="jxr_linenumber" name="934" href="#934">934</a> 
+<a class="jxr_linenumber" name="935" href="#935">935</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">long</strong> CACHE_FIXED_OVERHEAD = ClassSize.align(
+<a class="jxr_linenumber" name="936" href="#936">936</a>       (4 * Bytes.SIZEOF_LONG) + (9 * ClassSize.REFERENCE) +
+<a class="jxr_linenumber" name="937" href="#937">937</a>       (6 * Bytes.SIZEOF_FLOAT) + (2 * Bytes.SIZEOF_BOOLEAN)
+<a class="jxr_linenumber" name="938" href="#938">938</a>       + ClassSize.OBJECT);
+<a class="jxr_linenumber" name="939" href="#939">939</a> 
+<a class="jxr_linenumber" name="940" href="#940">940</a>   @Override
+<a class="jxr_linenumber" name="941" href="#941">941</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> heapSize() {
+<a class="jxr_linenumber" name="942" href="#942">942</a>     <strong class="jxr_keyword">return</strong> getCurrentSize();
+<a class="jxr_linenumber" name="943" href="#943">943</a>   }
+<a class="jxr_linenumber" name="944" href="#944">944</a> 
+<a class="jxr_linenumber" name="945" href="#945">945</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">long</strong> calculateOverhead(<strong class="jxr_keyword">long</strong> maxSize, <strong class="jxr_keyword">long</strong> blockSize, <strong class="jxr_keyword">int</strong> concurrency){
+<a class="jxr_linenumber" name="946" href="#946">946</a>     <em class="jxr_comment">// FindBugs ICAST_INTEGER_MULTIPLY_CAST_TO_LONG</em>
+<a class="jxr_linenumber" name="947" href="#947">947</a>     <strong class="jxr_keyword">return</strong> CACHE_FIXED_OVERHEAD + ClassSize.CONCURRENT_HASHMAP +
+<a class="jxr_linenumber" name="948" href="#948">948</a>         ((<strong class="jxr_keyword">long</strong>)Math.ceil(maxSize*1.2/blockSize)
+<a class="jxr_linenumber" name="949" href="#949">949</a>             * ClassSize.CONCURRENT_HASHMAP_ENTRY) +
+<a class="jxr_linenumber" name="950" href="#950">950</a>         ((<strong class="jxr_keyword">long</strong>)concurrency * ClassSize.CONCURRENT_HASHMAP_SEGMENT);
+<a class="jxr_linenumber" name="951" href="#951">951</a>   }
+<a class="jxr_linenumber" name="952" href="#952">952</a> 
+<a class="jxr_linenumber" name="953" href="#953">953</a>   @Override
+<a class="jxr_linenumber" name="954" href="#954">954</a>   <strong class="jxr_keyword">public</strong> Iterator&lt;CachedBlock&gt; iterator() {
+<a class="jxr_linenumber" name="955" href="#955">955</a>     <strong class="jxr_keyword">final</strong> Iterator&lt;LruCachedBlock&gt; iterator = map.values().iterator();
+<a class="jxr_linenumber" name="956" href="#956">956</a> 
+<a class="jxr_linenumber" name="957" href="#957">957</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Iterator&lt;CachedBlock&gt;() {
+<a class="jxr_linenumber" name="958" href="#958">958</a>       <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> now = System.nanoTime();
+<a class="jxr_linenumber" name="959" href="#959">959</a> 
+<a class="jxr_linenumber" name="960" href="#960">960</a>       @Override
+<a class="jxr_linenumber" name="961" href="#961">961</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> hasNext() {
+<a class="jxr_linenumber" name="962" href="#962">962</a>         <strong class="jxr_keyword">return</strong> iterator.hasNext();
+<a class="jxr_linenumber" name="963" href="#963">963</a>       }
+<a class="jxr_linenumber" name="964" href="#964">964</a> 
+<a class="jxr_linenumber" name="965" href="#965">965</a>       @Override
+<a class="jxr_linenumber" name="966" href="#966">966</a>       <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CachedBlock.html">CachedBlock</a> next() {
+<a class="jxr_linenumber" name="967" href="#967">967</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/LruCachedBlock.html">LruCachedBlock</a> b = iterator.next();
+<a class="jxr_linenumber" name="968" href="#968">968</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CachedBlock.html">CachedBlock</a>() {
+<a class="jxr_linenumber" name="969" href="#969">969</a>           @Override
+<a class="jxr_linenumber" name="970" href="#970">970</a>           <strong class="jxr_keyword">public</strong> String toString() {
+<a class="jxr_linenumber" name="971" href="#971">971</a>             <strong class="jxr_keyword">return</strong> BlockCacheUtil.toString(<strong class="jxr_keyword">this</strong>, now);
+<a class="jxr_linenumber" name="972" href="#972">972</a>           }
+<a class="jxr_linenumber" name="973" href="#973">973</a> 
+<a class="jxr_linenumber" name="974" href="#974">974</a>           @Override
+<a class="jxr_linenumber" name="975" href="#975">975</a>           <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockPriority.html">BlockPriority</a> getBlockPriority() {
+<a class="jxr_linenumber" name="976" href="#976">976</a>             <strong class="jxr_keyword">return</strong> b.getPriority();
+<a class="jxr_linenumber" name="977" href="#977">977</a>           }
+<a class="jxr_linenumber" name="978" href="#978">978</a> 
+<a class="jxr_linenumber" name="979" href="#979">979</a>           @Override
+<a class="jxr_linenumber" name="980" href="#980">980</a>           <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockType.html">BlockType</a> getBlockType() {
+<a class="jxr_linenumber" name="981" href="#981">981</a>             <strong class="jxr_keyword">return</strong> b.getBuffer().getBlockType();
+<a class="jxr_linenumber" name="982" href="#982">982</a>           }
+<a class="jxr_linenumber" name="983" href="#983">983</a> 
+<a class="jxr_linenumber" name="984" href="#984">984</a>           @Override
+<a class="jxr_linenumber" name="985" href="#985">985</a>           <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getOffset() {
+<a class="jxr_linenumber" name="986" href="#986">986</a>             <strong class="jxr_keyword">return</strong> b.getCacheKey().getOffset();
+<a class="jxr_linenumber" name="987" href="#987">987</a>           }
+<a class="jxr_linenumber" name="988" href="#988">988</a> 
+<a class="jxr_linenumber" name="989" href="#989">989</a>           @Override
+<a class="jxr_linenumber" name="990" href="#990">990</a>           <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getSize() {
+<a class="jxr_linenumber" name="991" href="#991">991</a>             <strong class="jxr_keyword">return</strong> b.getBuffer().heapSize();
+<a class="jxr_linenumber" name="992" href="#992">992</a>           }
+<a class="jxr_linenumber" name="993" href="#993">993</a> 
+<a class="jxr_linenumber" name="994" href="#994">994</a>           @Override
+<a class="jxr_linenumber" name="995" href="#995">995</a>           <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCachedTime() {
+<a class="jxr_linenumber" name="996" href="#996">996</a>             <strong class="jxr_keyword">return</strong> b.getCachedTime();
+<a class="jxr_linenumber" name="997" href="#997">997</a>           }
+<a class="jxr_linenumber" name="998" href="#998">998</a> 
+<a class="jxr_linenumber" name="999" href="#999">999</a>           @Override
+<a class="jxr_linenumber" name="1000" href="#1000">1000</a>           <strong class="jxr_keyword">public</strong> String getFilename() {
+<a class="jxr_linenumber" name="1001" href="#1001">1001</a>             <strong class="jxr_keyword">return</strong> b.getCacheKey().getHfileName();
+<a class="jxr_linenumber" name="1002" href="#1002">1002</a>           }
+<a class="jxr_linenumber" name="1003" href="#1003">1003</a> 
+<a class="jxr_linenumber" name="1004" href="#1004">1004</a>           @Override
+<a class="jxr_linenumber" name="1005" href="#1005">1005</a>           <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compareTo(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CachedBlock.html">CachedBlock</a> other) {
+<a class="jxr_linenumber" name="1006" href="#1006">1006</a>             <strong class="jxr_keyword">int</strong> diff = <strong class="jxr_keyword">this</strong>.getFilename().compareTo(other.getFilename());
+<a class="jxr_linenumber" name="1007" href="#1007">1007</a>             <strong class="jxr_keyword">if</strong> (diff != 0) <strong class="jxr_keyword">return</strong> diff;
+<a class="jxr_linenumber" name="1008" href="#1008">1008</a>             diff = Long.compare(<strong class="jxr_keyword">this</strong>.getOffset(), other.getOffset());
+<a class="jxr_linenumber" name="1009" href="#1009">1009</a>             <strong class="jxr_keyword">if</strong> (diff != 0) <strong class="jxr_keyword">return</strong> diff;
+<a class="jxr_linenumber" name="1010" href="#1010">1010</a>             <strong class="jxr_keyword">if</strong> (other.getCachedTime() &lt; 0 || <strong class="jxr_keyword">this</strong>.getCachedTime() &lt; 0) {
+<a class="jxr_linenumber" name="1011" href="#1011">1011</a>               <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">""</span> + <strong class="jxr_keyword">this</strong>.getCachedTime() + <span class="jxr_string">", "</span> +
+<a class="jxr_linenumber" name="1012" href="#1012">1012</a>                 other.getCachedTime());
+<a class="jxr_linenumber" name="1013" href="#1013">1013</a>             }
+<a class="jxr_linenumber" name="1014" href="#1014">1014</a>             <strong class="jxr_keyword">return</strong> Long.compare(other.getCachedTime(), <strong class="jxr_keyword">this</strong>.getCachedTime());
+<a class="jxr_linenumber" name="1015" href="#1015">1015</a>           }
+<a class="jxr_linenumber" name="1016" href="#1016">1016</a> 
+<a class="jxr_linenumber" name="1017" href="#1017">1017</a>           @Override
+<a class="jxr_linenumber" name="1018" href="#1018">1018</a>           <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
+<a class="jxr_linenumber" name="1019" href="#1019">1019</a>             <strong class="jxr_keyword">return</strong> b.hashCode();
+<a class="jxr_linenumber" name="1020" href="#1020">1020</a>           }
+<a class="jxr_linenumber" name="1021" href="#1021">1021</a> 
+<a class="jxr_linenumber" name="1022" href="#1022">1022</a>           @Override
+<a class="jxr_linenumber" name="1023" href="#1023">1023</a>           <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object obj) {
+<a class="jxr_linenumber" name="1024" href="#1024">1024</a>             <strong class="jxr_keyword">if</strong> (obj instanceof CachedBlock) {
+<a class="jxr_linenumber" name="1025" href="#1025">1025</a>               <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/CachedBlock.html">CachedBlock</a> cb = (CachedBlock)obj;
+<a class="jxr_linenumber" name="1026" href="#1026">1026</a>               <strong class="jxr_keyword">return</strong> compareTo(cb) == 0;
+<a class="jxr_linenumber" name="1027" href="#1027">1027</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="1028" href="#1028">1028</a>               <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="1029" href="#1029">1029</a>             }
+<a class="jxr_linenumber" name="1030" href="#1030">1030</a>           }
+<a class="jxr_linenumber" name="1031" href="#1031">1031</a>         };
+<a class="jxr_linenumber" name="1032" href="#1032">1032</a>       }
+<a class="jxr_linenumber" name="1033" href="#1033">1033</a> 
+<a class="jxr_linenumber" name="1034" href="#1034">1034</a>       @Override
+<a class="jxr_linenumber" name="1035" href="#1035">1035</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> remove() {
+<a class="jxr_linenumber" name="1036" href="#1036">1036</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
+<a class="jxr_linenumber" name="1037" href="#1037">1037</a>       }
+<a class="jxr_linenumber" name="1038" href="#1038">1038</a>     };
+<a class="jxr_linenumber" name="1039" href="#1039">1039</a>   }
+<a class="jxr_linenumber" name="1040" href="#1040">1040</a> 
+<a class="jxr_linenumber" name="1041" href="#1041">1041</a>   <em class="jxr_comment">// Simple calculators of sizes given factors and maxSize</em>
+<a class="jxr_linenumber" name="1042" href="#1042">1042</a> 
+<a class="jxr_linenumber" name="1043" href="#1043">1043</a>   <strong class="jxr_keyword">long</strong> acceptableSize() {
+<a class="jxr_linenumber" name="1044" href="#1044">1044</a>     <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">long</strong>)Math.floor(<strong class="jxr_keyword">this</strong>.maxSize * <strong class="jxr_keyword">this</strong>.acceptableFactor);
+<a class="jxr_linenumber" name="1045" href="#1045">1045</a>   }
+<a class="jxr_linenumber" name="1046" href="#1046">1046</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> minSize() {
+<a class="jxr_linenumber" name="1047" href="#1047">1047</a>     <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">long</strong>)Math.floor(<strong class="jxr_keyword">this</strong>.maxSize * <strong class="jxr_keyword">this</strong>.minFactor);
+<a class="jxr_linenumber" name="1048" href="#1048">1048</a>   }
+<a class="jxr_linenumber" name="1049" href="#1049">1049</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> singleSize() {
+<a class="jxr_linenumber" name="1050" href="#1050">1050</a>     <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">long</strong>)Math.floor(<strong class="jxr_keyword">this</strong>.maxSize * <strong class="jxr_keyword">this</strong>.singleFactor * <strong class="jxr_keyword">this</strong>.minFactor);
+<a class="jxr_linenumber" name="1051" href="#1051">1051</a>   }
+<a class="jxr_linenumber" name="1052" href="#1052">1052</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> multiSize() {
+<a class="jxr_linenumber" name="1053" href="#1053">1053</a>     <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">long</strong>)Math.floor(<strong class="jxr_keyword">this</strong>.maxSize * <strong class="jxr_keyword">this</strong>.multiFactor * <strong class="jxr_keyword">this</strong>.minFactor);
+<a class="jxr_linenumber" name="1054" href="#1054">1054</a>   }
+<a class="jxr_linenumber" name="1055" href="#1055">1055</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> memorySize() {
+<a class="jxr_linenumber" name="1056" href="#1056">1056</a>     <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">long</strong>)Math.floor(<strong class="jxr_keyword">this</strong>.maxSize * <strong class="jxr_keyword">this</strong>.memoryFactor * <strong class="jxr_keyword">this</strong>.minFactor);
+<a class="jxr_linenumber" name="1057" href="#1057">1057</a>   }
+<a class="jxr_linenumber" name="1058" href="#1058">1058</a> 
+<a class="jxr_linenumber" name="1059" href="#1059">1059</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> shutdown() {
+<a class="jxr_linenumber" name="1060" href="#1060">1060</a>     <strong class="jxr_keyword">if</strong> (victimHandler != <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="1061" href="#1061">1061</a>       victimHandler.shutdown();
+<a class="jxr_linenumber" name="1062" href="#1062">1062</a>     <strong class="jxr_keyword">this</strong>.scheduleThreadPool.shutdown();
+<a class="jxr_linenumber" name="1063" href="#1063">1063</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
+<a class="jxr_linenumber" name="1064" href="#1064">1064</a>       <strong class="jxr_keyword">if</strong> (!<strong class="jxr_keyword">this</strong>.scheduleThreadPool.isShutdown()) {
+<a class="jxr_linenumber" name="1065" href="#1065">1065</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="1066" href="#1066">1066</a>           Thread.sleep(10);
+<a class="jxr_linenumber" name="1067" href="#1067">1067</a>         } <strong class="jxr_keyword">catch</strong> (InterruptedException e) {
+<a class="jxr_linenumber" name="1068" href="#1068">1068</a>           LOG.warn(<span class="jxr_string">"Interrupted while sleeping"</span>);
+<a class="jxr_linenumber" name="1069" href="#1069">1069</a>           Thread.currentThread().interrupt();
+<a class="jxr_linenumber" name="1070" href="#1070">1070</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="1071" href="#1071">1071</a>         }
+<a class="jxr_linenumber" name="1072" href="#1072">1072</a>       }
+<a class="jxr_linenumber" name="1073" href="#1073">1073</a>     }
+<a class="jxr_linenumber" name="1074" href="#1074">1074</a> 
+<a class="jxr_linenumber" name="1075" href="#1075">1075</a>     <strong class="jxr_keyword">if</strong> (!<strong class="jxr_keyword">this</strong>.scheduleThreadPool.isShutdown()) {
+<a class="jxr_linenumber" name="1076" href="#1076">1076</a>       List&lt;Runnable&gt; runnables = <strong class="jxr_keyword">this</strong>.scheduleThreadPool.shutdownNow();
+<a class="jxr_linenumber" name="1077" href="#1077">1077</a>       LOG.debug(<span class="jxr_string">"Still running "</span> + runnables);
+<a class="jxr_linenumber" name="1078" href="#1078">1078</a>     }
+<a class="jxr_linenumber" name="1079" href="#1079">1079</a>     <strong class="jxr_keyword">this</strong>.evictionThread.shutdown();
+<a class="jxr_linenumber" name="1080" href="#1080">1080</a>   }
+<a class="jxr_linenumber" name="1081" href="#1081">1081</a> 
+<a class="jxr_linenumber" name="1082" href="#1082">1082</a>   <em class="jxr_javadoccomment">/**</em><em class="jxr_javadoccomment"> Clears the cache. Used in tests. */</em>
+<a class="jxr_linenumber" name="1083" href="#1083">1083</a>   @VisibleForTesting
+<a class="jxr_linenumber" name="1084" href="#1084">1084</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clearCache() {
+<a class="jxr_linenumber" name="1085" href="#1085">1085</a>     <strong class="jxr_keyword">this</strong>.map.clear();
+<a class="jxr_linenumber" name="1086" href="#1086">1086</a>     <strong class="jxr_keyword">this</strong>.elements.set(0);
+<a class="jxr_linenumber" name="1087" href="#1087">1087</a>   }
+<a class="jxr_linenumber" name="1088" href="#1088">1088</a> 
+<a class="jxr_linenumber" name="1089" href="#1089">1089</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="1090" href="#1090">1090</a> <em class="jxr_javadoccomment">   * Used in testing. May be very inefficient.</em>
+<a class="jxr_linenumber" name="1091" href="#1091">1091</a> <em class="jxr_javadoccomment">   * @return the set of cached file names</em>
+<a class="jxr_linenumber" name="1092" href="#1092">1092</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="1093" href="#1093">1093</a>   @VisibleForTesting
+<a class="jxr_linenumber" name="1094" href="#1094">1094</a>   SortedSet&lt;String&gt; getCachedFileNamesForTest() {
+<a class="jxr_linenumber" name="1095" href="#1095">1095</a>     SortedSet&lt;String&gt; fileNames = <strong class="jxr_keyword">new</strong> TreeSet&lt;String&gt;();
+<a class="jxr_linenumber" name="1096" href="#1096">1096</a>     <strong class="jxr_keyword">for</strong> (BlockCacheKey cacheKey : map.keySet()) {
+<a class="jxr_linenumber" name="1097" href="#1097">1097</a>       fileNames.add(cacheKey.getHfileName());
+<a class="jxr_linenumber" name="1098" href="#1098">1098</a>     }
+<a class="jxr_linenumber" name="1099" href="#1099">1099</a>     <strong class="jxr_keyword">return</strong> fileNames;
+<a class="jxr_linenumber" name="1100" href="#1100">1100</a>   }
+<a class="jxr_linenumber" name="1101" href="#1101">1101</a> 
+<a class="jxr_linenumber" name="1102" href="#1102">1102</a>   @VisibleForTesting
+<a class="jxr_linenumber" name="1103" href="#1103">1103</a>   Map&lt;BlockType, Integer&gt; getBlockTypeCountsForTest() {
+<a class="jxr_linenumber" name="1104" href="#1104">1104</a>     Map&lt;BlockType, Integer&gt; counts =
+<a class="jxr_linenumber" name="1105" href="#1105">1105</a>         <strong class="jxr_keyword">new</strong> EnumMap&lt;BlockType, Integer&gt;(BlockType.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="1106" href="#1106">1106</a>     <strong class="jxr_keyword">for</strong> (LruCachedBlock cb : map.values()) {
+<a class="jxr_linenumber" name="1107" href="#1107">1107</a>       <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockType.html">BlockType</a> blockType = ((Cacheable)cb.getBuffer()).getBlockType();
+<a class="jxr_linenumber" name="1108" href="#1108">1108</a>       Integer count = counts.get(blockType);
+<a class="jxr_linenumber" name="1109" href="#1109">1109</a>       counts.put(blockType, (count == <strong class="jxr_keyword">null</strong> ? 0 : count) + 1);
+<a class="jxr_linenumber" name="1110" href="#1110">1110</a>     }
+<a class="jxr_linenumber" name="1111" href="#1111">1111</a>     <strong class="jxr_keyword">return</strong> counts;
+<a class="jxr_linenumber" name="1112" href="#1112">1112</a>   }
+<a class="jxr_linenumber" name="1113" href="#1113">1113</a> 
+<a class="jxr_linenumber" name="1114" href="#1114">1114</a>   @VisibleForTesting
+<a class="jxr_linenumber" name="1115" href="#1115">1115</a>   <strong class="jxr_keyword">public</strong> Map&lt;DataBlockEncoding, Integer&gt; getEncodingCountsForTest() {
+<a class="jxr_linenumber" name="1116" href="#1116">1116</a>     Map&lt;DataBlockEncoding, Integer&gt; counts =
+<a class="jxr_linenumber" name="1117" href="#1117">1117</a>         <strong class="jxr_keyword">new</strong> EnumMap&lt;DataBlockEncoding, Integer&gt;(DataBlockEncoding.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="1118" href="#1118">1118</a>     <strong class="jxr_keyword">for</strong> (LruCachedBlock block : map.values()) {
+<a class="jxr_linenumber" name="1119" href="#1119">1119</a>       <a href="../../../../../../org/apache/hadoop/hbase/io/encoding/DataBlockEncoding.html">DataBlockEncoding</a> encoding =
+<a class="jxr_linenumber" name="1120" href="#1120">1120</a>               ((<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/HFileBlock.html">HFileBlock</a>) block.getBuffer()).getDataBlockEncoding();
+<a class="jxr_linenumber" name="1121" href="#1121">1121</a>       Integer count = counts.get(encoding);
+<a class="jxr_linenumber" name="1122" href="#1122">1122</a>       counts.put(encoding, (count == <strong class="jxr_keyword">null</strong> ? 0 : count) + 1);
+<a class="jxr_linenumber" name="1123" href="#1123">1123</a>     }
+<a class="jxr_linenumber" name="1124" href="#1124">1124</a>     <strong class="jxr_keyword">return</strong> counts;
+<a class="jxr_linenumber" name="1125" href="#1125">1125</a>   }
+<a class="jxr_linenumber" name="1126" href="#1126">1126</a> 
+<a class="jxr_linenumber" name="1127" href="#1127">1127</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setVictimCache(<a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCache.html">BlockCache</a> handler) {
+<a class="jxr_linenumber" name="1128" href="#1128">1128</a>     assert victimHandler == <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="1129" href="#1129">1129</a>     victimHandler = handler;
+<a class="jxr_linenumber" name="1130" href="#1130">1130</a>   }
+<a class="jxr_linenumber" name="1131" href="#1131">1131</a> 
+<a class="jxr_linenumber" name="1132" href="#1132">1132</a>   @VisibleForTesting
+<a class="jxr_linenumber" name="1133" href="#1133">1133</a>   Map&lt;BlockCacheKey, LruCachedBlock&gt; getMapForTests() {
+<a class="jxr_linenumber" name="1134" href="#1134">1134</a>     <strong class="jxr_keyword">return</strong> map;
+<a class="jxr_linenumber" name="1135" href="#1135">1135</a>   }
+<a class="jxr_linenumber" name="1136" href="#1136">1136</a> 
+<a class="jxr_linenumber" name="1137" href="#1137">1137</a>   <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCache.html">BlockCache</a> getVictimHandler() {
+<a class="jxr_linenumber" name="1138" href="#1138">1138</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.victimHandler;
+<a class="jxr_linenumber" name="1139" href="#1139">1139</a>   }
+<a class="jxr_linenumber" name="1140" href="#1140">1140</a> 
+<a class="jxr_linenumber" name="1141" href="#1141">1141</a>   @Override
+<a class="jxr_linenumber" name="1142" href="#1142">1142</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/apache/hadoop/hbase/io/hfile/BlockCache.html">BlockCache</a>[] getBlockCaches() {
+<a class="jxr_linenumber" name="1143" href="#1143">1143</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="1144" href="#1144">1144</a>   }
+<a class="jxr_linenumber" name="1145" href="#1145">1145</a> }
+</pre>
+<hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
+</html>
+

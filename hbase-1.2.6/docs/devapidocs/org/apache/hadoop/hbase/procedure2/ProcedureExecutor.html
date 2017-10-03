@@ -1,0 +1,775 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ProcedureExecutor (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="ProcedureExecutor (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/ProcedureExecutor.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureException.html" title="class in org.apache.hadoop.hbase.procedure2"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" target="_top">Frames</a></li>
+<li><a href="ProcedureExecutor.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.procedure2</div>
+<h2 title="Class ProcedureExecutor" class="title">Class ProcedureExecutor&lt;TEnvironment&gt;</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.procedure2.ProcedureExecutor&lt;TEnvironment&gt;</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<hr>
+<br>
+<pre><a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceAudience.Private.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceAudience.Private</a>
+<a href="../../../../../org/apache/hadoop/hbase/classification/InterfaceStability.Evolving.html" title="annotation in org.apache.hadoop.hbase.classification">@InterfaceStability.Evolving</a>
+public class <span class="strong">ProcedureExecutor&lt;TEnvironment&gt;</span>
+extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
+<div class="block">Thread Pool that executes the submitted procedures.
+ The executor has a ProcedureStore associated.
+ Each operation is logged and on restart the pending procedures are resumed.
+
+ Unless the Procedure code throws an error (e.g. invalid user input)
+ the procedure will complete (at some point in time), On restart the pending
+ procedures are resumed and the once failed will be rolledback.
+
+ The user can add procedures to the executor via submitProcedure(proc)
+ check for the finished state via isFinished(procId)
+ and get the result via getResult(procId)</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Nested Class Summary table, listing nested classes, and an explanation">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static interface&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureExecutor.ProcedureExecutorListener</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.Testing.html" title="class in org.apache.hadoop.hbase.procedure2">ProcedureExecutor.Testing</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#ProcedureExecutor(org.apache.hadoop.conf.Configuration,%20TEnvironment,%20org.apache.hadoop.hbase.procedure2.store.ProcedureStore)">ProcedureExecutor</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="type parameter in ProcedureExecutor">TEnvironment</a>&nbsp;environment,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/store/ProcedureStore.html" title="interface in org.apache.hadoop.hbase.procedure2.store">ProcedureStore</a>&nbsp;store)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#ProcedureExecutor(org.apache.hadoop.conf.Configuration,%20TEnvironment,%20org.apache.hadoop.hbase.procedure2.store.ProcedureStore,%20org.apache.hadoop.hbase.procedure2.ProcedureRunnableSet)">ProcedureExecutor</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="type parameter in ProcedureExecutor">TEnvironment</a>&nbsp;environment,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/store/ProcedureStore.html" title="interface in org.apache.hadoop.hbase.procedure2.store">ProcedureStore</a>&nbsp;store,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureRunnableSet.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureRunnableSet</a>&nbsp;runqueue)</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#abort(long)">abort</a></strong>(long&nbsp;procId)</code>
+<div class="block">Send an abort notification the specified procedure.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#abort(long,%20boolean)">abort</a></strong>(long&nbsp;procId,
+     boolean&nbsp;mayInterruptIfRunning)</code>
+<div class="block">Send an abort notification the specified procedure.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#createNonceKey(long,%20long)">createNonceKey</a></strong>(long&nbsp;nonceGroup,
+              long&nbsp;nonce)</code>
+<div class="block">Create a NoneKey from the specified nonceGroup and nonce.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getActiveExecutorCount()">getActiveExecutorCount</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="type parameter in ProcedureExecutor">TEnvironment</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getEnvironment()">getEnvironment</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getNumThreads()">getNumThreads</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getProcedure(long)">getProcedure</a></strong>(long&nbsp;procId)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getResult(long)">getResult</a></strong>(long&nbsp;procId)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>,<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getResultOrProcedure(long)">getResultOrProcedure</a></strong>(long&nbsp;procId)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>,<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getResults()">getResults</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureRunnableSet.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureRunnableSet</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getRunnableSet()">getRunnableSet</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/apache/hadoop/hbase/procedure2/store/ProcedureStore.html" title="interface in org.apache.hadoop.hbase.procedure2.store">ProcedureStore</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#getStore()">getStore</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#isFinished(long)">isFinished</a></strong>(long&nbsp;procId)</code>
+<div class="block">Return true if the procedure is finished.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#isProcedureOwner(long,%20org.apache.hadoop.hbase.security.User)">isProcedureOwner</a></strong>(long&nbsp;procId,
+                <a href="../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;user)</code>
+<div class="block">Check if the user is this procedure's owner</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#isRunning()">isRunning</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#isStarted(long)">isStarted</a></strong>(long&nbsp;procId)</code>
+<div class="block">Return true if the procedure is started.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#join()">join</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#listProcedures()">listProcedures</a></strong>()</code>
+<div class="block">List procedures.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#registerListener(org.apache.hadoop.hbase.procedure2.ProcedureExecutor.ProcedureExecutorListener)">registerListener</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureExecutor.ProcedureExecutorListener</a>&nbsp;listener)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#registerNonce(org.apache.hadoop.hbase.util.NonceKey)">registerNonce</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey)</code>
+<div class="block">Register a nonce for a procedure that is going to be submitted.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#removeResult(long)">removeResult</a></strong>(long&nbsp;procId)</code>
+<div class="block">Mark the specified completed procedure, as ready to remove.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#setFailureResultForNonce(org.apache.hadoop.hbase.util.NonceKey,%20java.lang.String,%20org.apache.hadoop.hbase.security.User,%20java.io.IOException)">setFailureResultForNonce</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey,
+                        <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;procName,
+                        <a href="../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;procOwner,
+                        <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>&nbsp;exception)</code>
+<div class="block">If the failure failed before submitting it, we may want to give back the
+ same error to the requests with the same nonceKey.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#start(int,%20boolean)">start</a></strong>(int&nbsp;numThreads,
+     boolean&nbsp;abortOnCorruption)</code>
+<div class="block">Start the procedure executor.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#stop()">stop</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#submitProcedure(org.apache.hadoop.hbase.procedure2.Procedure)">submitProcedure</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&nbsp;proc)</code>
+<div class="block">>>>>>>> ce33cf2...</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#submitProcedure(org.apache.hadoop.hbase.procedure2.Procedure,%20org.apache.hadoop.hbase.util.NonceKey)">submitProcedure</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&nbsp;proc,
+               <a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey)</code>
+<div class="block">Add a new root-procedure to the executor.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#unregisterListener(org.apache.hadoop.hbase.procedure2.ProcedureExecutor.ProcedureExecutorListener)">unregisterListener</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureExecutor.ProcedureExecutorListener</a>&nbsp;listener)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html#unregisterNonceIfProcedureWasNotSubmitted(org.apache.hadoop.hbase.util.NonceKey)">unregisterNonceIfProcedureWasNotSubmitted</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey)</code>
+<div class="block">Remove the NonceKey if the procedure was not submitted to the executor.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="ProcedureExecutor(org.apache.hadoop.conf.Configuration,java.lang.Object,org.apache.hadoop.hbase.procedure2.store.ProcedureStore)">
+<!--   -->
+</a><a name="ProcedureExecutor(org.apache.hadoop.conf.Configuration, TEnvironment, org.apache.hadoop.hbase.procedure2.store.ProcedureStore)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ProcedureExecutor</h4>
+<pre>public&nbsp;ProcedureExecutor(org.apache.hadoop.conf.Configuration&nbsp;conf,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="type parameter in ProcedureExecutor">TEnvironment</a>&nbsp;environment,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/store/ProcedureStore.html" title="interface in org.apache.hadoop.hbase.procedure2.store">ProcedureStore</a>&nbsp;store)</pre>
+</li>
+</ul>
+<a name="ProcedureExecutor(org.apache.hadoop.conf.Configuration,java.lang.Object,org.apache.hadoop.hbase.procedure2.store.ProcedureStore,org.apache.hadoop.hbase.procedure2.ProcedureRunnableSet)">
+<!--   -->
+</a><a name="ProcedureExecutor(org.apache.hadoop.conf.Configuration, TEnvironment, org.apache.hadoop.hbase.procedure2.store.ProcedureStore, org.apache.hadoop.hbase.procedure2.ProcedureRunnableSet)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>ProcedureExecutor</h4>
+<pre>public&nbsp;ProcedureExecutor(org.apache.hadoop.conf.Configuration&nbsp;conf,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="type parameter in ProcedureExecutor">TEnvironment</a>&nbsp;environment,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/store/ProcedureStore.html" title="interface in org.apache.hadoop.hbase.procedure2.store">ProcedureStore</a>&nbsp;store,
+                 <a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureRunnableSet.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureRunnableSet</a>&nbsp;runqueue)</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="start(int, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>start</h4>
+<pre>public&nbsp;void&nbsp;start(int&nbsp;numThreads,
+         boolean&nbsp;abortOnCorruption)
+           throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Start the procedure executor.
+ It calls ProcedureStore.recoverLease() and ProcedureStore.load() to
+ recover the lease, and ensure a single executor, and start the procedure
+ replay to resume and recover the previous pending and in-progress perocedures.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>numThreads</code> - number of threads available for procedure execution.</dd><dd><code>abortOnCorruption</code> - true if you want to abort your service in case
+          a corrupted procedure is found on replay. otherwise false.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="stop()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>stop</h4>
+<pre>public&nbsp;void&nbsp;stop()</pre>
+</li>
+</ul>
+<a name="join()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>join</h4>
+<pre>public&nbsp;void&nbsp;join()</pre>
+</li>
+</ul>
+<a name="isRunning()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRunning</h4>
+<pre>public&nbsp;boolean&nbsp;isRunning()</pre>
+</li>
+</ul>
+<a name="getNumThreads()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNumThreads</h4>
+<pre>public&nbsp;int&nbsp;getNumThreads()</pre>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the number of execution threads.</dd></dl>
+</li>
+</ul>
+<a name="getActiveExecutorCount()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getActiveExecutorCount</h4>
+<pre>public&nbsp;int&nbsp;getActiveExecutorCount()</pre>
+</li>
+</ul>
+<a name="getEnvironment()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEnvironment</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" title="type parameter in ProcedureExecutor">TEnvironment</a>&nbsp;getEnvironment()</pre>
+</li>
+</ul>
+<a name="getStore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStore</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/procedure2/store/ProcedureStore.html" title="interface in org.apache.hadoop.hbase.procedure2.store">ProcedureStore</a>&nbsp;getStore()</pre>
+</li>
+</ul>
+<a name="registerListener(org.apache.hadoop.hbase.procedure2.ProcedureExecutor.ProcedureExecutorListener)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>registerListener</h4>
+<pre>public&nbsp;void&nbsp;registerListener(<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureExecutor.ProcedureExecutorListener</a>&nbsp;listener)</pre>
+</li>
+</ul>
+<a name="unregisterListener(org.apache.hadoop.hbase.procedure2.ProcedureExecutor.ProcedureExecutorListener)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unregisterListener</h4>
+<pre>public&nbsp;boolean&nbsp;unregisterListener(<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureExecutor.ProcedureExecutorListener</a>&nbsp;listener)</pre>
+</li>
+</ul>
+<a name="listProcedures()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listProcedures</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&gt;&nbsp;listProcedures()</pre>
+<div class="block">List procedures.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the procedures in a list</dd></dl>
+</li>
+</ul>
+<a name="createNonceKey(long, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createNonceKey</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;createNonceKey(long&nbsp;nonceGroup,
+                      long&nbsp;nonce)</pre>
+<div class="block">Create a NoneKey from the specified nonceGroup and nonce.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>nonceGroup</code> - </dd><dd><code>nonce</code> - </dd>
+<dt><span class="strong">Returns:</span></dt><dd>the generated NonceKey</dd></dl>
+</li>
+</ul>
+<a name="registerNonce(org.apache.hadoop.hbase.util.NonceKey)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>registerNonce</h4>
+<pre>public&nbsp;long&nbsp;registerNonce(<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey)</pre>
+<div class="block">Register a nonce for a procedure that is going to be submitted.
+ A procId will be reserved and on submitProcedure(),
+ the procedure with the specified nonce will take the reserved ProcId.
+ If someone already reserved the nonce, this method will return the procId reserved,
+ otherwise an invalid procId will be returned. and the caller should procede
+ and submit the procedure.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>nonceKey</code> - A unique identifier for this operation from the client or process.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the procId associated with the nonce, if any otherwise an invalid procId.</dd></dl>
+</li>
+</ul>
+<a name="unregisterNonceIfProcedureWasNotSubmitted(org.apache.hadoop.hbase.util.NonceKey)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unregisterNonceIfProcedureWasNotSubmitted</h4>
+<pre>public&nbsp;void&nbsp;unregisterNonceIfProcedureWasNotSubmitted(<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey)</pre>
+<div class="block">Remove the NonceKey if the procedure was not submitted to the executor.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>nonceKey</code> - A unique identifier for this operation from the client or process.</dd></dl>
+</li>
+</ul>
+<a name="setFailureResultForNonce(org.apache.hadoop.hbase.util.NonceKey, java.lang.String, org.apache.hadoop.hbase.security.User, java.io.IOException)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFailureResultForNonce</h4>
+<pre>public&nbsp;void&nbsp;setFailureResultForNonce(<a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey,
+                            <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;procName,
+                            <a href="../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;procOwner,
+                            <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>&nbsp;exception)</pre>
+<div class="block">If the failure failed before submitting it, we may want to give back the
+ same error to the requests with the same nonceKey.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>nonceKey</code> - A unique identifier for this operation from the client or process</dd><dd><code>procName</code> - name of the procedure, used to inform the user</dd><dd><code>procOwner</code> - name of the owner of the procedure, used to inform the user</dd><dd><code>exception</code> - the failure to report to the user</dd></dl>
+</li>
+</ul>
+<a name="submitProcedure(org.apache.hadoop.hbase.procedure2.Procedure)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>submitProcedure</h4>
+<pre>public&nbsp;long&nbsp;submitProcedure(<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&nbsp;proc)</pre>
+<div class="block">>>>>>>> ce33cf2... HBASE-17149 Procedure V2 - Fix nonce submission to avoid unnecessary calling coprocessor multiple times (Matteo Bertozzi)
+ Add a new root-procedure to the executor.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>proc</code> - the new procedure to execute.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the procedure id, that can be used to monitor the operation</dd></dl>
+</li>
+</ul>
+<a name="submitProcedure(org.apache.hadoop.hbase.procedure2.Procedure, org.apache.hadoop.hbase.util.NonceKey)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>submitProcedure</h4>
+<pre>public&nbsp;long&nbsp;submitProcedure(<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&nbsp;proc,
+                   <a href="../../../../../org/apache/hadoop/hbase/util/NonceKey.html" title="class in org.apache.hadoop.hbase.util">NonceKey</a>&nbsp;nonceKey)</pre>
+<div class="block">Add a new root-procedure to the executor.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>proc</code> - the new procedure to execute.</dd><dd><code>nonceKey</code> - the registered unique identifier for this operation from the client or process.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the procedure id, that can be used to monitor the operation</dd></dl>
+</li>
+</ul>
+<a name="getResult(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getResult</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&nbsp;getResult(long&nbsp;procId)</pre>
+</li>
+</ul>
+<a name="isFinished(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isFinished</h4>
+<pre>public&nbsp;boolean&nbsp;isFinished(long&nbsp;procId)</pre>
+<div class="block">Return true if the procedure is finished.
+ The state may be "completed successfully" or "failed and rolledback".
+ Use getResult() to check the state or get the result data.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - the ID of the procedure to check</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the procedure execution is finished, otherwise false.</dd></dl>
+</li>
+</ul>
+<a name="isStarted(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isStarted</h4>
+<pre>public&nbsp;boolean&nbsp;isStarted(long&nbsp;procId)</pre>
+<div class="block">Return true if the procedure is started.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - the ID of the procedure to check</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the procedure execution is started, otherwise false.</dd></dl>
+</li>
+</ul>
+<a name="removeResult(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeResult</h4>
+<pre>public&nbsp;void&nbsp;removeResult(long&nbsp;procId)</pre>
+<div class="block">Mark the specified completed procedure, as ready to remove.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - the ID of the procedure to remove</dd></dl>
+</li>
+</ul>
+<a name="abort(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abort</h4>
+<pre>public&nbsp;boolean&nbsp;abort(long&nbsp;procId)</pre>
+<div class="block">Send an abort notification the specified procedure.
+ Depending on the procedure implementation the abort can be considered or ignored.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - the procedure to abort</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the procedure exist and has received the abort, otherwise false.</dd></dl>
+</li>
+</ul>
+<a name="abort(long, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>abort</h4>
+<pre>public&nbsp;boolean&nbsp;abort(long&nbsp;procId,
+            boolean&nbsp;mayInterruptIfRunning)</pre>
+<div class="block">Send an abort notification the specified procedure.
+ Depending on the procedure implementation the abort can be considered or ignored.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - the procedure to abort</dd><dd><code>mayInterruptIfRunning</code> - if the proc completed at least one step, should it be aborted?</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the procedure exist and has received the abort, otherwise false.</dd></dl>
+</li>
+</ul>
+<a name="isProcedureOwner(long, org.apache.hadoop.hbase.security.User)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isProcedureOwner</h4>
+<pre>public&nbsp;boolean&nbsp;isProcedureOwner(long&nbsp;procId,
+                       <a href="../../../../../org/apache/hadoop/hbase/security/User.html" title="class in org.apache.hadoop.hbase.security">User</a>&nbsp;user)</pre>
+<div class="block">Check if the user is this procedure's owner</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>procId</code> - the target procedure</dd><dd><code>user</code> - the user</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the user is the owner of the procedure,
+   false otherwise or the owner is unknown.</dd></dl>
+</li>
+</ul>
+<a name="getResults()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getResults</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>,<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>&gt;&nbsp;getResults()</pre>
+</li>
+</ul>
+<a name="getProcedure(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProcedure</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&nbsp;getProcedure(long&nbsp;procId)</pre>
+</li>
+</ul>
+<a name="getRunnableSet()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRunnableSet</h4>
+<pre>protected&nbsp;<a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureRunnableSet.html" title="interface in org.apache.hadoop.hbase.procedure2">ProcedureRunnableSet</a>&nbsp;getRunnableSet()</pre>
+</li>
+</ul>
+<a name="getResultOrProcedure(long)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getResultOrProcedure</h4>
+<pre>public&nbsp;<a href="../../../../../org/apache/hadoop/hbase/util/Pair.html" title="class in org.apache.hadoop.hbase.util">Pair</a>&lt;<a href="../../../../../org/apache/hadoop/hbase/ProcedureInfo.html" title="class in org.apache.hadoop.hbase">ProcedureInfo</a>,<a href="../../../../../org/apache/hadoop/hbase/procedure2/Procedure.html" title="class in org.apache.hadoop.hbase.procedure2">Procedure</a>&gt;&nbsp;getResultOrProcedure(long&nbsp;procId)</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/ProcedureExecutor.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureException.html" title="class in org.apache.hadoop.hbase.procedure2"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/procedure2/ProcedureExecutor.ProcedureExecutorListener.html" title="interface in org.apache.hadoop.hbase.procedure2"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/procedure2/ProcedureExecutor.html" target="_top">Frames</a></li>
+<li><a href="ProcedureExecutor.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ServerRegionReplicaUtil (Apache HBase 1.2.6 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title="ServerRegionReplicaUtil (Apache HBase 1.2.6 API)";
+        }
+    }
+    catch(err) {
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/ServerRegionReplicaUtil.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/util/ServerCommandLine.html" title="class in org.apache.hadoop.hbase.util"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/util/ShutdownHookManager.html" title="class in org.apache.hadoop.hbase.util"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html" target="_top">Frames</a></li>
+<li><a href="ServerRegionReplicaUtil.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.hadoop.hbase.util</div>
+<h2 title="Class ServerRegionReplicaUtil" class="title">Class ServerRegionReplicaUtil</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html" title="class in org.apache.hadoop.hbase.client">org.apache.hadoop.hbase.client.RegionReplicaUtil</a></li>
+<li>
+<ul class="inheritance">
+<li>org.apache.hadoop.hbase.util.ServerRegionReplicaUtil</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<hr>
+<br>
+<pre>public class <span class="strong">ServerRegionReplicaUtil</span>
+extends <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html" title="class in org.apache.hadoop.hbase.client">RegionReplicaUtil</a></pre>
+<div class="block">Similar to <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html" title="class in org.apache.hadoop.hbase.client"><code>RegionReplicaUtil</code></a> but for the server side</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#REGION_REPLICA_REPLICATION_CONF_KEY">REGION_REPLICA_REPLICATION_CONF_KEY</a></strong></code>
+<div class="block">Whether asynchronous WAL replication to the secondary region replicas is enabled or not.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#REGION_REPLICA_STORE_FILE_REFRESH">REGION_REPLICA_STORE_FILE_REFRESH</a></strong></code>
+<div class="block">Enables or disables refreshing store files of secondary region replicas when the memory is
+ above the global memstore lower limit.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER">REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER</a></strong></code>
+<div class="block">The multiplier to use when we want to refresh a secondary region instead of flushing a primary
+ region.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_org.apache.hadoop.hbase.client.RegionReplicaUtil">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;org.apache.hadoop.hbase.client.<a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html" title="class in org.apache.hadoop.hbase.client">RegionReplicaUtil</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#DEFAULT_REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH">DEFAULT_REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH</a>, <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH_CONF_KEY">REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH_CONF_KEY</a></code></li>
+</ul>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#ServerRegionReplicaUtil()">ServerRegionReplicaUtil</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#getRegionInfoForFs(org.apache.hadoop.hbase.HRegionInfo)">getRegionInfoForFs</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;regionInfo)</code>
+<div class="block">Returns the regionInfo object to use for interacting with the file system.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static double</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#getRegionReplicaStoreFileRefreshMultiplier(org.apache.hadoop.conf.Configuration)">getRegionReplicaStoreFileRefreshMultiplier</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#getReplicationPeerId()">getReplicationPeerId</a></strong>()</code>
+<div class="block">Return the peer id used for replicating to secondary region replicas</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../../org/apache/hadoop/hbase/regionserver/StoreFileInfo.html" title="class in org.apache.hadoop.hbase.regionserver">StoreFileInfo</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#getStoreFileInfo(org.apache.hadoop.conf.Configuration,%20org.apache.hadoop.fs.FileSystem,%20org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.HRegionInfo,%20java.lang.String,%20org.apache.hadoop.fs.Path)">getStoreFileInfo</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf,
+                org.apache.hadoop.fs.FileSystem&nbsp;fs,
+                <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;regionInfo,
+                <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;regionInfoForFs,
+                <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;familyName,
+                org.apache.hadoop.fs.Path&nbsp;path)</code>
+<div class="block">Returns a StoreFileInfo from the given FileStatus.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#isReadOnly(org.apache.hadoop.hbase.regionserver.HRegion)">isReadOnly</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegion.html" title="class in org.apache.hadoop.hbase.regionserver">HRegion</a>&nbsp;region)</code>
+<div class="block">Returns whether this region replica can accept writes.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#isRegionReplicaReplicationEnabled(org.apache.hadoop.conf.Configuration)">isRegionReplicaReplicationEnabled</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#isRegionReplicaStoreFileRefreshEnabled(org.apache.hadoop.conf.Configuration)">isRegionReplicaStoreFileRefreshEnabled</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#isRegionReplicaWaitForPrimaryFlushEnabled(org.apache.hadoop.conf.Configuration)">isRegionReplicaWaitForPrimaryFlushEnabled</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#setupRegionReplicaReplication(org.apache.hadoop.conf.Configuration)">setupRegionReplicaReplication</a></strong>(org.apache.hadoop.conf.Configuration&nbsp;conf)</code>
+<div class="block">Create replication peer for replicating to region replicas if needed.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html#shouldReplayRecoveredEdits(org.apache.hadoop.hbase.regionserver.HRegion)">shouldReplayRecoveredEdits</a></strong>(<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegion.html" title="class in org.apache.hadoop.hbase.regionserver">HRegion</a>&nbsp;region)</code>
+<div class="block">Returns whether to replay the recovered edits to flush the results.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.apache.hadoop.hbase.client.RegionReplicaUtil">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.apache.hadoop.hbase.client.<a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html" title="class in org.apache.hadoop.hbase.client">RegionReplicaUtil</a></h3>
+<code><a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#getRegionInfoForDefaultReplica(org.apache.hadoop.hbase.HRegionInfo)">getRegionInfoForDefaultReplica</a>, <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#getRegionInfoForReplica(org.apache.hadoop.hbase.HRegionInfo,%20int)">getRegionInfoForReplica</a>, <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#isDefaultReplica(org.apache.hadoop.hbase.HRegionInfo)">isDefaultReplica</a>, <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#isDefaultReplica(int)">isDefaultReplica</a>, <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#isReplicasForSameRegion(org.apache.hadoop.hbase.HRegionInfo,%20org.apache.hadoop.hbase.HRegionInfo)">isReplicasForSameRegion</a>, <a href="../../../../../org/apache/hadoop/hbase/client/RegionReplicaUtil.html#removeNonDefaultRegions(java.util.Collection)">removeNonDefaultRegions</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long,%20int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="REGION_REPLICA_REPLICATION_CONF_KEY">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>REGION_REPLICA_REPLICATION_CONF_KEY</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> REGION_REPLICA_REPLICATION_CONF_KEY</pre>
+<div class="block">Whether asynchronous WAL replication to the secondary region replicas is enabled or not.
+ If this is enabled, a replication peer named "region_replica_replication" will be created
+ which will tail the logs and replicate the mutatations to region replicas for tables that
+ have region replication &gt; 1. If this is enabled once, disabling this replication also
+ requires disabling the replication peer using shell or ReplicationAdmin java class.
+ Replication to secondary region replicas works over standard inter-cluster replication.·
+ So replication, if disabled explicitly, also has to be enabled by setting "hbase.replication"·
+ to true for this feature to work.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../constant-values.html#org.apache.hadoop.hbase.util.ServerRegionReplicaUtil.REGION_REPLICA_REPLICATION_CONF_KEY">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="REGION_REPLICA_STORE_FILE_REFRESH">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>REGION_REPLICA_STORE_FILE_REFRESH</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> REGION_REPLICA_STORE_FILE_REFRESH</pre>
+<div class="block">Enables or disables refreshing store files of secondary region replicas when the memory is
+ above the global memstore lower limit. Refreshing the store files means that we will do a file
+ list of the primary regions store files, and pick up new files. Also depending on the store
+ files, we can drop some memstore contents which will free up memory.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../constant-values.html#org.apache.hadoop.hbase.util.ServerRegionReplicaUtil.REGION_REPLICA_STORE_FILE_REFRESH">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER</pre>
+<div class="block">The multiplier to use when we want to refresh a secondary region instead of flushing a primary
+ region. Default value assumes that for doing the file refresh, the biggest secondary should be
+ 4 times bigger than the biggest primary.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../constant-values.html#org.apache.hadoop.hbase.util.ServerRegionReplicaUtil.REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="ServerRegionReplicaUtil()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>ServerRegionReplicaUtil</h4>
+<pre>public&nbsp;ServerRegionReplicaUtil()</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="getRegionInfoForFs(org.apache.hadoop.hbase.HRegionInfo)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRegionInfoForFs</h4>
+<pre>public static&nbsp;<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;getRegionInfoForFs(<a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;regionInfo)</pre>
+<div class="block">Returns the regionInfo object to use for interacting with the file system.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>An HRegionInfo object to interact with the filesystem</dd></dl>
+</li>
+</ul>
+<a name="isReadOnly(org.apache.hadoop.hbase.regionserver.HRegion)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isReadOnly</h4>
+<pre>public static&nbsp;boolean&nbsp;isReadOnly(<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegion.html" title="class in org.apache.hadoop.hbase.regionserver">HRegion</a>&nbsp;region)</pre>
+<div class="block">Returns whether this region replica can accept writes.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>region</code> - the HRegion object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>whether the replica is read only</dd></dl>
+</li>
+</ul>
+<a name="shouldReplayRecoveredEdits(org.apache.hadoop.hbase.regionserver.HRegion)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>shouldReplayRecoveredEdits</h4>
+<pre>public static&nbsp;boolean&nbsp;shouldReplayRecoveredEdits(<a href="../../../../../org/apache/hadoop/hbase/regionserver/HRegion.html" title="class in org.apache.hadoop.hbase.regionserver">HRegion</a>&nbsp;region)</pre>
+<div class="block">Returns whether to replay the recovered edits to flush the results.
+ Currently secondary region replicas do not replay the edits, since it would
+ cause flushes which might affect the primary region. Primary regions even opened
+ in read only mode should replay the edits.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>region</code> - the HRegion object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>whether recovered edits should be replayed.</dd></dl>
+</li>
+</ul>
+<a name="getStoreFileInfo(org.apache.hadoop.conf.Configuration, org.apache.hadoop.fs.FileSystem, org.apache.hadoop.hbase.HRegionInfo, org.apache.hadoop.hbase.HRegionInfo, java.lang.String, org.apache.hadoop.fs.Path)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStoreFileInfo</h4>
+<pre>public static&nbsp;<a href="../../../../../org/apache/hadoop/hbase/regionserver/StoreFileInfo.html" title="class in org.apache.hadoop.hbase.regionserver">StoreFileInfo</a>&nbsp;getStoreFileInfo(org.apache.hadoop.conf.Configuration&nbsp;conf,
+                             org.apache.hadoop.fs.FileSystem&nbsp;fs,
+                             <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;regionInfo,
+                             <a href="../../../../../org/apache/hadoop/hbase/HRegionInfo.html" title="class in org.apache.hadoop.hbase">HRegionInfo</a>&nbsp;regionInfoForFs,
+                             <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;familyName,
+                             org.apache.hadoop.fs.Path&nbsp;path)
+                                      throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Returns a StoreFileInfo from the given FileStatus. Secondary replicas refer to the
+ files of the primary region, so an HFileLink is used to construct the StoreFileInfo. This
+ way ensures that the secondary will be able to continue reading the store files even if
+ they are moved to archive after compaction</div>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="setupRegionReplicaReplication(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setupRegionReplicaReplication</h4>
+<pre>public static&nbsp;void&nbsp;setupRegionReplicaReplication(org.apache.hadoop.conf.Configuration&nbsp;conf)
+                                          throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block">Create replication peer for replicating to region replicas if needed.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>conf</code> - configuration to use</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="isRegionReplicaReplicationEnabled(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRegionReplicaReplicationEnabled</h4>
+<pre>public static&nbsp;boolean&nbsp;isRegionReplicaReplicationEnabled(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+</li>
+</ul>
+<a name="isRegionReplicaWaitForPrimaryFlushEnabled(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRegionReplicaWaitForPrimaryFlushEnabled</h4>
+<pre>public static&nbsp;boolean&nbsp;isRegionReplicaWaitForPrimaryFlushEnabled(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+</li>
+</ul>
+<a name="isRegionReplicaStoreFileRefreshEnabled(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRegionReplicaStoreFileRefreshEnabled</h4>
+<pre>public static&nbsp;boolean&nbsp;isRegionReplicaStoreFileRefreshEnabled(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+</li>
+</ul>
+<a name="getRegionReplicaStoreFileRefreshMultiplier(org.apache.hadoop.conf.Configuration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRegionReplicaStoreFileRefreshMultiplier</h4>
+<pre>public static&nbsp;double&nbsp;getRegionReplicaStoreFileRefreshMultiplier(org.apache.hadoop.conf.Configuration&nbsp;conf)</pre>
+</li>
+</ul>
+<a name="getReplicationPeerId()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getReplicationPeerId</h4>
+<pre>public static&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getReplicationPeerId()</pre>
+<div class="block">Return the peer id used for replicating to secondary region replicas</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/ServerRegionReplicaUtil.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../org/apache/hadoop/hbase/util/ServerCommandLine.html" title="class in org.apache.hadoop.hbase.util"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../org/apache/hadoop/hbase/util/ShutdownHookManager.html" title="class in org.apache.hadoop.hbase.util"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?org/apache/hadoop/hbase/util/ServerRegionReplicaUtil.html" target="_top">Frames</a></li>
+<li><a href="ServerRegionReplicaUtil.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2007&#x2013;2017 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>
