@@ -1,0 +1,27 @@
+version: '2'
+services:
+  master: 
+    image: bolingcavalry/centos6.7-jdk1.8-ssh:0.0.1
+    container_name: master
+    ports:
+      - "19010:22"
+      - "50070:50070"
+      - "8088:8088"
+      - "16010:16010"
+    restart: always
+  slave1: 
+    image: bolingcavalry/centos6.7-jdk1.8-ssh:0.0.1
+    container_name: slave1
+    depends_on:
+      - master
+    ports:
+      - "19011:22"
+    restart: always
+  slave2: 
+    image: bolingcavalry/centos6.7-jdk1.8-ssh:0.0.1
+    container_name: slave2
+    depends_on:
+      - slave1
+    ports:
+      - "19012:22"
+    restart: always
